@@ -125,6 +125,13 @@ public class Company {
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
 	}
+
+	@Override
+	public String toString() {
+		return "Company [companyId=" + companyId + ", companyName=" + companyName + ", addressLine1=" + addressLine1
+				+ ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", pinCode=" + pinCode
+				+ ", tanNo=" + tanNo + ", gstNo=" + gstNo + ", panNo=" + panNo + ", logo= **** ]";
+	}
 	
 	//TODO: Need for header and footer
 	

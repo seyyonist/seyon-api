@@ -46,4 +46,10 @@ public class UserRole {
 	private String roleCode;
 
 
+	@Override
+	public String toString() {
+		return "UserRole [id=" + id + ", email=" + email + ", roleCode=" + roleCode + "]";
+	}
+
+
 }

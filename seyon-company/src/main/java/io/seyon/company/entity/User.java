@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class UserInfo {
+public class User {
 	
 	@Id
 	String email;
@@ -61,6 +61,11 @@ public class UserInfo {
 
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
+	}
+
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", name=" + name + ", active=" + active + ", companyId=" + companyId + "]";
 	}
 
 	
