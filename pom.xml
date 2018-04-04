@@ -11,7 +11,9 @@
     <modules>
         <module>seyon-company</module>
         <module>seyon-user</module>
+        <module>seyon-client</module>
 		<module>seyon</module>
+		
     </modules>
 
 </project>
