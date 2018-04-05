@@ -27,6 +27,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.seyon</groupId>
+			<artifactId>seyon-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.seyon</groupId>
 			<artifactId>seyon-company</artifactId>
 			<version>${project.version}</version>
 		</dependency>

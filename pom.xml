@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
+    	<module>seyon-core</module>
         <module>seyon-company</module>
         <module>seyon-user</module>
         <module>seyon-client</module>

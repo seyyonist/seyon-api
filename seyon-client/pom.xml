@@ -27,6 +27,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>io.seyon</groupId>
+			<artifactId>seyon-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
