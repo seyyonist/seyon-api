@@ -1,6 +1,6 @@
-package io.seyon.company.model;
+package io.seyon.user.model;
 
-public class Success {
+public class SeyonResponse {
 
 	private Integer code;
 	private String message;
@@ -18,7 +18,7 @@ public class Success {
 		this.message = message;
 	}
 	
-	public Success(Integer code, String message) {
+	public SeyonResponse(Integer code, String message) {
 		super();
 		this.code = code;
 		this.message = message;

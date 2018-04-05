@@ -20,7 +20,7 @@ public class User {
 	Boolean active;
 	
 	@Column
-	String companyId;
+	Long companyId;
 	
 	
 	public String getEmail() {
@@ -55,17 +55,12 @@ public class User {
 		this.active = active;
 	}
 
-	public String getCompanyId() {
+	public Long getCompanyId() {
 		return companyId;
 	}
 
-	public void setCompanyId(String companyId) {
+	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
-	}
-
-	@Override
-	public String toString() {
-		return "User [email=" + email + ", name=" + name + ", active=" + active + ", companyId=" + companyId + "]";
 	}
 
 	

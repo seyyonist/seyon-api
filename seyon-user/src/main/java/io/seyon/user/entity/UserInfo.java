@@ -20,7 +20,7 @@ public class UserInfo {
 	Boolean active;
 	
 	@Column
-	String companyId;
+	Long companyId;
 	
 	
 	public String getEmail() {
@@ -55,11 +55,11 @@ public class UserInfo {
 		this.active = active;
 	}
 
-	public String getCompanyId() {
+	public Long getCompanyId() {
 		return companyId;
 	}
 
-	public void setCompanyId(String companyId) {
+	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
 
