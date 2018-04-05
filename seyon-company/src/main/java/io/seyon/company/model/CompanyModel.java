@@ -2,7 +2,6 @@ package io.seyon.company.model;
 
 import io.seyon.company.entity.Company;
 import io.seyon.company.entity.User;
-import io.seyon.company.entity.UserRole;
 
 public class CompanyModel {
 	
