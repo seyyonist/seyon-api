@@ -1,15 +1,21 @@
 package io.seyon.user.entity;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class UserRole {
 	
-	@Id	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	@Column
 	private String email;
+	
+	@Column
+	private String roleCode;
 
 
 	public Long getId() {
@@ -42,8 +48,7 @@ public class UserRole {
 	}
 
 
-	@Column
-	private String roleCode;
+	
 
 
 }

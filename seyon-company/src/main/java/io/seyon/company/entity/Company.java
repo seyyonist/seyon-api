@@ -1,11 +1,15 @@
 package io.seyon.company.entity;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 public class Company {
 
-	@Column
-	String companyId;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	Long companyId;
 
 	@Column
 	String companyName;
@@ -157,14 +161,14 @@ public class Company {
 		this.panNo = panNo;
 	}
 
-	public String getCompanyId() {
+	public Long getCompanyId() {
 		return companyId;
 	}
 
-	public void setCompanyId(String companyId) {
+	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
-	
+
 	public String getOwnerName() {
 		return ownerName;
 	}

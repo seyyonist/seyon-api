@@ -40,6 +40,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.seyon</groupId>
+			<artifactId>seyon-user</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 
