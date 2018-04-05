@@ -1,4 +1,4 @@
-package org.seyon.client.entity;
+package io.seyon.client.entity;
 
 import java.io.Serializable;
 
@@ -28,7 +28,7 @@ public class ClientEntity implements Serializable {
 	@NonNull
 	@Size(min = 3, message = "Please enter the Client name")
 	@Column
-	String Name;
+	String name;
 	
 	@NonNull
 	@Size(min = 3, message = "Please enter the Address")
@@ -136,11 +136,11 @@ public class ClientEntity implements Serializable {
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		name = name;
 	}
 
 	public String getAddrLine1() {

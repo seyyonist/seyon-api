@@ -1,7 +1,8 @@
-package org.seyon.client.repository;
+package io.seyon.client.repository;
 
-import org.seyon.client.entity.ClientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import io.seyon.client.entity.ClientEntity;
 
 public interface ClientRepository extends JpaRepository<ClientEntity, Long>{
 
