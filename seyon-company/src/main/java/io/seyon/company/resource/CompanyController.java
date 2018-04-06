@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.seyon.company.entity.UserView;
 import io.seyon.company.model.CompanyModel;
 import io.seyon.company.model.SeyonResponse;
 import io.seyon.company.service.CompanyService;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/company")
 public class CompanyController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());

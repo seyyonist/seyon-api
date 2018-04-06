@@ -4,8 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import io.seyon.company.entity.Company;
 
-public interface CompanyRepository extends CrudRepository<Company, String> {
+public interface CompanyRepository extends CrudRepository<Company, Long> {
 	
-	Company findByEmail(String email);
-
 }

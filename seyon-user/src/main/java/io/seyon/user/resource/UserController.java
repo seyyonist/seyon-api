@@ -15,7 +15,7 @@ import io.seyon.user.model.SeyonResponse;
 import io.seyon.user.model.UserDetails;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/user")
 public class UserController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
