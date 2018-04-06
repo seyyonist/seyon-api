@@ -15,7 +15,7 @@ import io.seyon.company.model.SeyonResponse;
 import io.seyon.company.service.CompanyService;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/company")
 public class CompanyController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());

@@ -126,7 +126,15 @@ public class ClientEntity implements Serializable {
 	@Size(min=3,max=15,message="Please enter the Shift Code")
 	@Column
 	String swiftCode;
+	
+	@NonNull
+	@Column(nullable=false)
+	Long companyId;
 
+	@NonNull
+	@Column(nullable=false)
+	String active="Y";
+	
 	public Long getId() {
 		return id;
 	}
@@ -309,6 +317,34 @@ public class ClientEntity implements Serializable {
 
 	public void setSwiftCode(String swiftCode) {
 		this.swiftCode = swiftCode;
+	}
+
+	public Long getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
+
+
+
+	public String getActive() {
+		return active;
+	}
+
+	public void setActive(String active) {
+		this.active = active;
+	}
+	@Override
+	public String toString() {
+		return "ClientEntity [id=" + id + ", name=" + name + ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2
+				+ ", city=" + city + ", state=" + state + ", pinCode=" + pinCode + ", phonePrimary=" + phonePrimary
+				+ ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin
+				+ ", ServiceTaxRegNo=" + ServiceTaxRegNo + ", accountingType=" + accountingType + ", logoImg=" + logoImg
+				+ ", signatureImg=" + signatureImg + ", email=" + email + ", bankName=" + bankName + ", bankAcctNumber="
+				+ bankAcctNumber + ", ifscCode=" + ifscCode + ", bankBranch=" + bankBranch + ", accountType="
+				+ accountType + ", swiftCode=" + swiftCode + ", companyId=" + companyId + ", active=" + active + "]";
 	}
 
 }
