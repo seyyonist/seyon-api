@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Company {
@@ -58,10 +59,10 @@ public class Company {
 	@Column
 	String accountingType;
 
-	@Column
+	@Lob
 	String logoImg;
 
-	@Column
+	@Lob
 	String signatureImg;
 
 	@Column

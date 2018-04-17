@@ -1,5 +1,7 @@
 package io.seyon.user.service;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ public class UserService {
 	@Autowired
 	private UserRoleRepository userRoleRepository;
 
+	@Transactional
 	public SeyonResponse createUser(UserDetails userDetails) {
 		String encodedPassword = encoder.encode(userDetails.getUserInfo().getPassword());
 		log.debug("Password has been encoded");

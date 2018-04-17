@@ -5,16 +5,17 @@ import io.seyon.company.entity.User;
 
 public class CompanyModel {
 	
-	private User user;
+	private User userInfo;
 	
 	private Company company;
 
-	public User getUser() {
-		return user;
+	
+	public User getUserInfo() {
+		return userInfo;
 	}
 
-	public void setUser(User userInfo) {
-		this.user = userInfo;
+	public void setUserInfo(User userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	public Company getCompany() {
@@ -27,7 +28,7 @@ public class CompanyModel {
 
 	@Override
 	public String toString() {
-		return "NewCompany [userInfo=" + user + ", company=" + company + "]";
+		return "NewCompany [userInfo=" + userInfo + ", company=" + company + "]";
 	}
 
 }

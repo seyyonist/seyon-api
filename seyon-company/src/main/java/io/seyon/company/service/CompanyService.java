@@ -1,5 +1,7 @@
 package io.seyon.company.service;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +30,7 @@ public class CompanyService {
 	@Autowired
 	private UserService userService;
 	
+	@Transactional
 	public SeyonResponse createCompanyAndUser(CompanyModel companyModel) {
 
 		SeyonResponse seyonResponse = null;
@@ -38,7 +41,9 @@ public class CompanyService {
 			 * Step 2 - Save user details to user service
 			 */
 			Company company=companyRepository.save(companyModel.getCompany());
-			User user=companyModel.getUser();
+			User user=companyModel.getUserInfo();
+			user.setActive(true);
+			user.setName(company.getOwnerName());
 			user.setCompanyId(company.getCompanyId());
 			UserRole userRole= new UserRole();
 			userRole.setEmail(user.getEmail());
@@ -50,7 +55,7 @@ public class CompanyService {
 			userService.createUser(userDetails);
 			seyonResponse = new SeyonResponse(0, company.getCompanyId().toString());
 		} catch (Exception e) {
-			log.error("Error in createUser", e);
+			log.error("Error in createCompanyAndUser", e);
 			seyonResponse = new SeyonResponse(-1, e.getMessage());
 		}
 		
