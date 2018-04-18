@@ -30,7 +30,7 @@ public class ClientController {
 	
 	@PostMapping(produces=MediaType.APPLICATION_JSON_VALUE)
     public ClientEntity saveClientInfo(@Valid @RequestBody ClientEntity client,
-    			@RequestHeader(name="companyId",required=true) Long companyId ) {
+    			@RequestHeader(name="x-company-id",required=true) Long companyId ) {
 		
 		log.info("Incoming request {}",client);
 		client.setCompanyId(companyId);
@@ -41,7 +41,7 @@ public class ClientController {
     }
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<ClientEntity> getClientsForCompany(@RequestHeader(name="companyId",required=true) Long companyId) {
+	public List<ClientEntity> getClientsForCompany(@RequestHeader(name="x-company-id",required=true) Long companyId) {
 
 		log.info("Incoming request {}",companyId);
 		List<ClientEntity> clis = clientService.getClientsForCompany(companyId);
