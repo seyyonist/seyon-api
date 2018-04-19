@@ -1,6 +1,7 @@
 package io.seyon.client.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +17,6 @@ import org.springframework.lang.NonNull;
 @Entity
 public class ClientEntity implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2658424664266410103L;
 	
 	@Id
@@ -27,12 +25,12 @@ public class ClientEntity implements Serializable {
 	
 	@NonNull
 	@Size(min = 3, message = "Please enter the Client name")
-	@Column
+	@Column(nullable=false)
 	String name;
 	
 	@NonNull
 	@Size(min = 3, message = "Please enter the Address")
-	@Column
+	@Column(nullable=false)
 	String addrLine1;
 	
 	@Column
@@ -40,22 +38,22 @@ public class ClientEntity implements Serializable {
 	
 	@NonNull
 	@Size(min = 3, message = "Please enter the City")
-	@Column
+	@Column(nullable=false)
 	String city;
 	
 	@NonNull
 	@Size(min = 2, message = "Please enter the State")
-	@Column
+	@Column(nullable=false)
 	String state;
 	
 	@NonNull
 	@Size(min = 6, max = 6, message = "Please enter the Pincode")
-	@Column
+	@Column(nullable=false)
 	String pinCode;
 
 	@NonNull
 	@Size(min = 10, max = 12, message = "Please enter the Primary phone")
-	@Column
+	@Column(nullable=false)
 	String phonePrimary;
 
 	@Column
@@ -66,26 +64,26 @@ public class ClientEntity implements Serializable {
 
 	@NonNull
 	@Size(min = 10, message = "Please enter the PAN")
-	@Column
+	@Column(nullable=false)
 	String pan;
 	
 	@NonNull
 	@Size(min = 15,max=20, message = "Please enter the GSTIN")
-	@Column
+	@Column(nullable=false)
 	String gstin;
 	
-	@NonNull
 	@Size(min=15,max=20,message="Please enter the Primary phone" )
 	@Column
 	String ServiceTaxRegNo;
 	
-	@NonNull
+
 	@Size(min=3,message="Please enter the Primary phone" )
 	@Column
 	String accountingType;
 	
-	@NonNull
+
 	@Lob
+	@Column(nullable=false)
 	String logoImg;
 	
 	@Lob
@@ -99,17 +97,17 @@ public class ClientEntity implements Serializable {
 	
 	@NonNull
 	@Size(min=3,message="Please enter the Bank Name")
-	@Column
+	@Column(nullable=false)
 	String bankName;
 	
 	@NonNull
 	@Size(min=5,max=20,message="Please enter the Bank Account Number")
-	@Column
+	@Column(nullable=false)
 	String bankAcctNumber;
 	
 	@NonNull
 	@Size(min=9,max=15,message="Please enter the IFSC CODE")
-	@Column
+	@Column(nullable=false)
 	String ifscCode;
 	
 	@NonNull
@@ -117,12 +115,12 @@ public class ClientEntity implements Serializable {
 	@Column
 	String bankBranch;
 	
-	@NonNull
-	@Size(min=3,max=15,message="Please enter the Account Type")
+	
+	@Size(min=3,max=15,message="Please enter the Bank Account Type")
 	@Column
 	String accountType;
 	
-	@NonNull
+
 	@Size(min=3,max=15,message="Please enter the Shift Code")
 	@Column
 	String swiftCode;
@@ -134,6 +132,14 @@ public class ClientEntity implements Serializable {
 	@NonNull
 	@Column(nullable=false)
 	String active="Y";
+	
+	@NonNull
+	@Column
+	Date createDate;
+	
+	@NonNull
+	@Column
+	String createdBy;
 	
 	public Long getId() {
 		return id;
@@ -148,7 +154,7 @@ public class ClientEntity implements Serializable {
 	}
 
 	public void setName(String name) {
-		name = name;
+		this.name = name;
 	}
 
 	public String getAddrLine1() {
