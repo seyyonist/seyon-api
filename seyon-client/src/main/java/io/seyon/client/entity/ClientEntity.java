@@ -83,7 +83,7 @@ public class ClientEntity implements Serializable {
 	
 
 	@Lob
-	@Column(nullable=false)
+	@Column(nullable=true)
 	String logoImg;
 	
 	@Lob
@@ -135,7 +135,7 @@ public class ClientEntity implements Serializable {
 	
 	@NonNull
 	@Column
-	Date createDate;
+	Date createDate= new Date();;
 	
 	@NonNull
 	@Column
@@ -347,10 +347,27 @@ public class ClientEntity implements Serializable {
 		return "ClientEntity [id=" + id + ", name=" + name + ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2
 				+ ", city=" + city + ", state=" + state + ", pinCode=" + pinCode + ", phonePrimary=" + phonePrimary
 				+ ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin
-				+ ", ServiceTaxRegNo=" + ServiceTaxRegNo + ", accountingType=" + accountingType + ", logoImg=" + logoImg
-				+ ", signatureImg=" + signatureImg + ", email=" + email + ", bankName=" + bankName + ", bankAcctNumber="
-				+ bankAcctNumber + ", ifscCode=" + ifscCode + ", bankBranch=" + bankBranch + ", accountType="
-				+ accountType + ", swiftCode=" + swiftCode + ", companyId=" + companyId + ", active=" + active + "]";
+				+ ", ServiceTaxRegNo=" + ServiceTaxRegNo + ", accountingType=" + accountingType + ", email=" + email
+				+ ", bankName=" + bankName + ", bankAcctNumber=" + bankAcctNumber + ", ifscCode=" + ifscCode
+				+ ", bankBranch=" + bankBranch + ", accountType=" + accountType + ", swiftCode=" + swiftCode
+				+ ", companyId=" + companyId + ", active=" + active + ", createDate=" + createDate + ", createdBy="
+				+ createdBy + "]";
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 
 }

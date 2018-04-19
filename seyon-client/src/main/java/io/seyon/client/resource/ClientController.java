@@ -30,10 +30,11 @@ public class ClientController {
 	
 	@PostMapping(produces=MediaType.APPLICATION_JSON_VALUE)
     public ClientEntity saveClientInfo(@Valid @RequestBody ClientEntity client,
-    			@RequestHeader(name="x-company-id",required=true) Long companyId ) {
+    			@RequestHeader(name="x-company-id",required=true) Long companyId, @RequestHeader(name="x-user-name",required=true) String userId ) {
 		
 		log.info("Incoming request {}",client);
 		client.setCompanyId(companyId);
+		client.setCreatedBy(userId);
 		ClientEntity cli = clientService.saveClient(client);
 		log.info("Response {}",cli);
         
