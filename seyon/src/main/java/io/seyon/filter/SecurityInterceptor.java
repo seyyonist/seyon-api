@@ -18,10 +18,11 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)	throws Exception {
 		
-		Enumeration<String> names=request.getHeaderNames();
+		/*Enumeration<String> names=request.getHeaderNames();
 		while(names.hasMoreElements()) {
-			log.info("Header Added : {} ",request.getHeader(names.nextElement()));
-		}
+			String name=names.nextElement();
+			log.info("Header Added : {},{} ",name,request.getHeader(name));
+		}*/
 		return true;
 	}
 	
