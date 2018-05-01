@@ -22,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import io.seyon.invoice.config.InvoiceProperties;
 import io.seyon.invoice.entity.Invoice;
@@ -76,9 +77,16 @@ public class InvoiceService {
 	public Long saveInvoice(Invoice invoice, List<Particulars> particulars) {
 		
 		log.info("Saving the invoice");
+		if(null==invoice) {
+			return null;
+		}
 		invoice=invoiceRepository.save(invoice);
 		Long invoiceId=invoice.getId();
 		
+		if(CollectionUtils.isEmpty(particulars)) {
+			log.info("Particulars are empty");
+			return invoiceId;
+		}
 		log.info("Updating the particulars with invoice id {}",invoiceId);
 		particulars.forEach(part->{
 			part.setInvoiceId(invoiceId);
@@ -90,11 +98,18 @@ public class InvoiceService {
 		return invoice.getId();
 	}
 	
-	public Long createInvoice(Invoice invoice) {
+	public Invoice createInvoice(Invoice invoice) {
 		log.info("Moving the invoice to created status, {}", invoice);
 		invoice.setStatus(InvoiceStatus.CREATED);
-		
 		return invoiceRepository.save(invoice);
 	}
+	
+	public Invoice cancelInvoice(Invoice invoice) {
+		log.info("Moving the invoice to Cancel status, {}", invoice);
+		invoice.setStatus(InvoiceStatus.CANCELED);
+		return invoiceRepository.save(invoice);
+	}
+	
+	
 
 }

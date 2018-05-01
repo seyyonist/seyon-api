@@ -1,0 +1,63 @@
+package io.seyon.invoice.resource;
+
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import io.seyon.invoice.entity.Invoice;
+import io.seyon.invoice.entity.InvoiceStatus;
+import io.seyon.invoice.model.InvoiceData;
+import io.seyon.invoice.service.InvoiceService;
+
+@RestController
+@RequestMapping("/api/invoice")
+public class InvoiceController {
+
+	@Autowired
+	private InvoiceService invoiceService;
+
+	private static final Logger log = LoggerFactory.getLogger(InvoiceController.class);
+
+	@PostMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+	public InvoiceData saveInvoice(@RequestBody InvoiceData invoiceData) {
+		log.info("Invoice details request {}", invoiceData);
+		Long id = invoiceService.saveInvoice(invoiceData.getInvoice(), invoiceData.getParticulars());
+		invoiceData.getInvoice().setId(id);
+		invoiceData.getParticulars().forEach(p -> p.setInvoiceId(id));
+		log.info("Invoice details response{}", invoiceData);
+		return invoiceData;
+	}
+
+	public Iterable<Invoice> searchInvoice(@RequestParam(required=false) Integer pageNumber,
+			Long companyId,
+			@RequestParam(required=false) Long id,
+			@RequestParam(required=false) Long clientId,
+			@RequestParam(required=false) Date invoiceStDate,
+			@RequestParam(required=false) Date invoiceEdDate,
+			@RequestParam(required=false) InvoiceStatus status){
+		log.info("Invoice Search Data pageNumber {},companyId {},"
+				+ "invoiceId {},clientId {}, invoice Start Date {},Invoice end date {},invoice Status {}",
+				pageNumber,companyId,id,clientId,invoiceStDate,invoiceEdDate,status);
+		
+		if(null==pageNumber)
+			throw new IllegalArgumentException("Page Number is null");
+		if(companyId==null)
+			throw new IllegalArgumentException("Company Id is null");
+		if(null!=invoiceStDate || null==invoiceEdDate)
+			throw new IllegalArgumentException("End date is null");
+		if(null!=invoiceEdDate || null==invoiceStDate)
+			throw new IllegalArgumentException("Start date is null");
+		
+		return invoiceService.getInvoiceList(pageNumber, companyId, id, clientId, invoiceStDate, invoiceEdDate, status);
+		
+	}
+
+}
