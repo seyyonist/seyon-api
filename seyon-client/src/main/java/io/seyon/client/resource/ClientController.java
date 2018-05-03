@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.seyon.client.entity.ClientEntity;
@@ -29,10 +30,11 @@ public class ClientController {
 	
 	@PostMapping(produces=MediaType.APPLICATION_JSON_VALUE)
     public ClientEntity saveClientInfo(@Valid @RequestBody ClientEntity client,
-    			@RequestHeader(name="companyId",required=true) Long companyId ) {
+    			@RequestHeader(name="x-company-id",required=true) Long companyId, @RequestHeader(name="x-user-name",required=true) String userId ) {
 		
 		log.info("Incoming request {}",client);
 		client.setCompanyId(companyId);
+		client.setCreatedBy(userId);
 		ClientEntity cli = clientService.saveClient(client);
 		log.info("Response {}",cli);
         
@@ -40,7 +42,7 @@ public class ClientController {
     }
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<ClientEntity> getClientsForCompany(Long companyId) {
+	public List<ClientEntity> getClientsForCompany(@RequestHeader(name="x-company-id",required=true) Long companyId) {
 
 		log.info("Incoming request {}",companyId);
 		List<ClientEntity> clis = clientService.getClientsForCompany(companyId);
