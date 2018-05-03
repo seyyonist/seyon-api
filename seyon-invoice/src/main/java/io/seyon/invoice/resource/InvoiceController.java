@@ -6,8 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,17 +29,26 @@ public class InvoiceController {
 	private static final Logger log = LoggerFactory.getLogger(InvoiceController.class);
 
 	@PostMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-	public InvoiceData saveInvoice(@RequestBody InvoiceData invoiceData) {
+	public InvoiceData saveInvoice(@RequestBody InvoiceData invoiceData,
+			@RequestHeader(name="x-company-id",required=true) Long companyId,
+			@RequestHeader(name="x-user-name",required=true) String userId) {
 		log.info("Invoice details request {}", invoiceData);
+		
+		invoiceData.getInvoice().setCompanyId(companyId);
+		invoiceData.getInvoice().setCreatedBy(userId);
+		invoiceData.getParticulars().forEach(p->{p.setCompanyId(companyId);p.setCreatedBy(userId);});
+		
 		Long id = invoiceService.saveInvoice(invoiceData.getInvoice(), invoiceData.getParticulars());
+		
 		invoiceData.getInvoice().setId(id);
 		invoiceData.getParticulars().forEach(p -> p.setInvoiceId(id));
 		log.info("Invoice details response{}", invoiceData);
 		return invoiceData;
 	}
 
+	@GetMapping(path="/search",produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
 	public Iterable<Invoice> searchInvoice(@RequestParam(required=false) Integer pageNumber,
-			Long companyId,
+			@RequestHeader(name="x-company-id",required=true) Long companyId,
 			@RequestParam(required=false) Long id,
 			@RequestParam(required=false) Long clientId,
 			@RequestParam(required=false) Date invoiceStDate,
@@ -60,4 +71,10 @@ public class InvoiceController {
 		
 	}
 
+	@GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+	public InvoiceData searchInvoice(@RequestParam(required=true) Long invoiceId){
+		log.info("Invoice Search Data invoiceId {}",invoiceId);
+		return invoiceService.getInvoiceDetails(invoiceId);
+		
+	}
 }

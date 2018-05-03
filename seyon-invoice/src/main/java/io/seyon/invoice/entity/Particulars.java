@@ -1,6 +1,7 @@
 package io.seyon.invoice.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +38,13 @@ public class Particulars implements Serializable{
 	private Integer igstPercent;
 	@Column
 	private Double calculatedAmount;
+	@Column
+	private Long companyId;
+	@Column
+	private String createdBy;
+	
+	@Column
+	private Date createdDate;
 	
 	public Long getId() {
 		return id;
@@ -104,6 +112,24 @@ public class Particulars implements Serializable{
 	}
 	public void setIndex(String index) {
 		this.index = index;
+	}
+	public Long getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 }

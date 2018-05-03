@@ -3,8 +3,10 @@ package io.seyon.invoice.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -28,6 +30,7 @@ import io.seyon.invoice.config.InvoiceProperties;
 import io.seyon.invoice.entity.Invoice;
 import io.seyon.invoice.entity.InvoiceStatus;
 import io.seyon.invoice.entity.Particulars;
+import io.seyon.invoice.model.InvoiceData;
 import io.seyon.invoice.repository.InvoiceRepository;
 import io.seyon.invoice.repository.ParticularsRepository;
 
@@ -108,6 +111,18 @@ public class InvoiceService {
 		log.info("Moving the invoice to Cancel status, {}", invoice);
 		invoice.setStatus(InvoiceStatus.CANCELED);
 		return invoiceRepository.save(invoice);
+	}
+
+	public InvoiceData getInvoiceDetails(Long invoiceId) {
+		InvoiceData data = new InvoiceData();
+		
+		Optional<Invoice> opInv=invoiceRepository.findById(invoiceId);
+		if(!opInv.isPresent()) {
+			new NoResultException("No Invoice Found");
+		}
+		data.setInvoice(opInv.get());
+		data.setParticulars(particularsRepository.findByInvoiceId(invoiceId));
+		return data;
 	}
 	
 	
