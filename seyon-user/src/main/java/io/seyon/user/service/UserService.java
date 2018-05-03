@@ -158,5 +158,13 @@ public class UserService {
 
 		return seyonResponse;
 	}
+	
+	public List<UserInfo> getUsers(Long companyId){
+		return userRepository.findByCompanyId(companyId);
+	}
+	
+	public List<UserRole> getUserRoles(String email){
+		return userRoleRepository.findByEmail(email);
+	}
 
 }
