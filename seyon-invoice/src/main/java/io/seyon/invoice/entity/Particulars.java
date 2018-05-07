@@ -42,7 +42,8 @@ public class Particulars implements Serializable{
 	private Long companyId;
 	@Column
 	private String createdBy;
-	
+	@Column
+	private String rate;
 	@Column
 	private Date createdDate;
 	
@@ -100,13 +101,7 @@ public class Particulars implements Serializable{
 	public void setCalculatedAmount(Double calculatedAmount) {
 		this.calculatedAmount = calculatedAmount;
 	}
-	@Override
-	public String toString() {
-		return "Particulars [id=" + id + ", invoiceId=" + invoiceId + ", index=" + index + ", item=" + item
-				+ ", itemTaxCategory=" + itemTaxCategory + ", quantity=" + quantity + ", cgstPercent=" + cgstPercent
-				+ ", sgstPercent=" + sgstPercent + ", igstPercent=" + igstPercent + ", calculatedAmount="
-				+ calculatedAmount + "]";
-	}
+	
 	public String getIndex() {
 		return index;
 	}
@@ -130,6 +125,21 @@ public class Particulars implements Serializable{
 	}
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+	public String getRate() {
+		return rate;
+	}
+	public void setRate(String rate) {
+		this.rate = rate;
+	}
+	
+	@Override
+	public String toString() {
+		return "Particulars [id=" + id + ", invoiceId=" + invoiceId + ", index=" + index + ", item=" + item
+				+ ", itemTaxCategory=" + itemTaxCategory + ", quantity=" + quantity + ", cgstPercent=" + cgstPercent
+				+ ", sgstPercent=" + sgstPercent + ", igstPercent=" + igstPercent + ", calculatedAmount="
+				+ calculatedAmount + ", companyId=" + companyId + ", createdBy=" + createdBy + ", rate=" + rate
+				+ ", createdDate=" + createdDate + "]";
 	}
 
 }
