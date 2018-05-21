@@ -72,7 +72,7 @@ public class InvoiceController {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-	public InvoiceData searchInvoice(@RequestParam(required=true) Long invoiceId){
+	public InvoiceData getInvoice(@RequestParam(required=true) Long invoiceId){
 		log.info("Invoice Search Data invoiceId {}",invoiceId);
 		return invoiceService.getInvoiceDetails(invoiceId);
 		

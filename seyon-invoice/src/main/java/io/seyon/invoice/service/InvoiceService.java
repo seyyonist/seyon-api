@@ -122,6 +122,7 @@ public class InvoiceService {
 		}
 		data.setInvoice(opInv.get());
 		data.setParticulars(particularsRepository.findByInvoiceId(invoiceId));
+		log.info("Retrieved Data {}",data);
 		return data;
 	}
 	
