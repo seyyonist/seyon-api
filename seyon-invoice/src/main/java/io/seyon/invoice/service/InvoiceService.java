@@ -67,6 +67,9 @@ public class InvoiceService {
 				predicates.add(cb.equal(root.get("clientId"), clientId));
 			}
 
+			if(null!=status) {
+				predicates.add(cb.equal(root.get("status"), status));
+			}
 			if (null != invoiceStDate && null != invoiceEdDate) {
 				predicates.add(cb.between(root.get("invoiceDate"), invoiceStDate, invoiceEdDate));
 			}

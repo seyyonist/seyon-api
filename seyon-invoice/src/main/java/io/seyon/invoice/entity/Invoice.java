@@ -30,7 +30,7 @@ public class Invoice implements Serializable{
 	private Long clientId;
 	
 	@Column
-	private Date invoiceDate;
+	private Date invoiceDate=new Date();
 	
 	@Column
 	private Double totalAmount;
