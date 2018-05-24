@@ -22,8 +22,8 @@ import io.seyon.user.service.UserService;
 @RestController
 @RequestMapping(path = "/api/user")
 public class UserController {
-	
-	final String COMPANY_ID="x-company-id";
+
+	final String COMPANY_ID = "x-company-id";
 
 	@Autowired
 	UserService userService;
@@ -31,9 +31,12 @@ public class UserController {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public SeyonResponse createUser(@RequestBody UserDetails userDetails,
-			@RequestAttribute(required = false) String username) {
-		return userService.createUser(userDetails);
+	public SeyonResponse createUser(@RequestBody UserInfo userInfo,
+			@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
+		if (companyId != null)
+			userInfo.setCompanyId(companyId);
+		
+		return userService.createUser(userInfo);
 	}
 
 	@RequestMapping(method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,16 +45,15 @@ public class UserController {
 			@RequestAttribute(required = true) Boolean active) {
 		return userService.updateUser(email, name, password, active);
 	}
-	
 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/resetpassword")
 	public SeyonResponse resetPassword(@RequestAttribute(required = true) String email) {
 		log.info("Resetting password for email {}", email);
 		return userService.resetPassword(email);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UserInfo> getUsers(@RequestHeader(name=COMPANY_ID,required=true) Long companyId) {
+	public List<UserInfo> getUsers(@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
 		return userService.getUsers(companyId);
 	}
 }

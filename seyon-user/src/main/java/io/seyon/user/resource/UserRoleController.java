@@ -30,8 +30,8 @@ public class UserRoleController {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, path = "/adduserrole")
-	public SeyonResponse addUserRole(@RequestAttribute(required = true) String email,
-			@RequestAttribute(required = true) String roleCode) {
+	public SeyonResponse addUserRole(@RequestParam(required = true) String email,
+			@RequestParam(required = true) String roleCode) {
 		return userService.addUserRole(email, roleCode);
 	}
 

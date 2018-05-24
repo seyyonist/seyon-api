@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,10 +14,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import io.seyon.user.entity.UserInfo;
+import io.seyon.user.entity.UserInfoNoPwd;
 import io.seyon.user.entity.UserRole;
 import io.seyon.user.model.SeyonResponse;
 import io.seyon.user.model.UserDetails;
 import io.seyon.user.repository.UserRepository;
+import io.seyon.user.repository.UserRepositoryNoPwd;
 import io.seyon.user.repository.UserRoleRepository;
 
 @Service
@@ -32,17 +35,37 @@ public class UserService {
 	private UserRepository userRepository;
 
 	@Autowired
+	private UserRepositoryNoPwd userRepositoryNoPwd;
+	
+	@Autowired
 	private UserRoleRepository userRoleRepository;
 
 	@Transactional
-	public SeyonResponse createUser(UserDetails userDetails) {
-		String encodedPassword = encoder.encode(userDetails.getUserInfo().getPassword());
+	public SeyonResponse createUser(UserInfo userInfo) {
+		
+		String password = userInfo.getPassword();
 		log.debug("Entry createUser");
 		SeyonResponse seyonResponse = null;
 		try {
-			userDetails.getUserInfo().setPassword(encodedPassword);
-			userRepository.save(userDetails.getUserInfo());
-			userRoleRepository.save(userDetails.getUserRole());
+			
+			if (!StringUtils.isEmpty(password)) {
+				String encodedPassword = encoder.encode(password);
+				userInfo.setPassword(encodedPassword);
+				userRepository.save(userInfo);
+			}
+			else
+			{
+				UserInfoNoPwd userInfoNoPwd = new UserInfoNoPwd();
+				userInfoNoPwd.setEmail(userInfo.getEmail());
+				userInfoNoPwd.setName(userInfo.getName());
+				userInfoNoPwd.setActive(userInfo.getActive());
+				userInfoNoPwd.setCompanyId(userInfo.getCompanyId());
+				userRepositoryNoPwd.save(userInfoNoPwd);
+				
+			}
+			
+			
+			//userRoleRepository.save(userDetails.getUserRole());
 			seyonResponse = new SeyonResponse(0, "success");
 		} catch (Exception e) {
 			log.error("Error in createUser", e);
