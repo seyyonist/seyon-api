@@ -7,16 +7,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER")
-public class UserInfo {
+public class UserInfoNoPwd {
 	
 	@Id
 	String email;
 	
 	@Column
 	String name;
-	
-	@Column
-	String password;
+
 	
 	@Column
 	Boolean active;
@@ -41,13 +39,6 @@ public class UserInfo {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public Boolean getActive() {
 		return active;
