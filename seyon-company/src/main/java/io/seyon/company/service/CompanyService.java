@@ -52,7 +52,7 @@ public class CompanyService {
 			BeanUtils.copyProperties(user,userInfo);
 			userDetails.setUserInfo(userInfo);
 			userDetails.setUserRole(userRole);
-			userService.createUser(userDetails);
+			userService.createUser(userInfo);
 			seyonResponse = new SeyonResponse(0, company.getCompanyId().toString());
 		} catch (Exception e) {
 			log.error("Error in createCompanyAndUser", e);
