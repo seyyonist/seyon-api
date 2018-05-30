@@ -104,14 +104,16 @@ public class InvoiceService {
 		return invoice.getId();
 	}
 	
+
 	public Invoice createInvoice(Invoice invoice) {
 		log.info("Moving the invoice to created status, {}", invoice);
 		invoice.setStatus(InvoiceStatus.CREATED);
 		return invoiceRepository.save(invoice);
 	}
 	
-	public Invoice cancelInvoice(Invoice invoice) {
-		log.info("Moving the invoice to Cancel status, {}", invoice);
+	public Invoice cancelInvoice(Long invoiceId) {
+		log.info("Moving the invoice to Cancel status, {}", invoiceId);
+		Invoice invoice = invoiceRepository.getOne(invoiceId);
 		invoice.setStatus(InvoiceStatus.CANCELED);
 		return invoiceRepository.save(invoice);
 	}

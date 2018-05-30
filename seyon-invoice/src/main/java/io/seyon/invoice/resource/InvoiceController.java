@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -84,5 +85,11 @@ public class InvoiceController {
 		log.info("Invoice Search Data invoiceId {}", invoiceId);
 		return invoiceService.getInvoiceDetails(invoiceId);
 
+	}
+	
+	@PatchMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE,path="/cancel")
+	public Invoice cancelInvoice(@RequestParam(required = true) Long invoiceId) {
+		log.info("Cancelling the Invoice invoiceId {}", invoiceId);
+		return invoiceService.cancelInvoice(invoiceId);
 	}
 }
