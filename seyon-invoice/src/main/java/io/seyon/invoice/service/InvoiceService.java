@@ -1,5 +1,7 @@
 package io.seyon.invoice.service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +31,7 @@ import org.springframework.util.CollectionUtils;
 import io.seyon.invoice.config.InvoiceProperties;
 import io.seyon.invoice.entity.Invoice;
 import io.seyon.invoice.entity.InvoiceStatus;
+import io.seyon.invoice.entity.InvoiceType;
 import io.seyon.invoice.entity.Particulars;
 import io.seyon.invoice.model.InvoiceData;
 import io.seyon.invoice.repository.InvoiceRepository;
@@ -49,7 +52,7 @@ public class InvoiceService {
 	InvoiceProperties invoiceProperties;
 
 	public Iterable<Invoice> getInvoiceList(Integer pageNumber, Long companyId, Long id, Long clientId,
-			Date invoiceStDate, Date invoiceEdDate, InvoiceStatus status) {
+			Date invoiceStDate, Date invoiceEdDate, InvoiceStatus status,InvoiceType type,String invoiceId,String performaId) {
 
 		log.debug("Getting page {}", pageNumber);
 
@@ -67,9 +70,22 @@ public class InvoiceService {
 				predicates.add(cb.equal(root.get("clientId"), clientId));
 			}
 
+			if (null != invoiceId) {
+				predicates.add(cb.equal(root.get("invoiceId"), invoiceId));
+			}
+			
+			if (null != performaId) {
+				predicates.add(cb.equal(root.get("performaId"), performaId));
+			}
+			
 			if(null!=status) {
 				predicates.add(cb.equal(root.get("status"), status));
 			}
+			
+			if(null!=type) {
+				predicates.add(cb.equal(root.get("type"), type));
+			}
+			
 			if (null != invoiceStDate && null != invoiceEdDate) {
 				predicates.add(cb.between(root.get("invoiceDate"), invoiceStDate, invoiceEdDate));
 			}
@@ -79,6 +95,32 @@ public class InvoiceService {
 		return invoiceRepository.findAll(spec, page);
 	}
 	
+	public Long createPerformaInvoice(Invoice invoice, List<Particulars> particulars) {
+		log.info("Saving the invoice");
+		if(null==invoice) {
+			return null;
+		}
+		
+		String performaId="PI-"+Instant.now().getEpochSecond()+"/"+FinancialYear.getFinancialYearOf();
+		invoice.setPerformaId(performaId);
+		invoice=invoiceRepository.save(invoice);
+		Long invoiceId=invoice.getId();
+		
+		if(CollectionUtils.isEmpty(particulars)) {
+			log.info("Particulars are empty");
+			return invoiceId;
+		}
+		log.info("Updating the particulars with invoice id {}",invoiceId);
+		particulars.forEach(part->{
+			part.setInvoiceTableId(invoiceId);
+		});
+		
+		log.info("Saving particulars");
+		particularsRepository.saveAll(particulars);
+		
+		return invoice.getId();
+		
+	}
 	@Transactional
 	public Long saveInvoice(Invoice invoice, List<Particulars> particulars) {
 		
@@ -95,7 +137,7 @@ public class InvoiceService {
 		}
 		log.info("Updating the particulars with invoice id {}",invoiceId);
 		particulars.forEach(part->{
-			part.setInvoiceId(invoiceId);
+			part.setInvoiceTableId(invoiceId);
 		});
 		
 		log.info("Saving particulars");

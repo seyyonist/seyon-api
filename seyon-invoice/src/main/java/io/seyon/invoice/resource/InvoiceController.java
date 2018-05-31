@@ -46,7 +46,7 @@ public class InvoiceController {
 		Long id = invoiceService.saveInvoice(invoiceData.getInvoice(), invoiceData.getParticulars());
 
 		invoiceData.getInvoice().setId(id);
-		invoiceData.getParticulars().forEach(p -> p.setInvoiceId(id));
+		invoiceData.getParticulars().forEach(p -> p.setInvoiceTableId(id));
 		log.info("Invoice details response{}", invoiceData);
 		return invoiceData;
 	}
@@ -76,7 +76,7 @@ public class InvoiceController {
 		}
 
 		return invoiceService.getInvoiceList(pageNumber, companyId, invoiceSearch.getId(), invoiceSearch.getClientId(),
-				invoiceSearch.getInvoiceStDate(), invoiceSearch.getInvoiceEdDate(), invoiceSearch.getStatus());
+				invoiceSearch.getInvoiceStDate(), invoiceSearch.getInvoiceEdDate(), invoiceSearch.getStatus(),null,null,null);
 
 	}
 
