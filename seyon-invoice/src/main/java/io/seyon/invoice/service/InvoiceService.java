@@ -31,7 +31,6 @@ import org.springframework.util.CollectionUtils;
 import io.seyon.invoice.config.InvoiceProperties;
 import io.seyon.invoice.entity.Invoice;
 import io.seyon.invoice.entity.InvoiceStatus;
-import io.seyon.invoice.entity.InvoiceType;
 import io.seyon.invoice.entity.Particulars;
 import io.seyon.invoice.model.InvoiceData;
 import io.seyon.invoice.repository.InvoiceRepository;
@@ -52,7 +51,7 @@ public class InvoiceService {
 	InvoiceProperties invoiceProperties;
 
 	public Iterable<Invoice> getInvoiceList(Integer pageNumber, Long companyId, Long id, Long clientId,
-			Date invoiceStDate, Date invoiceEdDate, InvoiceStatus status,InvoiceType type,String invoiceId,String performaId) {
+			Date invoiceStDate, Date invoiceEdDate, InvoiceStatus status,String type,String invoiceId,String performaId) {
 
 		log.debug("Getting page {}", pageNumber);
 
@@ -103,6 +102,7 @@ public class InvoiceService {
 		
 		String performaId="PI-"+Instant.now().getEpochSecond()+"/"+FinancialYear.getFinancialYearOf();
 		invoice.setPerformaId(performaId);
+		invoice.setType("PERFORMA");
 		invoice=invoiceRepository.save(invoice);
 		Long invoiceId=invoice.getId();
 		
@@ -118,32 +118,24 @@ public class InvoiceService {
 		log.info("Saving particulars");
 		particularsRepository.saveAll(particulars);
 		
-		return invoice.getId();
+		return invoiceId;
 		
 	}
 	@Transactional
-	public Long saveInvoice(Invoice invoice, List<Particulars> particulars) {
+	public Invoice createInvoice(Invoice invoice, List<Particulars> particulars) {
 		
 		log.info("Saving the invoice");
 		if(null==invoice) {
 			return null;
 		}
+		invoice.setInvoiceId(invoice.getPerformaId().replaceAll("PI-", ""));
+		invoice.setType("INVOICE");
 		invoice=invoiceRepository.save(invoice);
-		Long invoiceId=invoice.getId();
-		
-		if(CollectionUtils.isEmpty(particulars)) {
-			log.info("Particulars are empty");
-			return invoiceId;
-		}
-		log.info("Updating the particulars with invoice id {}",invoiceId);
-		particulars.forEach(part->{
-			part.setInvoiceTableId(invoiceId);
-		});
 		
 		log.info("Saving particulars");
 		particularsRepository.saveAll(particulars);
 		
-		return invoice.getId();
+		return invoice;
 	}
 	
 
@@ -153,9 +145,9 @@ public class InvoiceService {
 		return invoiceRepository.save(invoice);
 	}
 	
-	public Invoice cancelInvoice(Long invoiceId) {
-		log.info("Moving the invoice to Cancel status, {}", invoiceId);
-		Invoice invoice = invoiceRepository.getOne(invoiceId);
+	public Invoice cancelInvoice(Long id) {
+		log.info("Moving the invoice to Cancel status, {}", id);
+		Invoice invoice = invoiceRepository.getOne(id);
 		invoice.setStatus(InvoiceStatus.CANCELED);
 		return invoiceRepository.save(invoice);
 	}
@@ -168,7 +160,7 @@ public class InvoiceService {
 			new NoResultException("No Invoice Found");
 		}
 		data.setInvoice(opInv.get());
-		data.setParticulars(particularsRepository.findByInvoiceId(invoiceId));
+		data.setParticulars(particularsRepository.findByInvoiceTableId(invoiceId));
 		log.info("Retrieved Data {}",data);
 		return data;
 	}

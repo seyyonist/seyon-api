@@ -45,17 +45,23 @@ public class Invoice implements Serializable{
 	private Date performaDate=new Date();
 	
 	@Column
-	private Integer cgstPerfomaPercent;
+	private Double cgstPerfomaPercent;
 	@Column
-	private Integer sgstPerfomaPercent;
+	private Double sgstPerfomaPercent;
 	@Column
-	private Integer igstPerfomaPercent;
+	private Double igstPerfomaPercent;
 	@Column
-	private Integer cgstInvoicePercent;
+	private Double cgstInvoicePercent;
 	@Column
-	private Integer sgstInvoicePercent;
+	private Double sgstInvoicePercent;
 	@Column
-	private Integer igstInvoicePercent;
+	private Double igstInvoicePercent;
+	
+	@Column
+	private Double totalPerfomaBeforeTax;
+	@Column
+	private Double totalInvoiceBeforeTax;
+	
 	@Column
 	private Double totalPerfomaAmount;
 	@Column
@@ -67,9 +73,10 @@ public class Invoice implements Serializable{
 	private String createdBy;
 	@Column
 	private Date createdDate = new Date();
-	@Enumerated(EnumType.STRING)
+	
 	@Column
-	private InvoiceType type = InvoiceType.PERFORMA;
+	private String type = "PERFORMA";//or INVOICE
+	
 	public Long getId() {
 		return id;
 	}
@@ -118,42 +125,7 @@ public class Invoice implements Serializable{
 	public void setPerformaDate(Date performaDate) {
 		this.performaDate = performaDate;
 	}
-	public Integer getCgstPerfomaPercent() {
-		return cgstPerfomaPercent;
-	}
-	public void setCgstPerfomaPercent(Integer cgstPerfomaPercent) {
-		this.cgstPerfomaPercent = cgstPerfomaPercent;
-	}
-	public Integer getSgstPerfomaPercent() {
-		return sgstPerfomaPercent;
-	}
-	public void setSgstPerfomaPercent(Integer sgstPerfomaPercent) {
-		this.sgstPerfomaPercent = sgstPerfomaPercent;
-	}
-	public Integer getIgstPerfomaPercent() {
-		return igstPerfomaPercent;
-	}
-	public void setIgstPerfomaPercent(Integer igstPerfomaPercent) {
-		this.igstPerfomaPercent = igstPerfomaPercent;
-	}
-	public Integer getCgstInvoicePercent() {
-		return cgstInvoicePercent;
-	}
-	public void setCgstInvoicePercent(Integer cgstInvoicePercent) {
-		this.cgstInvoicePercent = cgstInvoicePercent;
-	}
-	public Integer getSgstInvoicePercent() {
-		return sgstInvoicePercent;
-	}
-	public void setSgstInvoicePercent(Integer sgstInvoicePercent) {
-		this.sgstInvoicePercent = sgstInvoicePercent;
-	}
-	public Integer getIgstInvoicePercent() {
-		return igstInvoicePercent;
-	}
-	public void setIgstInvoicePercent(Integer igstInvoicePercent) {
-		this.igstInvoicePercent = igstInvoicePercent;
-	}
+	
 	public Double getTotalPerfomaAmount() {
 		return totalPerfomaAmount;
 	}
@@ -184,12 +156,7 @@ public class Invoice implements Serializable{
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	public InvoiceType getType() {
-		return type;
-	}
-	public void setType(InvoiceType type) {
-		this.type = type;
-	}
+
 	@Override
 	public String toString() {
 		return "Invoice [id=" + id + ", invoiceId=" + invoiceId + ", performaId=" + performaId + ", companyId="
@@ -197,9 +164,67 @@ public class Invoice implements Serializable{
 				+ ", performaDate=" + performaDate + ", cgstPerfomaPercent=" + cgstPerfomaPercent
 				+ ", sgstPerfomaPercent=" + sgstPerfomaPercent + ", igstPerfomaPercent=" + igstPerfomaPercent
 				+ ", cgstInvoicePercent=" + cgstInvoicePercent + ", sgstInvoicePercent=" + sgstInvoicePercent
-				+ ", igstInvoicePercent=" + igstInvoicePercent + ", totalPerfomaAmount=" + totalPerfomaAmount
+				+ ", igstInvoicePercent=" + igstInvoicePercent + ", totalPerfomaBeforeTax=" + totalPerfomaBeforeTax
+				+ ", totalInvoiceBeforeTax=" + totalInvoiceBeforeTax + ", totalPerfomaAmount=" + totalPerfomaAmount
 				+ ", totalInvoiceAmount=" + totalInvoiceAmount + ", status=" + status + ", createdBy=" + createdBy
 				+ ", createdDate=" + createdDate + ", type=" + type + "]";
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public Double getTotalPerfomaBeforeTax() {
+		return totalPerfomaBeforeTax;
+	}
+	public void setTotalPerfomaBeforeTax(Double totalPerfomaBeforeTax) {
+		this.totalPerfomaBeforeTax = totalPerfomaBeforeTax;
+	}
+	public Double getTotalInvoiceBeforeTax() {
+		return totalInvoiceBeforeTax;
+	}
+	public void setTotalInvoiceBeforeTax(Double totalInvoiceBeforeTax) {
+		this.totalInvoiceBeforeTax = totalInvoiceBeforeTax;
+	}
+	public Double getCgstPerfomaPercent() {
+		return cgstPerfomaPercent;
+	}
+	public void setCgstPerfomaPercent(Double cgstPerfomaPercent) {
+		this.cgstPerfomaPercent = cgstPerfomaPercent;
+	}
+	public Double getSgstPerfomaPercent() {
+		return sgstPerfomaPercent;
+	}
+	public void setSgstPerfomaPercent(Double sgstPerfomaPercent) {
+		this.sgstPerfomaPercent = sgstPerfomaPercent;
+	}
+	public Double getIgstPerfomaPercent() {
+		return igstPerfomaPercent;
+	}
+	public void setIgstPerfomaPercent(Double igstPerfomaPercent) {
+		this.igstPerfomaPercent = igstPerfomaPercent;
+	}
+	public Double getCgstInvoicePercent() {
+		return cgstInvoicePercent;
+	}
+	public void setCgstInvoicePercent(Double cgstInvoicePercent) {
+		this.cgstInvoicePercent = cgstInvoicePercent;
+	}
+	public Double getSgstInvoicePercent() {
+		return sgstInvoicePercent;
+	}
+	public void setSgstInvoicePercent(Double sgstInvoicePercent) {
+		this.sgstInvoicePercent = sgstInvoicePercent;
+	}
+	public Double getIgstInvoicePercent() {
+		return igstInvoicePercent;
+	}
+	public void setIgstInvoicePercent(Double igstInvoicePercent) {
+		this.igstInvoicePercent = igstInvoicePercent;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 	
