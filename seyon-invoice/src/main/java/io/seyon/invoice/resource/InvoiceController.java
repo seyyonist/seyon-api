@@ -1,5 +1,6 @@
 package io.seyon.invoice.resource;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -121,5 +122,16 @@ public class InvoiceController {
 	public Iterable<SACCode> getAllSac() {
 		log.info("SAC Details");
 		return sacRepo.findAll();
+	}
+	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/delParticular")
+	public String deleteParticulars(@RequestParam Long particularId) {
+		invoiceService.deleteParticular(particularId);
+		return "particular is deleted Successfully";
+	}
+	
+	public SACCode getSacTaxForDate(@RequestParam LocalDate date) {
+		
+		return null;
 	}
 }

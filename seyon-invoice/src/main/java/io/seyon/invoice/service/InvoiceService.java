@@ -27,6 +27,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import io.seyon.invoice.config.InvoiceProperties;
 import io.seyon.invoice.entity.Invoice;
@@ -51,7 +52,8 @@ public class InvoiceService {
 	InvoiceProperties invoiceProperties;
 
 	public Iterable<Invoice> getInvoiceList(Integer pageNumber, Long companyId, Long id, Long clientId,
-			Date invoiceStDate, Date invoiceEdDate, InvoiceStatus status,String type,String invoiceId,String performaId) {
+			Date invoiceStDate, Date invoiceEdDate, InvoiceStatus status, String type, String invoiceId,
+			String performaId) {
 
 		log.debug("Getting page {}", pageNumber);
 
@@ -69,82 +71,83 @@ public class InvoiceService {
 				predicates.add(cb.equal(root.get("clientId"), clientId));
 			}
 
-			if (null != invoiceId) {
+			if (!StringUtils.isEmpty(invoiceId)) {
 				predicates.add(cb.equal(root.get("invoiceId"), invoiceId));
 			}
-			
-			if (null != performaId) {
+
+			if (!StringUtils.isEmpty(performaId)) {
 				predicates.add(cb.equal(root.get("performaId"), performaId));
 			}
-			
-			if(null!=status) {
+
+			if (!StringUtils.isEmpty(status)) {
 				predicates.add(cb.equal(root.get("status"), status));
 			}
-			
-			if(null!=type) {
+
+			if (!StringUtils.isEmpty(type)) {
 				predicates.add(cb.equal(root.get("type"), type));
 			}
-			
+
 			if (null != invoiceStDate && null != invoiceEdDate) {
-				predicates.add(cb.between(root.get("invoiceDate"), invoiceStDate, invoiceEdDate));
+				predicates.add(cb.or(cb.between(root.get("invoiceDate"), invoiceStDate, invoiceEdDate),
+						cb.between(root.get("performaDate"), invoiceStDate, invoiceEdDate)));
 			}
 			return cb.and(predicates.toArray(new Predicate[] {}));
 		};
 
 		return invoiceRepository.findAll(spec, page);
 	}
-	
+
 	public Long createPerformaInvoice(Invoice invoice, List<Particulars> particulars) {
 		log.info("Saving the invoice");
-		if(null==invoice) {
+		if (null == invoice) {
 			return null;
 		}
-		
-		String performaId="PI-"+Instant.now().getEpochSecond()+"/"+FinancialYear.getFinancialYearOf();
+
+		String performaId = "PI-" + Instant.now().getEpochSecond() + "/" + FinancialYear.getFinancialYearOf();
 		invoice.setPerformaId(performaId);
 		invoice.setType("PERFORMA");
-		invoice=invoiceRepository.save(invoice);
-		Long invoiceId=invoice.getId();
-		
-		if(CollectionUtils.isEmpty(particulars)) {
+		invoice = invoiceRepository.save(invoice);
+		Long invoiceId = invoice.getId();
+
+		if (CollectionUtils.isEmpty(particulars)) {
 			log.info("Particulars are empty");
 			return invoiceId;
 		}
-		log.info("Updating the particulars with invoice id {}",invoiceId);
-		particulars.forEach(part->{
+		log.info("Updating the particulars with invoice id {}", invoiceId);
+		particulars.forEach(part -> {
 			part.setInvoiceTableId(invoiceId);
 		});
-		
+
 		log.info("Saving particulars");
 		particularsRepository.saveAll(particulars);
-		
+
 		return invoiceId;
-		
+
 	}
+
 	@Transactional
 	public Invoice createInvoice(Invoice invoice, List<Particulars> particulars) {
-		
+
 		log.info("Saving the invoice");
-		if(null==invoice) {
+		if (null == invoice) {
 			return null;
 		}
 		invoice.setInvoiceId(invoice.getPerformaId().replaceAll("PI-", ""));
 		invoice.setType("INVOICE");
-		invoice=invoiceRepository.save(invoice);
-		
+		invoice = invoiceRepository.save(invoice);
+
 		log.info("Saving particulars");
 		particularsRepository.saveAll(particulars);
-		
+
 		return invoice;
 	}
-	
 
 	public Invoice createInvoice(Invoice invoice) {
 		log.info("Moving the invoice to created status, {}", invoice);
 		invoice.setStatus(InvoiceStatus.CREATED);
 		return invoiceRepository.save(invoice);
 	}
-	
+
 	public Invoice cancelInvoice(Long id) {
 		log.info("Moving the invoice to Cancel status, {}", id);
 		Invoice invoice = invoiceRepository.getOne(id);
@@ -154,17 +157,21 @@ public class InvoiceService {
 
 	public InvoiceData getInvoiceDetails(Long invoiceId) {
 		InvoiceData data = new InvoiceData();
-		
-		Optional<Invoice> opInv=invoiceRepository.findById(invoiceId);
-		if(!opInv.isPresent()) {
+
+		Optional<Invoice> opInv = invoiceRepository.findById(invoiceId);
+		if (!opInv.isPresent()) {
 			new NoResultException("No Invoice Found");
 		}
 		data.setInvoice(opInv.get());
 		data.setParticulars(particularsRepository.findByInvoiceTableId(invoiceId));
-		log.info("Retrieved Data {}",data);
+		log.info("Retrieved Data {}", data);
 		return data;
 	}
-	
-	
+
+	public void deleteParticular(Long particularId) {
+		log.debug("deleting particular {}", particularId);
+		particularsRepository.deleteById(particularId);
+		log.debug("deleted particular");
+	}
 
 }
