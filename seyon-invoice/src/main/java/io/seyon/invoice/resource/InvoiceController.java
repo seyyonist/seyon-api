@@ -2,6 +2,7 @@ package io.seyon.invoice.resource;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -130,8 +131,4 @@ public class InvoiceController {
 		return "particular is deleted Successfully";
 	}
 	
-	public SACCode getSacTaxForDate(@RequestParam LocalDate date) {
-		
-		return null;
-	}
 }
