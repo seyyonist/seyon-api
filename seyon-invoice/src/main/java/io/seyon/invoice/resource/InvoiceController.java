@@ -131,4 +131,10 @@ public class InvoiceController {
 		return "particular is deleted Successfully";
 	}
 	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/sac/byDate")
+	public Iterable<SACCode> getSacByDate(@RequestParam Date date) {
+		log.info("SAC Details");
+		return sacRepo.findAll();
+	}
+	
 }
