@@ -3,6 +3,8 @@ package io.seyon.invoice.resource;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -132,9 +134,16 @@ public class InvoiceController {
 	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/sac/byDate")
-	public Iterable<SACCode> getSacByDate(@RequestParam Date date) {
+	public SACCode getSacByDate(@RequestParam LocalDate date,@RequestParam String sacCode) throws Exception {
 		log.info("SAC Details");
-		return sacRepo.findAll();
+		
+		List<SACCode> sacCodes=sacRepo.findByDate(date,sacCode);
+		Optional<SACCode> option=sacCodes.stream().filter(sac->{
+			return null!=sac.getEndDate() && sac.getEndDate().isAfter(date);
+		 }).findFirst();
+
+		return option.orElseThrow(() -> new Exception("SAC code not found for the give date code :"+sacCode+",Date:"+date)); 
+	
 	}
 	
 }
