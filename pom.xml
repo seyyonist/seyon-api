@@ -13,7 +13,9 @@
         <module>seyon-user</module>
         <module>seyon-client</module>
 		<module>seyon-invoice</module>
+		<module>seyon-voucher</module>
 		<module>seyon</module>
+		
     </modules>
 
 </project>
