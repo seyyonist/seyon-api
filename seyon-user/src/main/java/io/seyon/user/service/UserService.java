@@ -190,4 +190,8 @@ public class UserService {
 		return userRoleRepository.findByEmail(email);
 	}
 
+	public UserInfo getUser(String userId) {
+		return userRepository.findByEmail(userId);
+	}
+
 }
