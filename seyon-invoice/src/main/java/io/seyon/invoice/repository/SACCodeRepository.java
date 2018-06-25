@@ -11,6 +11,6 @@ import io.seyon.invoice.entity.SACCode;
 
 public interface SACCodeRepository extends CrudRepository<SACCode, Long> {
 
-	@Query("select s from SACCode where sacCode=:sacCode and startDate<=:invoiceDate")
+	@Query("from SACCode where sacCode=:sacCode and startDate<=:invoiceDate")
 	List<SACCode> findByDate(@Param(value = "invoiceDate") LocalDate invoiceDate,@Param(value = "sacCode") String sacCode);
 }
