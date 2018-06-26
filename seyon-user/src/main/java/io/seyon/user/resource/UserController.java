@@ -56,4 +56,10 @@ public class UserController {
 	public List<UserInfo> getUsers(@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
 		return userService.getUsers(companyId);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,path="/authenticated")
+	public UserInfo getLoggedInUser(@RequestHeader(name = "x-user-email", required = true) String userId) {
+		log.info("user Id"+userId);
+		return userService.getUser(userId);
+	}
 }

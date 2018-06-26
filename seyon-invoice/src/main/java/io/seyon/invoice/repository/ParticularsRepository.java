@@ -8,5 +8,5 @@ import io.seyon.invoice.entity.Particulars;
 
 public interface ParticularsRepository extends JpaRepository<Particulars, Long> {
 
-	List<Particulars> findByInvoiceId(Long invoiceId);
+	List<Particulars> findByInvoiceTableId(Long invoiceTableId);
 }
