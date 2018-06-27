@@ -48,8 +48,8 @@ public class ClientEntity implements Serializable {
 	
 	@NonNull
 	@Size(min = 6, max = 6, message = "Please enter the Pincode")
-	@Column(nullable=false)
-	String pinCode;
+	@Column(name="pin_code", nullable=false)
+	String pincode;
 
 	@NonNull
 	@Size(min = 10, max = 12, message = "Please enter the Primary phone")
@@ -189,12 +189,14 @@ public class ClientEntity implements Serializable {
 		this.state = state;
 	}
 
-	public String getPinCode() {
-		return pinCode;
+	
+
+	public String getPincode() {
+		return pincode;
 	}
 
-	public void setPinCode(String pinCode) {
-		this.pinCode = pinCode;
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
 	}
 
 	public String getPhonePrimary() {
@@ -345,7 +347,7 @@ public class ClientEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "ClientEntity [id=" + id + ", name=" + name + ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2
-				+ ", city=" + city + ", state=" + state + ", pinCode=" + pinCode + ", phonePrimary=" + phonePrimary
+				+ ", city=" + city + ", state=" + state + ", pinCode=" + pincode + ", phonePrimary=" + phonePrimary
 				+ ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin
 				+ ", ServiceTaxRegNo=" + ServiceTaxRegNo + ", accountingType=" + accountingType + ", email=" + email
 				+ ", bankName=" + bankName + ", bankAcctNumber=" + bankAcctNumber + ", ifscCode=" + ifscCode
