@@ -22,7 +22,7 @@ public class Particulars implements Serializable {
 	private Long id;
 	@Column
 	private Long invoiceTableId;
-	@Column
+	@Column(name="particular_index")
 	private String index;
 	@Column
 	private String itemDescription;
