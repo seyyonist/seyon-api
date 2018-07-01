@@ -97,17 +97,17 @@ public class ClientEntity implements Serializable {
 	
 	@NonNull
 	@Size(min=3,message="Please enter the Bank Name")
-	@Column(nullable=false)
+	@Column(nullable=true)
 	String bankName;
 	
 	@NonNull
 	@Size(min=5,max=20,message="Please enter the Bank Account Number")
-	@Column(nullable=false)
+	@Column(nullable=true)
 	String bankAcctNumber;
 	
 	@NonNull
 	@Size(min=9,max=15,message="Please enter the IFSC CODE")
-	@Column(nullable=false)
+	@Column(nullable=true)
 	String ifscCode;
 	
 	@NonNull

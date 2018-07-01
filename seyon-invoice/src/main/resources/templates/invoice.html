@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:remove="all">Invoice for ${invoiceId}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+@page {
+	size: 21cm 29.7cm;
+	margin: 15mm 10mm 15mm 10mm;
+	/* change the margins as you want them to be. */
+}
+
+table {
+	width: 100%;
+	border: solid 1px #424242;
+	border-collapse: collapse
+}
+
+table td,th {
+	width: 8.3%;
+	padding:5px;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	margin: 1px;
+}
+
+.border {
+	border: solid 1px #424242;
+}
+</style>
+
+</head>
+<body>
+	<table>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="3"> <img
+				src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+    9TXL0Y4OHwAAAABJRU5ErkJggg==" /></td>
+			<td colspan="6" align="center">
+				<h2>Kameshwaran & Kausik</h2>
+				<h3>Chartered Accountants</h3>
+				<p>No.1916,"SRI" Nivas,3rd Cross</p>
+				<p>1st Main Road, Prashanthnagar, Bangalore - 560079</p>
+			</td>
+			<td colspan="3"> </td>
+		</tr>
+		<tr>
+			<td colspan="12" align="center" class="border">
+				<h3>Professional Invoice</h3>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="12" align="center" height="20px" class="border">
+			</td>
+		</tr>
+		<tr>
+			<th align="right" class="border" colspan="3">
+			  Invoice Number :
+			</th>
+			<td align="center" class="border" colspan="3">
+			  GST-KNK-002
+			</td>
+			<th align="right" class="border" colspan="3">
+			   Invoice Date :
+			</th>
+			<td align="center" class="border" colspan="3">
+				3-May-2018
+			</td>
+		</tr>
+		<tr>
+			<th align="right" class="border" colspan="3">
+			  State :
+			</th>
+			<td align="center" class="border" colspan="3">
+			  KARNATAKA
+			</td>
+			<th align="right" class="border" colspan="3">
+			   State Code : 
+			</th>
+			<td align="center" class="border" colspan="3">
+			 29
+			</td>
+		</tr>
+		<tr>
+			<th align="right" class="border" colspan="3">
+			  Client Name
+			</th>
+			<td align="center" class="border" colspan="9">
+			  Toyota tshusho Insurance Broker India Pvt Ltd
+			</td>
+		</tr>
+		<tr>
+			<th align="right" class="border" colspan="3">
+			  Client Address :
+			</th>
+			<td align="center" class="border" colspan="9">
+			  Unit No 4 B, Frontline Grandeur, 14, Walton Road, Bangalore - 560001.
+			</td>
+		</tr>
+		<tr>
+			<th align="right" class="border" colspan="3">
+			  Gstin :
+			</th>
+			<td align="center" class="border" colspan="9">
+			  29AACCT8705E1Z9
+			</td>
+		</tr>
+		<tr>
+			<th align="right" class="border" colspan="3">
+			  State :
+			</th>
+			<td align="center" class="border" colspan="3">
+			  KARNATAKA
+			</td>
+			<th align="right" class="border" colspan="3">
+			   State Code : 
+			</th>
+			<td align="center" class="border" colspan="3">
+			 29
+			</td>
+		</tr>
+		<tr>
+			<th align="center" class="border" colspan="1">
+			 Sl No :
+			</th>
+			<th align="center" class="border" colspan="5">
+			  Particulars of Service
+			</th>
+			<th align="center" class="border" colspan="1">
+			  SAC Code
+			</th>
+			<th align="center" class="border" colspan="1">
+			  QTY
+			</th>
+			<th align="center" class="border" colspan="2">
+			  Rate 
+			</th>
+			<th align="center" class="border" colspan="2">
+			  Amount
+			</th>
+		</tr>
+		
+		<tr>
+			<td align="center" class="border" colspan="1">
+			 1
+			</td>
+			<td align="center" class="border" colspan="5">
+			  Particulars of Service
+			</td>
+			<td align="center" class="border" colspan="1">
+			  SAC Code
+			</td>
+			<td align="center" class="border" colspan="1">
+			  QTY
+			</td>
+			<td align="center" class="border" colspan="2">
+			  Rate 
+			</td>
+			<td align="center" class="border" colspan="2">
+			  Amount
+			</td>
+		</tr>
+		<tr>
+			<td align="center" class="border" colspan="8">
+			  Eighty three thousand seven hunder and eighty
+			</td>
+			<td align="center" class="border" colspan="2">
+			  Gross amount 
+			</td>
+			<td align="center" class="border" colspan="2">
+			  45000
+			</td>
+		</tr>
+
+		<tr>
+			<td align="left" valign="top" class="border" colspan="8" rowspan="6">
+			  <p>Bank Branch: Indian Bank </p>
+			  <p>Account Number:898987675654</p>
+			  <p>IFSC Code:IND0000786</p>
+			  <p><u>Payment Terms</u></p>
+			  <p><small>Immediate</small></p>
+			</td>
+			<td align="center" class="border" colspan="2">
+			  Add: CGST 
+			</td>
+			<td align="center" class="border" colspan="2">
+			  45000
+			</td>
+		</tr>
+		<tr>
+			
+			<td align="center" class="border" colspan="2">
+			   Add: SGST 
+			</td>
+			<td align="center" class="border" colspan="2">
+			  45000
+			</td>
+		</tr>
+		<tr>
+			
+			<td align="center" class="border" colspan="2">
+			   Add: IGST 
+			</td>
+			<td align="center" class="border" colspan="2">
+			  45000
+			</td>
+		</tr>
+		<tr>
+			
+			<td align="center" class="border" colspan="2">
+			  Total Amount: GST: 
+			</td>
+			<td align="center" class="border" colspan="2">
+			  45000
+			</td>
+		</tr>
+		<tr>
+			
+			<td align="center" class="border" colspan="2">
+			  Total Amount
+			</td>
+			<td align="center" class="border" colspan="2">
+			  45000
+			</td>
+		</tr>
+		<tr>
+			<td align="center" class="border" colspan="4">
+			  For <b>Kameshwaram & Kaushik</b>
+			  <p> Chartered Accountant</p>
+			  <p>&nbsp;</p>
+			  <p>&nbsp;</p>
+			  <p>&nbsp;</p>
+			  <p><i>Authorised Signatory</i></p>
+			</td>
+			
+		</tr>
+		
+	</table>
+	<p><u>Terms & Conditions</u></p>
+	<p>
+	  4.1 Rights in BBC Online Services and BBC Content
+
+All copyright, trade marks, design rights, patents and other intellectual property rights (registered and unregistered) in and on BBC Online Services and BBC Content belong to the BBC and/or third parties (which may include you or other users.) The BBC reserves all of its rights in BBC Content and BBC Online Services. Nothing in the Terms grants you a right or license to use any trade mark, design right or copyright owned or controlled by the BBC or any other third party except as expressly provided in the Terms.
+	</p>
+</body>
+</html>

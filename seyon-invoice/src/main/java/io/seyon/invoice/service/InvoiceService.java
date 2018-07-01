@@ -3,8 +3,11 @@ package io.seyon.invoice.service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
@@ -28,6 +31,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import io.seyon.invoice.config.InvoiceProperties;
 import io.seyon.invoice.entity.Invoice;
@@ -50,6 +55,9 @@ public class InvoiceService {
 
 	@Autowired
 	InvoiceProperties invoiceProperties;
+	
+	@Autowired
+	TemplateEngine templateEngine;
 
 	public Iterable<Invoice> getInvoiceList(Integer pageNumber, Long companyId, Long id, Long clientId,
 			Date invoiceStDate, Date invoiceEdDate, InvoiceStatus status, String type, String invoiceId,
@@ -174,4 +182,16 @@ public class InvoiceService {
 		log.debug("deleted particular");
 	}
 
+	public String processInvoiceReport(String invoiceId) {
+		//call DB to populate the fields
+		
+		final Context ctx=new Context();
+		Map<String, Object> variables= new HashMap<>();
+		variables.put("invoiceId", invoiceId);
+		variables.put("subscriptionDate", new Date());
+		variables.put("hobbies", Arrays.asList("Cinema", "Sports", "Music"));
+		ctx.setVariables(variables);
+		
+		return templateEngine.process("invoice.html",ctx);
+	}
 }
