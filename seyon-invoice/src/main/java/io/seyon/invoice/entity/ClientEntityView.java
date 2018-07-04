@@ -1,4 +1,4 @@
-package io.seyon.client.entity;
+package io.seyon.invoice.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,12 +17,11 @@ import org.springframework.lang.NonNull;
 
 @Entity
 @Table(name="client_entity")
-public class ClientEntity implements Serializable {
+public class ClientEntityView implements Serializable {
 
 	private static final long serialVersionUID = 2658424664266410103L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
 	
 	@NonNull
@@ -147,7 +146,7 @@ public class ClientEntity implements Serializable {
 		return id;
 	}
 
-	public void setId(Long id) {
+	protected void setId(Long id) {
 		this.id = id;
 	}
 
@@ -155,7 +154,7 @@ public class ClientEntity implements Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
+	protected void setName(String name) {
 		this.name = name;
 	}
 
@@ -163,7 +162,7 @@ public class ClientEntity implements Serializable {
 		return addrLine1;
 	}
 
-	public void setAddrLine1(String addrLine1) {
+	protected void setAddrLine1(String addrLine1) {
 		this.addrLine1 = addrLine1;
 	}
 
@@ -171,7 +170,7 @@ public class ClientEntity implements Serializable {
 		return addrLine2;
 	}
 
-	public void setAddrLine2(String addrLine2) {
+	protected void setAddrLine2(String addrLine2) {
 		this.addrLine2 = addrLine2;
 	}
 
@@ -179,7 +178,7 @@ public class ClientEntity implements Serializable {
 		return city;
 	}
 
-	public void setCity(String city) {
+	protected void setCity(String city) {
 		this.city = city;
 	}
 
@@ -187,7 +186,7 @@ public class ClientEntity implements Serializable {
 		return state;
 	}
 
-	public void setState(String state) {
+	protected void setState(String state) {
 		this.state = state;
 	}
 
@@ -197,7 +196,7 @@ public class ClientEntity implements Serializable {
 		return pincode;
 	}
 
-	public void setPincode(String pincode) {
+	protected void setPincode(String pincode) {
 		this.pincode = pincode;
 	}
 
@@ -205,7 +204,7 @@ public class ClientEntity implements Serializable {
 		return phonePrimary;
 	}
 
-	public void setPhonePrimary(String phonePrimary) {
+	protected void setPhonePrimary(String phonePrimary) {
 		this.phonePrimary = phonePrimary;
 	}
 
@@ -213,7 +212,7 @@ public class ClientEntity implements Serializable {
 		return phoneSecondary;
 	}
 
-	public void setPhoneSecondary(String phoneSecondary) {
+	protected void setPhoneSecondary(String phoneSecondary) {
 		this.phoneSecondary = phoneSecondary;
 	}
 
@@ -221,7 +220,7 @@ public class ClientEntity implements Serializable {
 		return faxNo;
 	}
 
-	public void setFaxNo(String faxNo) {
+	protected void setFaxNo(String faxNo) {
 		this.faxNo = faxNo;
 	}
 
@@ -229,7 +228,7 @@ public class ClientEntity implements Serializable {
 		return pan;
 	}
 
-	public void setPan(String pan) {
+	protected void setPan(String pan) {
 		this.pan = pan;
 	}
 
@@ -237,7 +236,7 @@ public class ClientEntity implements Serializable {
 		return gstin;
 	}
 
-	public void setGstin(String gstin) {
+	protected void setGstin(String gstin) {
 		this.gstin = gstin;
 	}
 
@@ -245,7 +244,7 @@ public class ClientEntity implements Serializable {
 		return ServiceTaxRegNo;
 	}
 
-	public void setServiceTaxRegNo(String serviceTaxRegNo) {
+	protected void setServiceTaxRegNo(String serviceTaxRegNo) {
 		ServiceTaxRegNo = serviceTaxRegNo;
 	}
 
@@ -253,7 +252,7 @@ public class ClientEntity implements Serializable {
 		return accountingType;
 	}
 
-	public void setAccountingType(String accountingType) {
+	protected void setAccountingType(String accountingType) {
 		this.accountingType = accountingType;
 	}
 
@@ -261,7 +260,7 @@ public class ClientEntity implements Serializable {
 		return logoImg;
 	}
 
-	public void setLogoImg(String logoImg) {
+	protected void setLogoImg(String logoImg) {
 		this.logoImg = logoImg;
 	}
 
@@ -269,7 +268,7 @@ public class ClientEntity implements Serializable {
 		return signatureImg;
 	}
 
-	public void setSignatureImg(String signatureImg) {
+	protected void setSignatureImg(String signatureImg) {
 		this.signatureImg = signatureImg;
 	}
 
@@ -277,7 +276,7 @@ public class ClientEntity implements Serializable {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	protected void setEmail(String email) {
 		this.email = email;
 	}
 
@@ -285,7 +284,7 @@ public class ClientEntity implements Serializable {
 		return bankName;
 	}
 
-	public void setBankName(String bankName) {
+	protected void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
 
@@ -293,7 +292,7 @@ public class ClientEntity implements Serializable {
 		return bankAcctNumber;
 	}
 
-	public void setBankAcctNumber(String bankAcctNumber) {
+	protected void setBankAcctNumber(String bankAcctNumber) {
 		this.bankAcctNumber = bankAcctNumber;
 	}
 
@@ -301,7 +300,7 @@ public class ClientEntity implements Serializable {
 		return ifscCode;
 	}
 
-	public void setIfscCode(String ifscCode) {
+	protected void setIfscCode(String ifscCode) {
 		this.ifscCode = ifscCode;
 	}
 
@@ -309,7 +308,7 @@ public class ClientEntity implements Serializable {
 		return bankBranch;
 	}
 
-	public void setBankBranch(String bankBranch) {
+	protected void setBankBranch(String bankBranch) {
 		this.bankBranch = bankBranch;
 	}
 
@@ -317,7 +316,7 @@ public class ClientEntity implements Serializable {
 		return accountType;
 	}
 
-	public void setAccountType(String accountType) {
+	protected void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
 
@@ -325,7 +324,7 @@ public class ClientEntity implements Serializable {
 		return swiftCode;
 	}
 
-	public void setSwiftCode(String swiftCode) {
+	protected void setSwiftCode(String swiftCode) {
 		this.swiftCode = swiftCode;
 	}
 
@@ -333,7 +332,7 @@ public class ClientEntity implements Serializable {
 		return companyId;
 	}
 
-	public void setCompanyId(Long companyId) {
+	protected void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
 
@@ -343,12 +342,12 @@ public class ClientEntity implements Serializable {
 		return active;
 	}
 
-	public void setActive(String active) {
+	protected void setActive(String active) {
 		this.active = active;
 	}
 	@Override
 	public String toString() {
-		return "ClientEntity [id=" + id + ", name=" + name + ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2
+		return "ClientEntityView [id=" + id + ", name=" + name + ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2
 				+ ", city=" + city + ", state=" + state + ", pinCode=" + pincode + ", phonePrimary=" + phonePrimary
 				+ ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin
 				+ ", ServiceTaxRegNo=" + ServiceTaxRegNo + ", accountingType=" + accountingType + ", email=" + email
@@ -362,7 +361,7 @@ public class ClientEntity implements Serializable {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	protected void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
@@ -370,7 +369,7 @@ public class ClientEntity implements Serializable {
 		return createdBy;
 	}
 
-	public void setCreatedBy(String createdBy) {
+	protected void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
