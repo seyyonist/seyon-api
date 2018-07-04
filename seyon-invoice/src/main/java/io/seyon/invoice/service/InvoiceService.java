@@ -55,9 +55,7 @@ public class InvoiceService {
 
 	@Autowired
 	InvoiceProperties invoiceProperties;
-	
-	@Autowired
-	TemplateEngine templateEngine;
+
 
 	public Iterable<Invoice> getInvoiceList(Integer pageNumber, Long companyId, Long id, Long clientId,
 			Date invoiceStDate, Date invoiceEdDate, InvoiceStatus status, String type, String invoiceId,
@@ -182,16 +180,5 @@ public class InvoiceService {
 		log.debug("deleted particular");
 	}
 
-	public String processInvoiceReport(String invoiceId) {
-		//call DB to populate the fields
-		
-		final Context ctx=new Context();
-		Map<String, Object> variables= new HashMap<>();
-		variables.put("invoiceId", invoiceId);
-		variables.put("subscriptionDate", new Date());
-		variables.put("hobbies", Arrays.asList("Cinema", "Sports", "Music"));
-		ctx.setVariables(variables);
-		
-		return templateEngine.process("invoice.html",ctx);
-	}
+
 }

@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import io.seyon.invoice.service.GenerateInvoiceService;
 import io.seyon.invoice.service.InvoiceService;
 
 @Controller
@@ -38,11 +39,17 @@ public class GenerateInvoice {
 	private static final Logger log = LoggerFactory.getLogger(GenerateInvoice.class);
 
 	@Autowired
-	private InvoiceService invoiceService;
+	private GenerateInvoiceService invoiceService;
 	
-	@RequestMapping(path="/htmlReport",method=RequestMethod.GET,produces= "text/html")
-	public @ResponseBody String generateHtmlInvoice(@RequestParam(required = true) String invoiceId) throws IOException {
-		log.info("Genetrating the html Invoice {}",invoiceId);
-		return invoiceService.processInvoiceReport(invoiceId);
+	@RequestMapping(path="/IhtmlReport",method=RequestMethod.GET,produces= "text/html")
+	public @ResponseBody String generateIHtmlInvoice(@RequestParam(required = true) String performaId) throws IOException {
+		log.info("Genetrating the html Invoice {}",performaId);
+		return invoiceService.processInvoiceReport(performaId);
+	}
+	
+	@RequestMapping(path="/PhtmlReport",method=RequestMethod.GET,produces= "text/html")
+	public @ResponseBody String generatePHtmlInvoice(@RequestParam(required = true) String performaId) throws IOException {
+		log.info("Genetrating the html Invoice {}",performaId);
+		return invoiceService.processPInvoiceReport(performaId);
 	}
 }

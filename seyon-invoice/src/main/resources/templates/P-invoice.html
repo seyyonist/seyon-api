@@ -59,7 +59,7 @@ h1, h2, h3, h4, h5, h6, p {
 		</tr>
 		<tr>
 			<td colspan="12" align="center" class="border">
-				<h3>Professional Invoice</h3>
+				<h3>Professional PerformA Invoice</h3>
 			</td>
 		</tr>
 		<tr>
@@ -166,10 +166,10 @@ h1, h2, h3, h4, h5, h6, p {
 			<td align="center" class="border" colspan="1" th:text="${particular.quantity}">
 			  QTY
 			</td>
-			<td align="center" class="border" colspan="2" th:text="${particular.invoiceRate}">
+			<td align="center" class="border" colspan="2" th:text="${particular.performaRate}">
 			  Rate 
 			</td>
-			<td align="center" class="border" colspan="2" th:text="${particular.calculatedInvoiceAmount}">
+			<td align="center" class="border" colspan="2" th:text="${particular.calculatedPerformaAmount}">
 			  Amount
 			</td>
 		</tr>
@@ -180,7 +180,7 @@ h1, h2, h3, h4, h5, h6, p {
 			<td align="center" class="border" colspan="2">
 			  Gross amount (A)
 			</td>
-			<td align="center" class="border" colspan="2" th:text="${invoice.totalInvoiceBeforeTax}">
+			<td align="center" class="border" colspan="2" th:text="${invoice.totalPerfomaBeforeTax}">
 			  45000
 			</td>
 		</tr>
@@ -196,10 +196,10 @@ h1, h2, h3, h4, h5, h6, p {
 			<td align="center" class="border" colspan="2">
 			  Add: CGST 
 			</td>
-			<td align="center" class="border" colspan="2" th:text="${invoice.cgstInvoicePercent}">
+			<td align="center" class="border" colspan="2" th:text="${invoice.cgstPerfomaPercent}">
 			  45000 
 			</td>
-			<td align="center" class="border" colspan="2" th:text="${invoice.cgstInvoice}">
+			<td align="center" class="border" colspan="2" th:text="${invoice.cgstPerfoma}">
 			  45000
 			</td>
 		</tr>
@@ -208,10 +208,10 @@ h1, h2, h3, h4, h5, h6, p {
 			<td align="center" class="border" colspan="2">
 			   Add: SGST 
 			</td>
-			<td align="center" class="border" colspan="2" th:text="${invoice.sgstInvoicePercent}">
+			<td align="center" class="border" colspan="2" th:text="${invoice.sgstPerfomaPercent}">
 			  45000
 			</td>
-			<td align="center" class="border" colspan="2" th:text="${invoice.sgstInvoice}">
+			<td align="center" class="border" colspan="2" th:text="${invoice.sgstPerfoma}">
 			  45000
 			</td>
 		</tr>
@@ -220,10 +220,10 @@ h1, h2, h3, h4, h5, h6, p {
 			<td align="center" class="border" colspan="2">
 			   Add: IGST 
 			</td>
-			<td align="center" class="border" colspan="2" th:text="${invoice.igstInvoicePercent}">
+			<td align="center" class="border" colspan="2" th:text="${invoice.igstPerfomaPercent}">
 			  45000
 			</td>
-			<td align="center" class="border" colspan="2" th:text="${invoice.igstInvoice}">
+			<td align="center" class="border" colspan="2" th:text="${invoice.igstPerfoma}">
 			  45000
 			</td>
 		</tr>
@@ -235,7 +235,7 @@ h1, h2, h3, h4, h5, h6, p {
 			<td align="center" class="border" colspan="2">
 			  A + B
 			</td>
-			<td align="center" class="border" colspan="2" th:text="${invoice.totalInvoiceAmount}">
+			<td align="center" class="border" colspan="2" th:text="${invoice.totalPerfomaAmount}">
 			  45000
 			</td>
 		</tr>

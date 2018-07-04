@@ -1,4 +1,4 @@
-package io.seyon.company.entity;
+package io.seyon.invoice.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,12 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 
 @Entity
-public class Company {
+@Table(name="company")
+public class CompanyView {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	Long companyId;
 
 	@Column
@@ -102,7 +103,7 @@ public class Company {
 		return companyName;
 	}
 
-	public void setCompanyName(String companyName) {
+	protected void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
 
@@ -110,7 +111,7 @@ public class Company {
 		return addressLine1;
 	}
 
-	public void setAddressLine1(String addressLine1) {
+	protected void setAddressLine1(String addressLine1) {
 		this.addressLine1 = addressLine1;
 	}
 
@@ -118,7 +119,7 @@ public class Company {
 		return addressLine2;
 	}
 
-	public void setAddressLine2(String addressLine2) {
+	protected void setAddressLine2(String addressLine2) {
 		this.addressLine2 = addressLine2;
 	}
 
@@ -126,7 +127,7 @@ public class Company {
 		return city;
 	}
 
-	public void setCity(String city) {
+	protected void setCity(String city) {
 		this.city = city;
 	}
 
@@ -134,7 +135,7 @@ public class Company {
 		return state;
 	}
 
-	public void setState(String state) {
+	protected void setState(String state) {
 		this.state = state;
 	}
 
@@ -142,7 +143,7 @@ public class Company {
 		return pinCode;
 	}
 
-	public void setPinCode(String pinCode) {
+	protected void setPinCode(String pinCode) {
 		this.pinCode = pinCode;
 	}
 
@@ -150,7 +151,7 @@ public class Company {
 		return tanNo;
 	}
 
-	public void setTanNo(String tanNo) {
+	protected void setTanNo(String tanNo) {
 		this.tanNo = tanNo;
 	}
 
@@ -158,7 +159,7 @@ public class Company {
 		return gstNo;
 	}
 
-	public void setGstNo(String gstNo) {
+	protected void setGstNo(String gstNo) {
 		this.gstNo = gstNo;
 	}
 
@@ -166,7 +167,7 @@ public class Company {
 		return panNo;
 	}
 
-	public void setPanNo(String panNo) {
+	protected void setPanNo(String panNo) {
 		this.panNo = panNo;
 	}
 
@@ -174,7 +175,7 @@ public class Company {
 		return companyId;
 	}
 
-	public void setCompanyId(Long companyId) {
+	protected void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
 
@@ -182,7 +183,7 @@ public class Company {
 		return ownerName;
 	}
 
-	public void setOwnerName(String ownerName) {
+	protected void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
 	}
 
@@ -190,7 +191,7 @@ public class Company {
 		return phonePrimary;
 	}
 
-	public void setPhonePrimary(String phonePrimary) {
+	protected void setPhonePrimary(String phonePrimary) {
 		this.phonePrimary = phonePrimary;
 	}
 
@@ -198,7 +199,7 @@ public class Company {
 		return phoneSecondary;
 	}
 
-	public void setPhoneSecondary(String phoneSecondary) {
+	protected void setPhoneSecondary(String phoneSecondary) {
 		this.phoneSecondary = phoneSecondary;
 	}
 
@@ -206,7 +207,7 @@ public class Company {
 		return faxNo;
 	}
 
-	public void setFaxNo(String faxNo) {
+	protected void setFaxNo(String faxNo) {
 		this.faxNo = faxNo;
 	}
 
@@ -214,7 +215,7 @@ public class Company {
 		return serviceTaxRegNo;
 	}
 
-	public void setServiceTaxRegNo(String serviceTaxRegNo) {
+	protected void setServiceTaxRegNo(String serviceTaxRegNo) {
 		this.serviceTaxRegNo = serviceTaxRegNo;
 	}
 
@@ -222,7 +223,7 @@ public class Company {
 		return accountingType;
 	}
 
-	public void setAccountingType(String accountingType) {
+	protected void setAccountingType(String accountingType) {
 		this.accountingType = accountingType;
 	}
 
@@ -230,7 +231,7 @@ public class Company {
 		return logoImg;
 	}
 
-	public void setLogoImg(String logoImg) {
+	protected void setLogoImg(String logoImg) {
 		this.logoImg = logoImg;
 	}
 
@@ -238,7 +239,7 @@ public class Company {
 		return signatureImg;
 	}
 
-	public void setSignatureImg(String signatureImg) {
+	protected void setSignatureImg(String signatureImg) {
 		this.signatureImg = signatureImg;
 	}
 
@@ -246,7 +247,7 @@ public class Company {
 		return primaryEmail;
 	}
 
-	public void setPrimaryEmail(String primaryEmail) {
+	protected void setPrimaryEmail(String primaryEmail) {
 		this.primaryEmail = primaryEmail;
 	}
 
@@ -254,7 +255,7 @@ public class Company {
 		return secondaryEmail;
 	}
 
-	public void setSecondaryEmail(String secondaryEmail) {
+	protected void setSecondaryEmail(String secondaryEmail) {
 		this.secondaryEmail = secondaryEmail;
 	}
 
@@ -262,7 +263,7 @@ public class Company {
 		return bankName;
 	}
 
-	public void setBankName(String bankName) {
+	protected void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
 
@@ -270,7 +271,7 @@ public class Company {
 		return branch;
 	}
 
-	public void setBranch(String branch) {
+	protected void setBranch(String branch) {
 		this.branch = branch;
 	}
 
@@ -278,7 +279,7 @@ public class Company {
 		return branchIFSCCode;
 	}
 
-	public void setBranchIFSCCode(String branchIFSCCode) {
+	protected void setBranchIFSCCode(String branchIFSCCode) {
 		this.branchIFSCCode = branchIFSCCode;
 	}
 
@@ -286,7 +287,7 @@ public class Company {
 		return accountNo;
 	}
 
-	public void setAccountNo(String accountNo) {
+	protected void setAccountNo(String accountNo) {
 		this.accountNo = accountNo;
 	}
 
@@ -294,7 +295,7 @@ public class Company {
 		return accountName;
 	}
 
-	public void setAccountName(String accountName) {
+	protected void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
 
@@ -302,7 +303,7 @@ public class Company {
 		return accountType;
 	}
 
-	public void setAccountType(String accountType) {
+	protected void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
 
@@ -310,7 +311,7 @@ public class Company {
 		return swiftCode;
 	}
 
-	public void setSwiftCode(String swiftCode) {
+	protected void setSwiftCode(String swiftCode) {
 		this.swiftCode = swiftCode;
 	}
 
@@ -325,7 +326,7 @@ public class Company {
 		return termsConditions;
 	}
 
-	public void setTermsConditions(String termsConditions) {
+	protected void setTermsConditions(String termsConditions) {
 		this.termsConditions = termsConditions;
 	}
 
