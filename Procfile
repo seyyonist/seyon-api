@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=$PORT -jar target/seyon-1.0.0.jar -Dspring.profiles.active=mysql
+web: java $JAVA_OPTS -Dserver.port=$PORT -jar seyon/target/seyon-1.0.0.jar
