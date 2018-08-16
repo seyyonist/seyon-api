@@ -45,4 +45,9 @@ public class UserRoleController {
 	public List<UserRole> getUserRoles(@RequestParam(required = true) String email) {
 		return userService.getUserRoles(email);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,path = "/getRolesOpen")
+	public List<UserRole> getUserRolesOpen(@RequestParam(required = true) String email) {
+		return userService.getUserRoles(email);
+	}
 }

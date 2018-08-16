@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.seyon.user.entity.UserInfo;
@@ -61,5 +62,11 @@ public class UserController {
 	public UserInfo getLoggedInUser(@RequestHeader(name = "x-user-email", required = true) String userId) {
 		log.info("user Id"+userId);
 		return userService.getUser(userId);
+	}
+	
+	//Added this method to get the user 
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,path="/findUserByEmail")
+	public UserInfo getUserByEmail(@RequestParam String email) {
+		return userService.getUserByEmail(email);
 	}
 }
