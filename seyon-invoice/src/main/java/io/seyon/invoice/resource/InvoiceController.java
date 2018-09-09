@@ -1,10 +1,8 @@
 package io.seyon.invoice.resource;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.seyon.invoice.entity.Invoice;
-import io.seyon.invoice.entity.InvoiceStatus;
 import io.seyon.invoice.entity.SACCode;
 import io.seyon.invoice.model.InvoiceData;
 import io.seyon.invoice.model.InvoiceSearch;
