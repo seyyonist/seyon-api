@@ -91,4 +91,18 @@ public class ManufacturingInvoiceService {
 
 		return manufacturingInvoiceRepository.findAll(spec, page);
 	}
+
+	public ManufacturingInvoice createInvoice(ManufacturingInvoice invoiceData) {
+		return manufacturingInvoiceRepository.save(invoiceData);
+	}
+
+	public ManufacturingInvoice getInvoiceDetails(Long invoiceId) {
+		return manufacturingInvoiceRepository.getOne(invoiceId);
+	}
+	public ManufacturingInvoice cancelInvoice(Long id) {
+		log.info("Moving the invoice to Cancel status, {}", id);
+		ManufacturingInvoice invoice = manufacturingInvoiceRepository.getOne(id);
+		invoice.setStatus(InvoiceStatus.CANCELED);
+		return manufacturingInvoiceRepository.save(invoice);
+	}
 }

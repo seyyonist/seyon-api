@@ -8,5 +8,6 @@ import io.seyon.invoice.entity.ManufacturingInvoice;
 public interface ManufacturingInvoiceRepository extends JpaRepository<ManufacturingInvoice, Long>,JpaSpecificationExecutor<ManufacturingInvoice> {
 
 	ManufacturingInvoice findByProFormaId(String proformaInvoiceId);
+	ManufacturingInvoice findByInvoiceId(String invoiceId);
 
 }
