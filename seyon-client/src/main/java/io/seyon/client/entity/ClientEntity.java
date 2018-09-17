@@ -29,6 +29,9 @@ public class ClientEntity implements Serializable {
 	@Column(nullable=true)
 	String contactPerson;
 	
+	@Column(nullable=true)
+	String email;
+	
 
 	@Size(min = 3, message = "Please enter the Company Type")
 	@Column(nullable=true)
@@ -85,6 +88,23 @@ public class ClientEntity implements Serializable {
 	
 	@Column(nullable=true)
 	String createdBy;
+	
+	@Column(nullable=true)
+	String shipToAddrLine1;
+	
+	@Column(nullable=true)
+	String shipToAddrLine2;
+	
+	@Column(nullable=true)
+	String shipToAddrCity;
+	
+	@Column(nullable=true)
+	String shipToAddrState;
+	
+	@Column(nullable=true)
+	String shipToAddrPincode;
+	
+	
 	
 	public Long getId() {
 		return id;
@@ -244,15 +264,69 @@ public class ClientEntity implements Serializable {
 		this.createdBy = createdBy;
 	}
 
+	public String getShipToAddrLine1() {
+		return shipToAddrLine1;
+	}
+
+	public void setShipToAddrLine1(String shipToAddrLine1) {
+		this.shipToAddrLine1 = shipToAddrLine1;
+	}
+
+	public String getShipToAddrLine2() {
+		return shipToAddrLine2;
+	}
+
+	public void setShipToAddrLine2(String shipToAddrLine2) {
+		this.shipToAddrLine2 = shipToAddrLine2;
+	}
+
+	public String getShipToAddrCity() {
+		return shipToAddrCity;
+	}
+
+	public void setShipToAddrCity(String shipToAddrCity) {
+		this.shipToAddrCity = shipToAddrCity;
+	}
+
+	public String getShipToAddrState() {
+		return shipToAddrState;
+	}
+
+	public void setShipToAddrState(String shipToAddrState) {
+		this.shipToAddrState = shipToAddrState;
+	}
+
+	public String getShipToAddrPincode() {
+		return shipToAddrPincode;
+	}
+
+	public void setShipToAddrPincode(String shipToAddrPincode) {
+		this.shipToAddrPincode = shipToAddrPincode;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
-		return "ClientEntity [id=" + id + ", name=" + name + ", contactPerson=" + contactPerson + ", companyType="
-				+ companyType + ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2 + ", city=" + city + ", state="
-				+ state + ", pincode=" + pincode + ", phonePrimary=" + phonePrimary + ", phoneSecondary="
-				+ phoneSecondary + ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin + ", ServiceTaxRegNo="
-				+ ServiceTaxRegNo + ", companyId=" + companyId + ", active=" + active + ", createDate="
-				+ createDate + ", createdBy=" + createdBy + "]";
+		return "ClientEntity [id=" + id + ", name=" + name + ", contactPerson=" + contactPerson + ", email=" + email
+				+ ", companyType=" + companyType + ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2 + ", city="
+				+ city + ", state=" + state + ", pincode=" + pincode + ", phonePrimary=" + phonePrimary
+				+ ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin
+				+ ", ServiceTaxRegNo=" + ServiceTaxRegNo + ", companyId=" + companyId + ", active=" + active
+				+ ", createDate=" + createDate + ", createdBy=" + createdBy + ", shipToAddrLine1=" + shipToAddrLine1
+				+ ", shipToAddrLine2=" + shipToAddrLine2 + ", shipToAddrCity=" + shipToAddrCity + ", shipToAddrState="
+				+ shipToAddrState + ", shipToAddrPincode=" + shipToAddrPincode + "]";
 	}
+
+
+
+	
 	
 	
 
