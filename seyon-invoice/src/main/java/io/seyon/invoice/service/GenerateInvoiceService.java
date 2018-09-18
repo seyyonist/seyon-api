@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import io.seyon.common.util.ConvertNumberToWords;
 import io.seyon.invoice.entity.ClientEntityView;
 import io.seyon.invoice.entity.CompanyView;
 import io.seyon.invoice.entity.Invoice;
@@ -60,10 +61,23 @@ public class GenerateInvoiceService {
 	
 	private Context getContext(String performaId) {
 		Optional<Invoice> opInv = invoiceRepository.findByPerformaId(performaId);
+		String totalAmtInWords="";
 		if (!opInv.isPresent()) {
 			new NoResultException("No Invoice Found");
 		}
 		Invoice inv=opInv.get();
+		if(inv!=null){
+			if(inv.getTotalInvoiceAmount()==null && inv.getTotalPerfomaAmount()!=null ){
+				totalAmtInWords=new ConvertNumberToWords().convertNumber(inv.getTotalPerfomaAmount().longValue()).toUpperCase();
+			}
+			else
+			{
+				totalAmtInWords=new ConvertNumberToWords().convertNumber(inv.getTotalInvoiceAmount().longValue()).toUpperCase();
+				
+			}
+		}
+		log.info("Retrieved totalAmtInWords  {}", totalAmtInWords);
+		
 		List<Particulars> parti=particularsRepository.findByInvoiceTableId(inv.getId());
 		log.info("Retrieved Invoice {}, Particulars {}", inv,parti);
 		
@@ -82,6 +96,7 @@ public class GenerateInvoiceService {
 		final Context ctx=new Context();
 		Map<String, Object> variables= new HashMap<>();
 		variables.put("invoice", inv);
+		variables.put("totalAmtInWords", totalAmtInWords);
 		variables.put("particulars", parti);
 		variables.put("company", cmp);
 		variables.put("client", cev);
