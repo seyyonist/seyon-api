@@ -48,7 +48,7 @@ public class ManufacturingInvoiceController {
 			p.setCreatedBy(userId);
 		});
 
-		List<ManufacturingInvoice> invoiceResult= invoiceService.createProformaInvoice(invoiceData);
+		List<ManufacturingInvoice> invoiceResult= invoiceService.createProformaInvoice(invoiceData,companyId);
 		return invoiceResult;
 	}
 	

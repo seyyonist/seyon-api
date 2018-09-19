@@ -1,5 +1,6 @@
 package io.seyon.invoice.service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,15 @@ public class ManufacturingInvoiceService {
 	@Autowired
 	InvoiceProperties invoiceProperties;
 	
-	public List<ManufacturingInvoice> createProformaInvoice(List<ManufacturingInvoice> invoices) {
+	public List<ManufacturingInvoice> createProformaInvoice(List<ManufacturingInvoice> invoices,final Long companyId) {
+		int i=0;
+		for(ManufacturingInvoice invoice:invoices) {
+			String performaId = "PI-" + invoice.getClientId() +"-"+companyId+"-"+ Instant.now().getEpochSecond() + "/" + FinancialYear.getFinancialYearOf()+"-"+i++;
+			invoice.setProFormaId(performaId);
+			invoice.setType("PERFORMA");
+		}
+
+		log.info(invoices.toString());
 		return manufacturingInvoiceRepository.saveAll(invoices);
 	}
 	

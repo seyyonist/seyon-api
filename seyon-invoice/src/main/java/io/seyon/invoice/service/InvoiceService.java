@@ -94,13 +94,13 @@ public class InvoiceService {
 		return invoiceRepository.findAll(spec, page);
 	}
 
-	public Long createPerformaInvoice(Invoice invoice, List<Particulars> particulars) {
+	public Long createPerformaInvoice(Invoice invoice, List<Particulars> particulars,Long companyId) {
 		log.info("Saving the invoice");
 		if (null == invoice) {
 			return null;
 		}
 
-		String performaId = "PI-" + Instant.now().getEpochSecond() + "/" + FinancialYear.getFinancialYearOf();
+		String performaId = "PI-" + invoice.getClientId() +"-"+companyId+"-"+Instant.now().getEpochSecond() + "/" + FinancialYear.getFinancialYearOf();
 		invoice.setPerformaId(performaId);
 		invoice.setType("PERFORMA");
 		invoice = invoiceRepository.save(invoice);
