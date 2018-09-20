@@ -106,8 +106,13 @@ public class ManufacturingInvoiceService {
 	}
 
 	public ManufacturingInvoice getInvoiceDetails(Long invoiceId) {
-		return manufacturingInvoiceRepository.getOne(invoiceId);
+		return manufacturingInvoiceRepository.findById(invoiceId).orElse(null);
 	}
+	
+	public ManufacturingInvoice getInvoiceDetails(String proformaId) {
+		return manufacturingInvoiceRepository.findByProFormaId(proformaId);
+	}
+	
 	public ManufacturingInvoice cancelInvoice(Long id) {
 		log.info("Moving the invoice to Cancel status, {}", id);
 		ManufacturingInvoice invoice = manufacturingInvoiceRepository.getOne(id);

@@ -98,6 +98,13 @@ public class ManufacturingInvoiceController {
 
 	}
 	
+	@GetMapping(path="/byProforma",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ManufacturingInvoice getInvoiceByProfromaId(@RequestParam(required = true) String proformaId) {
+		log.info("Invoice Search Data invoiceId {}", proformaId);
+		return invoiceService.getInvoiceDetails(proformaId);
+
+	}
+	
 	@PatchMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/cancel")
 	public ManufacturingInvoice cancelInvoice(@RequestParam(required = true) Long id) {
 		log.info("Cancelling the Invoice invoiceId {}", id);
