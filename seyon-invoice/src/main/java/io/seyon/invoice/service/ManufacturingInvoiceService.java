@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import io.seyon.invoice.config.InvoiceProperties;
-import io.seyon.invoice.entity.Invoice;
 import io.seyon.invoice.entity.InvoiceStatus;
 import io.seyon.invoice.entity.ManufacturingInvoice;
 import io.seyon.invoice.repository.ManufacturingInvoiceRepository;
@@ -43,14 +42,14 @@ public class ManufacturingInvoiceService {
 	}
 	
 	public ManufacturingInvoice getProformaInvoice(String proformaInvoiceId) {
-		return manufacturingInvoiceRepository.findByProFormaId(proformaInvoiceId);
+		return manufacturingInvoiceRepository.findByProFormaId(proformaInvoiceId).get();
 	}
 	
 	public Iterable<ManufacturingInvoice> getInvoiceList(Integer pageNumber, Long companyId, Long id, Long clientId,
 			Date invoiceStDate, Date invoiceEdDate, InvoiceStatus status, String type, String invoiceId,
 			String performaId) {
 
-		log.debug("Getting page {}", pageNumber);
+		log.debug("ManufacturingInvoice Getting page {}", pageNumber);
 
 		Pageable page = PageRequest.of(pageNumber, invoiceProperties.getPageSize(),
 				Sort.by(Direction.DESC, "invoiceDate"));
@@ -100,7 +99,7 @@ public class ManufacturingInvoiceService {
 		return manufacturingInvoiceRepository.getOne(invoiceId);
 	}
 	public ManufacturingInvoice cancelInvoice(Long id) {
-		log.info("Moving the invoice to Cancel status, {}", id);
+		log.info("Moving the ManufacturingInvoice to Cancel status, {}", id);
 		ManufacturingInvoice invoice = manufacturingInvoiceRepository.getOne(id);
 		invoice.setStatus(InvoiceStatus.CANCELED);
 		return manufacturingInvoiceRepository.save(invoice);
