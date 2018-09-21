@@ -1,5 +1,6 @@
 package io.seyon.invoice.resource;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.seyon.invoice.entity.Invoice;
@@ -23,6 +26,7 @@ import io.seyon.invoice.entity.SACCode;
 import io.seyon.invoice.model.InvoiceData;
 import io.seyon.invoice.model.InvoiceSearch;
 import io.seyon.invoice.repository.SACCodeRepository;
+import io.seyon.invoice.service.GenerateManuInvoiceService;
 import io.seyon.invoice.service.InvoiceService;
 import io.seyon.invoice.service.ManufacturingInvoiceService;
 
@@ -32,6 +36,10 @@ public class ManufacturingInvoiceController {
 
 	@Autowired
 	private ManufacturingInvoiceService invoiceService;
+	
+
+	@Autowired
+	private GenerateManuInvoiceService generateManuInvoiceService;
 	
 	@Autowired
 	private SACCodeRepository sacRepo;
@@ -122,6 +130,20 @@ public class ManufacturingInvoiceController {
 
 		return option.orElseThrow(() -> new Exception("SAC code not found for the give date code :"+sacCode+",Date:"+date)); 
 	
+	}
+	
+	
+
+	@RequestMapping(path="/IhtmlReport",method=RequestMethod.GET,produces= "text/html")
+	public @ResponseBody String generateIHtmlInvoice(@RequestParam(required = true) String performaId) throws IOException {
+		log.info("Genetrating the html Invoice {}",performaId);
+		return generateManuInvoiceService.processInvoiceReport(performaId);
+	}
+	
+	@RequestMapping(path="/PhtmlReport",method=RequestMethod.GET,produces= "text/html")
+	public @ResponseBody String generatePHtmlInvoice(@RequestParam(required = true) String performaId) throws IOException {
+		log.info("Genetrating the html Invoice {}",performaId);
+		return generateManuInvoiceService.processPInvoiceReport(performaId);
 	}
 	
 }
