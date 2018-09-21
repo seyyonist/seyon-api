@@ -129,7 +129,7 @@ public class InvoiceService {
 		if (null == invoice) {
 			return null;
 		}
-		invoice.setInvoiceId(invoice.getPerformaId().replaceAll("PI-", ""));
+		invoice.setInvoiceId(invoice.getPerformaId().replaceAll("PI-", "IN-"));
 		invoice.setType("INVOICE");
 		invoice = invoiceRepository.save(invoice);
 
