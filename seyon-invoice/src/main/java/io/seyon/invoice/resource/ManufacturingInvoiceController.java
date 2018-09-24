@@ -56,7 +56,7 @@ public class ManufacturingInvoiceController {
 			p.setCreatedBy(userId);
 		});
 
-		List<ManufacturingInvoice> invoiceResult= invoiceService.createProformaInvoice(invoiceData);
+		List<ManufacturingInvoice> invoiceResult= invoiceService.createProformaInvoice(invoiceData,companyId);
 		return invoiceResult;
 	}
 	
@@ -103,6 +103,13 @@ public class ManufacturingInvoiceController {
 	public ManufacturingInvoice getInvoice(@RequestParam(required = true) Long id) {
 		log.info("Invoice Search Data invoiceId {}", id);
 		return invoiceService.getInvoiceDetails(id);
+
+	}
+	
+	@GetMapping(path="/byProforma",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ManufacturingInvoice getInvoiceByProfromaId(@RequestParam(required = true) String proformaId) {
+		log.info("Invoice Search Data invoiceId {}", proformaId);
+		return invoiceService.getInvoiceDetails(proformaId);
 
 	}
 	

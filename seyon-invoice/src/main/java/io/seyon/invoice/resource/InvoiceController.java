@@ -49,7 +49,7 @@ public class InvoiceController {
 			p.setCreatedBy(userId);
 		});
 
-		Long id = invoiceService.createPerformaInvoice(invoiceData.getInvoice(), invoiceData.getParticulars());
+		Long id = invoiceService.createPerformaInvoice(invoiceData.getInvoice(), invoiceData.getParticulars(),companyId);
 
 		invoiceData.getInvoice().setId(id);
 		invoiceData.getParticulars().forEach(p -> p.setInvoiceTableId(id));
