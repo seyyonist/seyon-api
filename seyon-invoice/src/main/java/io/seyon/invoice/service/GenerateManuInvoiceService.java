@@ -47,7 +47,7 @@ public class GenerateManuInvoiceService {
 	
 	public String processInvoiceReport(String performaId) {	
 		final Context ctx=getContext(performaId);
-		return templateEngine.process("invoice.html",ctx);
+		return templateEngine.process("mInvoice.html",ctx);
 	}
 	
 	
@@ -55,7 +55,7 @@ public class GenerateManuInvoiceService {
 	public String processPInvoiceReport(String performaId) {
 
 		final Context ctx=getContext(performaId);
-		return templateEngine.process("P-invoice.html",ctx);
+		return templateEngine.process("P-mInvoice.html",ctx);
 	}
 	
 	private Context getContext(String performaId) {
@@ -66,12 +66,12 @@ public class GenerateManuInvoiceService {
 		}
 		ManufacturingInvoice inv=opInv.get();
 		if(inv!=null){
-			if(inv.getTotalInvoiceAmount()==null && inv.getTotalPerfomaAmount()!=null ){
-				totalAmtInWords=new ConvertNumberToWords().convertNumber(inv.getTotalPerfomaAmount().longValue()).toUpperCase();
+			if(inv.getCalculatedInvoiceAmount()==null && inv.getCalculatedPerformaAmount()!=null ){
+				totalAmtInWords=new ConvertNumberToWords().convertNumber(inv.getCalculatedPerformaAmount().longValue()).toUpperCase();
 			}
 			else
 			{
-				totalAmtInWords=new ConvertNumberToWords().convertNumber(inv.getTotalInvoiceAmount().longValue()).toUpperCase();
+				totalAmtInWords=new ConvertNumberToWords().convertNumber(inv.getCalculatedInvoiceAmount().longValue()).toUpperCase();
 				
 			}
 		}
