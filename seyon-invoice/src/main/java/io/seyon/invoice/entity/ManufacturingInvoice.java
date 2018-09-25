@@ -96,7 +96,11 @@ public class ManufacturingInvoice implements Serializable {
 	private Double calculatedInvoiceAmount;
 	@Column
 	private Double calculatedPerformaAmount;
-
+	@Column
+	private Double reimbPerfomaAmount;
+	@Column
+	private Double reimbInvoiceAmount;
+	
 	@Enumerated(EnumType.STRING)
 	@Column
 	private InvoiceStatus status = InvoiceStatus.NEW;
@@ -206,20 +210,22 @@ public class ManufacturingInvoice implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format(
-				"ManufacturingInvoice [id=%s, invoiceId=%s, proFormaId=%s, companyId=%s, clientId=%s, sacCode=%s, "
-				+ "invoiceType=%s, invoiceDate=%s, performaDate=%s, cgstPerfomaPercent=%s, sgstPerfomaPercent=%s, "
-				+ "igstPerfomaPercent=%s, cgstInvoicePercent=%s, sgstInvoicePercent=%s, igstInvoicePercent=%s, "
-				+ "totalPerfomaBeforeTax=%s, totalInvoiceBeforeTax=%s, totalPerfomaAmount=%s, totalInvoiceAmount=%s, "
-				+ "cgstPerfoma=%s, sgstPerfoma=%s, igstPerfoma=%s, cgstInvoice=%s, sgstInvoice=%s, igstInvoice=%s, "
-				+ "index=%s, itemDescription=%s, quantity=%s, performaRate=%s, invoiceRate=%s, calculatedInvoiceAmount=%s, "
-				+ "calculatedPerformaAmount=%s, status=%s, createdBy=%s, createdDate=%s, type=%s]",
-				id, invoiceId, proFormaId, companyId, clientId, sacCode, invoiceType, invoiceDate, performaDate,
-				cgstPerfomaPercent, sgstPerfomaPercent, igstPerfomaPercent, cgstInvoicePercent, sgstInvoicePercent,
-				igstInvoicePercent, totalPerfomaBeforeTax, totalInvoiceBeforeTax, totalPerfomaAmount,
-				totalInvoiceAmount, cgstPerfoma, sgstPerfoma, igstPerfoma, cgstInvoice, sgstInvoice, igstInvoice, index,
-				itemDescription, quantity, performaRate, invoiceRate, calculatedInvoiceAmount, calculatedPerformaAmount,
-				status, createdBy, createdDate, type);
+		return "ManufacturingInvoice [id=" + id + ", invoiceId=" + invoiceId + ", proFormaId=" + proFormaId
+				+ ", companyId=" + companyId + ", clientId=" + clientId + ", sacCode=" + sacCode + ", invoiceType="
+				+ invoiceType + ", invoiceDate=" + invoiceDate + ", performaDate=" + performaDate
+				+ ", cgstPerfomaPercent=" + cgstPerfomaPercent + ", sgstPerfomaPercent=" + sgstPerfomaPercent
+				+ ", igstPerfomaPercent=" + igstPerfomaPercent + ", cgstInvoicePercent=" + cgstInvoicePercent
+				+ ", sgstInvoicePercent=" + sgstInvoicePercent + ", igstInvoicePercent=" + igstInvoicePercent
+				+ ", totalPerfomaBeforeTax=" + totalPerfomaBeforeTax + ", totalInvoiceBeforeTax="
+				+ totalInvoiceBeforeTax + ", totalPerfomaAmount=" + totalPerfomaAmount + ", totalInvoiceAmount="
+				+ totalInvoiceAmount + ", cgstPerfoma=" + cgstPerfoma + ", sgstPerfoma=" + sgstPerfoma
+				+ ", igstPerfoma=" + igstPerfoma + ", cgstInvoice=" + cgstInvoice + ", sgstInvoice=" + sgstInvoice
+				+ ", igstInvoice=" + igstInvoice + ", index=" + index + ", itemDescription=" + itemDescription
+				+ ", quantity=" + quantity + ", performaRate=" + performaRate + ", invoiceRate=" + invoiceRate
+				+ ", calculatedInvoiceAmount=" + calculatedInvoiceAmount + ", calculatedPerformaAmount="
+				+ calculatedPerformaAmount + ", reimbPerfomaAmount=" + reimbPerfomaAmount + ", reimbInvoiceAmount="
+				+ reimbInvoiceAmount + ", status=" + status + ", createdBy=" + createdBy + ", createdDate="
+				+ createdDate + ", type=" + type + "]";
 	}
 
 	public String getType() {
@@ -412,6 +418,22 @@ public class ManufacturingInvoice implements Serializable {
 
 	public void setProFormaId(String proFormaId) {
 		this.proFormaId = proFormaId;
+	}
+
+	public Double getReimbPerfomaAmount() {
+		return reimbPerfomaAmount;
+	}
+
+	public void setReimbPerfomaAmount(Double reimbPerfomaAmount) {
+		this.reimbPerfomaAmount = reimbPerfomaAmount;
+	}
+
+	public Double getReimbInvoiceAmount() {
+		return reimbInvoiceAmount;
+	}
+
+	public void setReimbInvoiceAmount(Double reimbInvoiceAmount) {
+		this.reimbInvoiceAmount = reimbInvoiceAmount;
 	}
 
 }

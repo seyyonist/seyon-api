@@ -69,6 +69,12 @@ public class Invoice implements Serializable {
 	private Double totalPerfomaAmount;
 	@Column
 	private Double totalInvoiceAmount;
+	
+	@Column
+	private Double reimbPerfomaAmount;
+	@Column
+	private Double reimbInvoiceAmount;
+	
 	@Column
 	private Double cgstPerfoma;
 	@Column
@@ -200,14 +206,17 @@ public class Invoice implements Serializable {
 	@Override
 	public String toString() {
 		return "Invoice [id=" + id + ", invoiceId=" + invoiceId + ", performaId=" + performaId + ", companyId="
-				+ companyId + ", clientId=" + clientId + ", sacCode=" + sacCode + ", invoiceDate=" + invoiceDate
-				+ ", performaDate=" + performaDate + ", cgstPerfomaPercent=" + cgstPerfomaPercent
-				+ ", sgstPerfomaPercent=" + sgstPerfomaPercent + ", igstPerfomaPercent=" + igstPerfomaPercent
-				+ ", cgstInvoicePercent=" + cgstInvoicePercent + ", sgstInvoicePercent=" + sgstInvoicePercent
-				+ ", igstInvoicePercent=" + igstInvoicePercent + ", totalPerfomaBeforeTax=" + totalPerfomaBeforeTax
-				+ ", totalInvoiceBeforeTax=" + totalInvoiceBeforeTax + ", totalPerfomaAmount=" + totalPerfomaAmount
-				+ ", totalInvoiceAmount=" + totalInvoiceAmount + ", status=" + status + ", createdBy=" + createdBy
-				+ ", createdDate=" + createdDate + ", type=" + type + "]";
+				+ companyId + ", clientId=" + clientId + ", sacCode=" + sacCode + ", invoiceType=" + invoiceType
+				+ ", invoiceDate=" + invoiceDate + ", performaDate=" + performaDate + ", cgstPerfomaPercent="
+				+ cgstPerfomaPercent + ", sgstPerfomaPercent=" + sgstPerfomaPercent + ", igstPerfomaPercent="
+				+ igstPerfomaPercent + ", cgstInvoicePercent=" + cgstInvoicePercent + ", sgstInvoicePercent="
+				+ sgstInvoicePercent + ", igstInvoicePercent=" + igstInvoicePercent + ", totalPerfomaBeforeTax="
+				+ totalPerfomaBeforeTax + ", totalInvoiceBeforeTax=" + totalInvoiceBeforeTax + ", totalPerfomaAmount="
+				+ totalPerfomaAmount + ", totalInvoiceAmount=" + totalInvoiceAmount + ", reimbPerfomaAmount="
+				+ reimbPerfomaAmount + ", reimbInvoiceAmount=" + reimbInvoiceAmount + ", cgstPerfoma=" + cgstPerfoma
+				+ ", sgstPerfoma=" + sgstPerfoma + ", igstPerfoma=" + igstPerfoma + ", cgstInvoice=" + cgstInvoice
+				+ ", sgstInvoice=" + sgstInvoice + ", igstInvoice=" + igstInvoice + ", status=" + status
+				+ ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", type=" + type + "]";
 	}
 
 	public String getType() {
@@ -328,6 +337,22 @@ public class Invoice implements Serializable {
 
 	public void setIgstInvoice(Double igstInvoice) {
 		this.igstInvoice = igstInvoice;
+	}
+
+	public Double getReimbPerfomaAmount() {
+		return reimbPerfomaAmount;
+	}
+
+	public void setReimbPerfomaAmount(Double reimbPerfomaAmount) {
+		this.reimbPerfomaAmount = reimbPerfomaAmount;
+	}
+
+	public Double getReimbInvoiceAmount() {
+		return reimbInvoiceAmount;
+	}
+
+	public void setReimbInvoiceAmount(Double reimbInvoiceAmount) {
+		this.reimbInvoiceAmount = reimbInvoiceAmount;
 	}
 
 }
