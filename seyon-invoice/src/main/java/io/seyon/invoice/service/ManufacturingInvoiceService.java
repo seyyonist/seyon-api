@@ -109,7 +109,7 @@ public class ManufacturingInvoiceService {
 	}
 	
 	public ManufacturingInvoice getInvoiceDetails(String proformaId) {
-		return manufacturingInvoiceRepository.findByProFormaId(proformaId);
+		return manufacturingInvoiceRepository.findByProFormaId(proformaId).get();
 	}
 	
 	public ManufacturingInvoice cancelInvoice(Long id) {
