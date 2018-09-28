@@ -96,11 +96,20 @@ public class ManufacturingInvoice implements Serializable {
 	private Double calculatedInvoiceAmount;
 	@Column
 	private Double calculatedPerformaAmount;
+
 	@Column
 	private Double reimbPerfomaAmount;
 	@Column
 	private Double reimbInvoiceAmount;
 	
+
+	
+	@Column
+	private Double grossInvoiceAmount;
+	@Column
+	private Double grossPerformaAmount;
+
+
 	@Enumerated(EnumType.STRING)
 	@Column
 	private InvoiceStatus status = InvoiceStatus.NEW;
@@ -208,25 +217,6 @@ public class ManufacturingInvoice implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Override
-	public String toString() {
-		return "ManufacturingInvoice [id=" + id + ", invoiceId=" + invoiceId + ", proFormaId=" + proFormaId
-				+ ", companyId=" + companyId + ", clientId=" + clientId + ", sacCode=" + sacCode + ", invoiceType="
-				+ invoiceType + ", invoiceDate=" + invoiceDate + ", performaDate=" + performaDate
-				+ ", cgstPerfomaPercent=" + cgstPerfomaPercent + ", sgstPerfomaPercent=" + sgstPerfomaPercent
-				+ ", igstPerfomaPercent=" + igstPerfomaPercent + ", cgstInvoicePercent=" + cgstInvoicePercent
-				+ ", sgstInvoicePercent=" + sgstInvoicePercent + ", igstInvoicePercent=" + igstInvoicePercent
-				+ ", totalPerfomaBeforeTax=" + totalPerfomaBeforeTax + ", totalInvoiceBeforeTax="
-				+ totalInvoiceBeforeTax + ", totalPerfomaAmount=" + totalPerfomaAmount + ", totalInvoiceAmount="
-				+ totalInvoiceAmount + ", cgstPerfoma=" + cgstPerfoma + ", sgstPerfoma=" + sgstPerfoma
-				+ ", igstPerfoma=" + igstPerfoma + ", cgstInvoice=" + cgstInvoice + ", sgstInvoice=" + sgstInvoice
-				+ ", igstInvoice=" + igstInvoice + ", index=" + index + ", itemDescription=" + itemDescription
-				+ ", quantity=" + quantity + ", performaRate=" + performaRate + ", invoiceRate=" + invoiceRate
-				+ ", calculatedInvoiceAmount=" + calculatedInvoiceAmount + ", calculatedPerformaAmount="
-				+ calculatedPerformaAmount + ", reimbPerfomaAmount=" + reimbPerfomaAmount + ", reimbInvoiceAmount="
-				+ reimbInvoiceAmount + ", status=" + status + ", createdBy=" + createdBy + ", createdDate="
-				+ createdDate + ", type=" + type + "]";
-	}
 
 	public String getType() {
 		return type;
@@ -420,6 +410,7 @@ public class ManufacturingInvoice implements Serializable {
 		this.proFormaId = proFormaId;
 	}
 
+
 	public Double getReimbPerfomaAmount() {
 		return reimbPerfomaAmount;
 	}
@@ -436,4 +427,41 @@ public class ManufacturingInvoice implements Serializable {
 		this.reimbInvoiceAmount = reimbInvoiceAmount;
 	}
 
+
+	public Double getGrossInvoiceAmount() {
+		return grossInvoiceAmount;
+	}
+
+	public void setGrossInvoiceAmount(Double grossInvoiceAmount) {
+		this.grossInvoiceAmount = grossInvoiceAmount;
+	}
+
+	public Double getGrossPerformaAmount() {
+		return grossPerformaAmount;
+	}
+
+	public void setGrossPerformaAmount(Double grossPerformaAmount) {
+		this.grossPerformaAmount = grossPerformaAmount;
+	}
+
+	@Override
+	public String toString() {
+		return "ManufacturingInvoice [id=" + id + ", invoiceId=" + invoiceId + ", proFormaId=" + proFormaId
+				+ ", companyId=" + companyId + ", clientId=" + clientId + ", sacCode=" + sacCode + ", invoiceType="
+				+ invoiceType + ", invoiceDate=" + invoiceDate + ", performaDate=" + performaDate
+				+ ", cgstPerfomaPercent=" + cgstPerfomaPercent + ", sgstPerfomaPercent=" + sgstPerfomaPercent
+				+ ", igstPerfomaPercent=" + igstPerfomaPercent + ", cgstInvoicePercent=" + cgstInvoicePercent
+				+ ", sgstInvoicePercent=" + sgstInvoicePercent + ", igstInvoicePercent=" + igstInvoicePercent
+				+ ", totalPerfomaBeforeTax=" + totalPerfomaBeforeTax + ", totalInvoiceBeforeTax="
+				+ totalInvoiceBeforeTax + ", totalPerfomaAmount=" + totalPerfomaAmount + ", totalInvoiceAmount="
+				+ totalInvoiceAmount + ", cgstPerfoma=" + cgstPerfoma + ", sgstPerfoma=" + sgstPerfoma
+				+ ", igstPerfoma=" + igstPerfoma + ", cgstInvoice=" + cgstInvoice + ", sgstInvoice=" + sgstInvoice
+				+ ", igstInvoice=" + igstInvoice + ", index=" + index + ", itemDescription=" + itemDescription
+				+ ", quantity=" + quantity + ", performaRate=" + performaRate + ", invoiceRate=" + invoiceRate
+				+ ", calculatedInvoiceAmount=" + calculatedInvoiceAmount + ", calculatedPerformaAmount="
+				+ calculatedPerformaAmount + ", grossInvoiceAmount=" + grossInvoiceAmount + ", grossPerformaAmount="
+				+ grossPerformaAmount + ", status=" + status + ", createdBy=" + createdBy + ", createdDate="
+				+ createdDate + ", type=" + type + "]";
+	}
+	
 }
