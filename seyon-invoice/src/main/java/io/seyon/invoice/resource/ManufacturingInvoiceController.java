@@ -138,8 +138,7 @@ public class ManufacturingInvoiceController {
 		return option.orElseThrow(() -> new Exception("SAC code not found for the give date code :"+sacCode+",Date:"+date)); 
 	
 	}
-	
-	
+		
 
 	@RequestMapping(path="/IhtmlReport",method=RequestMethod.GET,produces= "text/html")
 	public @ResponseBody String generateIHtmlInvoice(@RequestParam(required = true) String performaId) throws IOException {

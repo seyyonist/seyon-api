@@ -96,11 +96,19 @@ public class ManufacturingInvoice implements Serializable {
 	private Double calculatedInvoiceAmount;
 	@Column
 	private Double calculatedPerformaAmount;
+
+	@Column
+	private Double reimbPerfomaAmount;
+	@Column
+	private Double reimbInvoiceAmount;
+	
+
 	
 	@Column
 	private Double grossInvoiceAmount;
 	@Column
 	private Double grossPerformaAmount;
+
 
 	@Enumerated(EnumType.STRING)
 	@Column
@@ -402,6 +410,24 @@ public class ManufacturingInvoice implements Serializable {
 		this.proFormaId = proFormaId;
 	}
 
+
+	public Double getReimbPerfomaAmount() {
+		return reimbPerfomaAmount;
+	}
+
+	public void setReimbPerfomaAmount(Double reimbPerfomaAmount) {
+		this.reimbPerfomaAmount = reimbPerfomaAmount;
+	}
+
+	public Double getReimbInvoiceAmount() {
+		return reimbInvoiceAmount;
+	}
+
+	public void setReimbInvoiceAmount(Double reimbInvoiceAmount) {
+		this.reimbInvoiceAmount = reimbInvoiceAmount;
+	}
+
+
 	public Double getGrossInvoiceAmount() {
 		return grossInvoiceAmount;
 	}
@@ -438,6 +464,4 @@ public class ManufacturingInvoice implements Serializable {
 				+ createdDate + ", type=" + type + "]";
 	}
 	
-	
-
 }
