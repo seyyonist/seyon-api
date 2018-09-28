@@ -96,6 +96,11 @@ public class ManufacturingInvoice implements Serializable {
 	private Double calculatedInvoiceAmount;
 	@Column
 	private Double calculatedPerformaAmount;
+	
+	@Column
+	private Double grossInvoiceAmount;
+	@Column
+	private Double grossPerformaAmount;
 
 	@Enumerated(EnumType.STRING)
 	@Column
@@ -204,23 +209,6 @@ public class ManufacturingInvoice implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Override
-	public String toString() {
-		return String.format(
-				"ManufacturingInvoice [id=%s, invoiceId=%s, proFormaId=%s, companyId=%s, clientId=%s, sacCode=%s, "
-				+ "invoiceType=%s, invoiceDate=%s, performaDate=%s, cgstPerfomaPercent=%s, sgstPerfomaPercent=%s, "
-				+ "igstPerfomaPercent=%s, cgstInvoicePercent=%s, sgstInvoicePercent=%s, igstInvoicePercent=%s, "
-				+ "totalPerfomaBeforeTax=%s, totalInvoiceBeforeTax=%s, totalPerfomaAmount=%s, totalInvoiceAmount=%s, "
-				+ "cgstPerfoma=%s, sgstPerfoma=%s, igstPerfoma=%s, cgstInvoice=%s, sgstInvoice=%s, igstInvoice=%s, "
-				+ "index=%s, itemDescription=%s, quantity=%s, performaRate=%s, invoiceRate=%s, calculatedInvoiceAmount=%s, "
-				+ "calculatedPerformaAmount=%s, status=%s, createdBy=%s, createdDate=%s, type=%s]",
-				id, invoiceId, proFormaId, companyId, clientId, sacCode, invoiceType, invoiceDate, performaDate,
-				cgstPerfomaPercent, sgstPerfomaPercent, igstPerfomaPercent, cgstInvoicePercent, sgstInvoicePercent,
-				igstInvoicePercent, totalPerfomaBeforeTax, totalInvoiceBeforeTax, totalPerfomaAmount,
-				totalInvoiceAmount, cgstPerfoma, sgstPerfoma, igstPerfoma, cgstInvoice, sgstInvoice, igstInvoice, index,
-				itemDescription, quantity, performaRate, invoiceRate, calculatedInvoiceAmount, calculatedPerformaAmount,
-				status, createdBy, createdDate, type);
-	}
 
 	public String getType() {
 		return type;
@@ -413,5 +401,43 @@ public class ManufacturingInvoice implements Serializable {
 	public void setProFormaId(String proFormaId) {
 		this.proFormaId = proFormaId;
 	}
+
+	public Double getGrossInvoiceAmount() {
+		return grossInvoiceAmount;
+	}
+
+	public void setGrossInvoiceAmount(Double grossInvoiceAmount) {
+		this.grossInvoiceAmount = grossInvoiceAmount;
+	}
+
+	public Double getGrossPerformaAmount() {
+		return grossPerformaAmount;
+	}
+
+	public void setGrossPerformaAmount(Double grossPerformaAmount) {
+		this.grossPerformaAmount = grossPerformaAmount;
+	}
+
+	@Override
+	public String toString() {
+		return "ManufacturingInvoice [id=" + id + ", invoiceId=" + invoiceId + ", proFormaId=" + proFormaId
+				+ ", companyId=" + companyId + ", clientId=" + clientId + ", sacCode=" + sacCode + ", invoiceType="
+				+ invoiceType + ", invoiceDate=" + invoiceDate + ", performaDate=" + performaDate
+				+ ", cgstPerfomaPercent=" + cgstPerfomaPercent + ", sgstPerfomaPercent=" + sgstPerfomaPercent
+				+ ", igstPerfomaPercent=" + igstPerfomaPercent + ", cgstInvoicePercent=" + cgstInvoicePercent
+				+ ", sgstInvoicePercent=" + sgstInvoicePercent + ", igstInvoicePercent=" + igstInvoicePercent
+				+ ", totalPerfomaBeforeTax=" + totalPerfomaBeforeTax + ", totalInvoiceBeforeTax="
+				+ totalInvoiceBeforeTax + ", totalPerfomaAmount=" + totalPerfomaAmount + ", totalInvoiceAmount="
+				+ totalInvoiceAmount + ", cgstPerfoma=" + cgstPerfoma + ", sgstPerfoma=" + sgstPerfoma
+				+ ", igstPerfoma=" + igstPerfoma + ", cgstInvoice=" + cgstInvoice + ", sgstInvoice=" + sgstInvoice
+				+ ", igstInvoice=" + igstInvoice + ", index=" + index + ", itemDescription=" + itemDescription
+				+ ", quantity=" + quantity + ", performaRate=" + performaRate + ", invoiceRate=" + invoiceRate
+				+ ", calculatedInvoiceAmount=" + calculatedInvoiceAmount + ", calculatedPerformaAmount="
+				+ calculatedPerformaAmount + ", grossInvoiceAmount=" + grossInvoiceAmount + ", grossPerformaAmount="
+				+ grossPerformaAmount + ", status=" + status + ", createdBy=" + createdBy + ", createdDate="
+				+ createdDate + ", type=" + type + "]";
+	}
+	
+	
 
 }
