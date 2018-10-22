@@ -121,6 +121,32 @@ public class InvoiceService {
 		return invoiceId;
 
 	}
+	
+	
+	public boolean validateProfomaDate(Date profomaDate){
+		
+		boolean status=false;
+		
+		try {
+			
+			/**
+			 * Logic
+			 * 0 - Query the repository for the previous profomo date of the company
+			 * 1. IF the profomaDate falls within this month and date >= previous profoma date and date =<today
+			 * 		Then proforma date is allowed
+			 * 2. IF the profomaDate falls previous month and todays date is <= first 5 days of the current month 
+ 				THen we can enter the previous month profoma date on these conditions
+ 					Profoma date must be >= previous profoma date(previous month) and proforma date is allowed till the last day of the previous month
+			 * 3. IF the profomaDate falls before the previous month or the current month --> Not allowed
+			 * 4. ProfomaDate cannot be selected for future date(may be block this in the calendar widget itself)3
+			 */
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return status;
+		
+	}
 
 	@Transactional
 	public Invoice createInvoice(Invoice invoice, List<Particulars> particulars) {
