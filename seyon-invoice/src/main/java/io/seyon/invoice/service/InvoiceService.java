@@ -1,6 +1,7 @@
 package io.seyon.invoice.service;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -123,9 +124,11 @@ public class InvoiceService {
 	}
 	
 	
-	public boolean validateProfomaDate(Date profomaDate){
+	public LocalDate getMinProfomaDate(Long companyId){
 		
-		boolean status=false;
+		LocalDate minProfomoDate =  LocalDate.now();
+		LocalDate currentDate= LocalDate.now();
+		
 		
 		try {
 			
@@ -140,11 +143,33 @@ public class InvoiceService {
 			 * 3. IF the profomaDate falls before the previous month or the current month --> Not allowed
 			 * 4. ProfomaDate cannot be selected for future date(may be block this in the calendar widget itself)3
 			 */
+			
+			minProfomoDate = invoiceRepository.getMinProformaDate(companyId);
+			int currentMonthValue =currentDate.getMonth().getValue();
+			int minprofomaMonthValue = minProfomoDate.getMonth().getValue();
+			if( currentMonthValue ==  minprofomaMonthValue){ // Month Value starts from 1 
+				return minProfomoDate;
+			}
+			else if (minprofomaMonthValue == (currentMonthValue-1)  )
+			{
+				if(currentDate.getDayOfMonth()<5){ //first 5 days of the month
+					return minProfomoDate;
+				}
+				else
+				{
+					return currentDate.withDayOfMonth(1);
+				}
+			}
+			else
+			{
+				return currentDate.withDayOfMonth(1);
+			}
+			
 		} catch (Exception e) {
-			// TODO: handle exception
+			log.error("Error in getMinProfomaDate {}", minProfomoDate);
 		}
 		
-		return status;
+		return minProfomoDate;
 		
 	}
 
