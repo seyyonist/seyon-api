@@ -144,32 +144,32 @@ public class InvoiceService {
 			 * 4. ProfomaDate cannot be selected for future date(may be block this in the calendar widget itself)3
 			 */
 			
-			minProfomoDate = invoiceRepository.getMinProformaDate(companyId);
+			minProfomoDate = invoiceRepository.getMinProformaDate(companyId).toLocalDateTime().toLocalDate();
 			int currentMonthValue =currentDate.getMonth().getValue();
 			int minprofomaMonthValue = minProfomoDate.getMonth().getValue();
 			if( currentMonthValue ==  minprofomaMonthValue){ // Month Value starts from 1 
-				return minProfomoDate;
+				return minProfomoDate.minusDays(1);
 			}
 			else if (minprofomaMonthValue == (currentMonthValue-1)  )
 			{
 				if(currentDate.getDayOfMonth()<5){ //first 5 days of the month
-					return minProfomoDate;
+					return minProfomoDate.minusDays(1);
 				}
 				else
 				{
-					return currentDate.withDayOfMonth(1);
+					return currentDate.withDayOfMonth(1).minusDays(1);
 				}
 			}
 			else
 			{
-				return currentDate.withDayOfMonth(1);
+				return currentDate.withDayOfMonth(1).minusDays(1);
 			}
 			
 		} catch (Exception e) {
-			log.error("Error in getMinProfomaDate {}", minProfomoDate);
+			log.error("Error in getMinProfomaDate {}", e);
 		}
 		
-		return minProfomoDate;
+		return minProfomoDate.minusDays(1);
 		
 	}
 

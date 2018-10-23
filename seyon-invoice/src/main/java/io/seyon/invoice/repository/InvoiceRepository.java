@@ -1,6 +1,6 @@
 package io.seyon.invoice.repository;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,5 +15,5 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long>,JpaSpeci
    Optional<Invoice> findByPerformaId(String performaId);
    
    @Query("SELECT MAX(inv.performaDate) from Invoice inv where inv.companyId=:companyId")
-   LocalDate getMinProformaDate( @Param(value = "companyId") Long companyId);
+   Timestamp getMinProformaDate( @Param(value = "companyId") Long companyId);
 }
