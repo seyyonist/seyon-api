@@ -15,5 +15,8 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long>,JpaSpeci
    Optional<Invoice> findByPerformaId(String performaId);
    
    @Query("SELECT MAX(inv.performaDate) from Invoice inv where inv.companyId=:companyId")
-   Timestamp getMinProformaDate( @Param(value = "companyId") Long companyId);
+   Timestamp getLastProformaDate( @Param(value = "companyId") Long companyId);
+   
+   @Query("SELECT MAX(inv.invoiceDate) from Invoice inv where inv.companyId=:companyId")
+   Timestamp getLastInvoiceDate( @Param(value = "companyId") Long companyId);
 }

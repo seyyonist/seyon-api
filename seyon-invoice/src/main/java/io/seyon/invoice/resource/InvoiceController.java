@@ -180,4 +180,12 @@ public class InvoiceController {
 		
 	}
 	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/minInvoiceDate")
+	public String getMinInvoiceDate(@RequestHeader(name = "x-company-id", required = true) Long companyId) {
+		log.info("getMinInvoiceDate for companyid {}", companyId);
+		LocalDate minProformaDate = invoiceService.getMinInvoiceDate(companyId);
+		return minProformaDate.toString();
+		
+	}
+	
 }
