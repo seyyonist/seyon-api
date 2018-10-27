@@ -152,6 +152,8 @@ public class InvoiceController {
 		return sacRepo.findAll();
 	}
 	
+	
+	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/delParticular")
 	public String deleteParticulars(@RequestParam Long particularId) {
 		invoiceService.deleteParticular(particularId);
@@ -168,6 +170,22 @@ public class InvoiceController {
 		 }).findFirst();
 
 		return option.orElseThrow(() -> new Exception("SAC code not found for the give date code :"+sacCode+",Date:"+date)); 
+	}
+	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/minProformaDate")
+	public String getMinProfomaDate(@RequestHeader(name = "x-company-id", required = true) Long companyId) {
+		log.info("getMinProfomaDate for companyid {}", companyId);
+		LocalDate minProformaDate = invoiceService.getMinProfomaDate(companyId);
+		return minProformaDate.toString();
+		
+	}
+	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/minInvoiceDate")
+	public String getMinInvoiceDate(@RequestHeader(name = "x-company-id", required = true) Long companyId) {
+		log.info("getMinInvoiceDate for companyid {}", companyId);
+		LocalDate minProformaDate = invoiceService.getMinInvoiceDate(companyId);
+		return minProformaDate.toString();
+		
 	}
 	
 }
