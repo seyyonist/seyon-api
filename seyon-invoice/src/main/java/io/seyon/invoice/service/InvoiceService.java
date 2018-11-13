@@ -188,40 +188,46 @@ public class InvoiceService {
 			 */
 			
 			Timestamp lastProformaDateTime = invoiceRepository.getLastProformaDate(companyId);
-			
+			log.info("getMinProfomaDate lastProformaDateTime {}", lastProformaDateTime);
 			if(lastProformaDateTime != null)
 			{
 				minProfomoDate=lastProformaDateTime.toLocalDateTime().toLocalDate();
 			}
-			else{
-				return currentDate.withDayOfMonth(1).minusDays(1);
+			else{ // if no value the current month from day 1 will be considered
+				return currentDate.withDayOfMonth(1);
 			}
 			
 			int currentMonthValue =currentDate.getMonth().getValue();
 			int minprofomaMonthValue = minProfomoDate.getMonth().getValue();
 			if( currentMonthValue ==  minprofomaMonthValue){ // Month Value starts from 1 
-				return minProfomoDate.minusDays(1);
+				log.info("getMinProfomaDate currentMonthValue{} and minprofomaMonthValue{} same", currentMonthValue,minprofomaMonthValue);
+				return minProfomoDate;
 			}
 			else if (minprofomaMonthValue == (currentMonthValue-1)  )
 			{
+				log.info("getMinProfomaDate currentMonthValue{} and minprofomaMonthValue{} is less by 1", currentMonthValue,minprofomaMonthValue);
+				
 				if(currentDate.getDayOfMonth()<5){ //first 5 days of the month
-					return minProfomoDate.minusDays(1);
+					return minProfomoDate;
 				}
-				else
+				else // if current date is not within 5 days then prev month date cant be considered.
 				{
-					return currentDate.withDayOfMonth(1).minusDays(1);
+					log.info("getMinProfomaDatecurrent date is not within 5 days then prev month date cant be considered, only current month allowed");
+					return currentDate.withDayOfMonth(1);
 				}
 			}
-			else
+			else // MinProfomaDate value 
 			{
-				return currentDate.withDayOfMonth(1).minusDays(1);
+				log.info("getMinProfomaDate currentMonthValue{} and minprofomaMonthValue{} is less by 2 or more months", currentMonthValue,minprofomaMonthValue);
+				return currentDate.withDayOfMonth(1);
 			}
 			
 		} catch (Exception e) {
 			log.error("Error in getMinProfomaDate {}", e);
 		}
 		
-		return minProfomoDate.minusDays(1);
+		
+		return minProfomoDate;
 		
 	}
 	
@@ -235,7 +241,7 @@ public LocalDate getMinInvoiceDate(Long companyId){
 		
 		try {
 			
-			minProfomoDate = getMinProfomaDate(companyId);
+			
 			/**
 			 * Logic:::
 			 * Fetch the minProfomoDate by calling getMinProfomaDate
@@ -256,40 +262,47 @@ public LocalDate getMinInvoiceDate(Long companyId){
 			 */
 			
 			Timestamp lastInvoiceDateTime = invoiceRepository.getLastInvoiceDate(companyId);
+			log.info("getMinInvoiceDate lastInvoiceDateTime {}", lastInvoiceDateTime);
 			
 			if(lastInvoiceDateTime != null)
 			{
 				minInvoiceDate=lastInvoiceDateTime.toLocalDateTime().toLocalDate();
 			}
 			else{
-				return currentDate.withDayOfMonth(1).minusDays(1);
+				return currentDate.withDayOfMonth(1);
 			}
 			
-			if(minProfomoDate.isBefore(minInvoiceDate)){
+			minProfomoDate = getMinProfomaDate(companyId);
+			
+			log.info("getMinInvoiceDate minProfomoDate {}", minProfomoDate);
+			
+			if(minProfomoDate!=null && minProfomoDate.isBefore(minInvoiceDate)){
+				log.info("getMinInvoiceDate minProfomoDate is before minInvoiceDate");
+				
 				int currentMonthValue =currentDate.getMonth().getValue();
 				int minInvoiceMonthValue = minInvoiceDate.getMonth().getValue();
 				
 				if( currentMonthValue ==  minInvoiceMonthValue){ // Month Value starts from 1 
-					return minInvoiceDate.minusDays(1);
+					return minInvoiceDate;
 				}
 				else if (minInvoiceMonthValue == (currentMonthValue-1)  )
 				{
 					if(currentDate.getDayOfMonth()<5){ //first 5 days of the month
-						return minInvoiceDate.minusDays(1);
+						return minInvoiceDate;
 					}
 					else
 					{
-						return currentDate.withDayOfMonth(1).minusDays(1);
+						return currentDate.withDayOfMonth(1);
 					}
 				}
 				else
 				{
-					return currentDate.withDayOfMonth(1).minusDays(1);
+					return currentDate.withDayOfMonth(1);
 				}
 				
 			}
 			else{
-				return minProfomoDate.minusDays(1);
+				return minProfomoDate;
 			}
 			
 			
@@ -298,7 +311,7 @@ public LocalDate getMinInvoiceDate(Long companyId){
 			log.error("Error in getMinInvoiceDate {}", e);
 		}
 		
-		return minInvoiceDate.minusDays(1);
+		return minInvoiceDate;
 		
 	}
 
