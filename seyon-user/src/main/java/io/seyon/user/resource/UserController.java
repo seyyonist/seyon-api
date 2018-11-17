@@ -36,8 +36,9 @@ public class UserController {
 			@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
 		if (companyId != null)
 			userInfo.setCompanyId(companyId);
-		
-		return userService.createUser(userInfo);
+		UserDetails userDetails = new UserDetails();
+		userDetails.setUserInfo(userInfo);
+		return userService.createUser(userDetails);
 	}
 
 	@RequestMapping(method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)

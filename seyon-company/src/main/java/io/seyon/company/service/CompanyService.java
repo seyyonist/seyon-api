@@ -1,5 +1,7 @@
 package io.seyon.company.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -31,7 +33,7 @@ public class CompanyService {
 
 	@Transactional
 	public SeyonResponse createCompanyAndUser(CompanyModel companyModel) {
-
+		
 		SeyonResponse seyonResponse = null;
 		UserDetails userDetails = new UserDetails();
 		try {
@@ -39,7 +41,12 @@ public class CompanyService {
 			 * Step 1- Save company and get companyId Step 2 - Save user details
 			 * to user service
 			 */
-			Company company = companyRepository.save(companyModel.getCompany());
+			Company newCompany=companyModel.getCompany();
+			if(getCompany(newCompany.getCompanyName(),newCompany.getPrimaryEmail())>0) {
+				throw new Exception("Company Already registered");
+			}
+				
+			Company company = companyRepository.save(newCompany);
 			User user = companyModel.getUserInfo();
 			user.setActive(true);
 			user.setName(company.getOwnerName());
@@ -51,7 +58,7 @@ public class CompanyService {
 			BeanUtils.copyProperties(user, userInfo);
 			userDetails.setUserInfo(userInfo);
 			userDetails.setUserRole(userRole);
-			userService.createUser(userInfo);
+			userService.createUser(userDetails);
 			seyonResponse = new SeyonResponse(0, company.getCompanyId().toString());
 		} catch (Exception e) {
 			log.error("Error in createCompanyAndUser", e);
@@ -85,8 +92,20 @@ public class CompanyService {
 			company = companyRepository.findById(companyId).get();
 
 		} catch (Exception e) {
-			log.error("Error in updateCompany", e);
+			log.error("Error in getCompany", e);
 
+		}
+
+		return company;
+	}
+	
+	private Integer getCompany(String companyName,String email) {
+		
+		Integer company = 0;
+		try {
+			company = companyRepository.countByCompanyNameAndPrimaryEmail(companyName,email);
+		} catch (Exception e) {
+			log.error("Error in getCompany", e);
 		}
 
 		return company;
