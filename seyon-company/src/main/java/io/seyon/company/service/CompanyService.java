@@ -85,7 +85,7 @@ public class CompanyService {
 			company = companyRepository.findById(companyId).get();
 
 		} catch (Exception e) {
-			log.error("Error in updateCompany", e);
+			log.error("Error in getCompany", e);
 
 		}
 
