@@ -39,7 +39,7 @@ public class ExceptionControllerAdvice {
 
 		} else {
 			String msg = ex.getLocalizedMessage();
-			exceptionMessage.setMessage(msg);
+			exceptionMessage.setMessage("Service Unavailable");
 		}
 		log.debug("Error Response Sent back {}",exceptionMessage);
 		log.error("Exception Details {}",ex);

@@ -41,8 +41,10 @@ public class UserService {
 	private UserRoleRepository userRoleRepository;
 
 	@Transactional
-	public SeyonResponse createUser(UserInfo userInfo) {
+	public SeyonResponse createUser(UserDetails userdetails) {
 		
+		
+		UserInfo userInfo= userdetails.getUserInfo();
 		String password = userInfo.getPassword();
 		log.debug("Entry createUser");
 		SeyonResponse seyonResponse = null;
@@ -64,8 +66,10 @@ public class UserService {
 				
 			}
 			
-			
-			//userRoleRepository.save(userDetails.getUserRole());
+			UserRole userRole=userdetails.getUserRole();
+			if(null!=userRole) {
+				userRoleRepository.save(userRole);
+			}
 			seyonResponse = new SeyonResponse(0, "success");
 		} catch (Exception e) {
 			log.error("Error in createUser", e);
@@ -180,6 +184,10 @@ public class UserService {
 		}
 
 		return seyonResponse;
+	}
+	
+	private boolean isUserAlreadyRegistered(UserInfo userInfo) {
+		return false;
 	}
 	
 	public List<UserInfo> getUsers(Long companyId){
