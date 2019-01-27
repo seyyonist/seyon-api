@@ -12,6 +12,17 @@ public class SeyonApiProperties {
 
 	List<String> authExcludeUrl= new ArrayList<>();
 	String restrictIp;
+	String appId;
+	
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+
+	
 	
 	public List<String> getAuthExcludeUrl() {
 		return authExcludeUrl;
