@@ -48,6 +48,12 @@ public class VoucherService {
 	}
 	
 	
+	public void deleteVoucher(Long id) {
+		log.info("Deleting the voucher");
+		voucherRepository.deleteById(id);
+		return;
+	}
+	
 	public Iterable<Voucher> getVoucherist(Integer pageNumber, Long companyId, String voucherId,  String vendorName,
 			Date voucherStDate, Date voucherEndDate) {
 
