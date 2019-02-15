@@ -3,6 +3,7 @@ package io.seyon.voucher.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -48,6 +49,12 @@ public class VoucherService {
 	}
 	
 	
+	public void deleteVoucher(Long id) {
+		log.info("Deleting the voucher");
+		voucherRepository.deleteById(id);
+		return;
+	}
+	
 	public Iterable<Voucher> getVoucherist(Integer pageNumber, Long companyId, String voucherId,  String vendorName,
 			Date voucherStDate, Date voucherEndDate) {
 
@@ -75,6 +82,12 @@ public class VoucherService {
 		};
 
 		return voucherRepository.findAll(spec, page);
+	}
+
+
+	public Voucher getVoucherist(Long id) {
+		Optional<Voucher> opVoucher=voucherRepository.findById(id);
+		return opVoucher.orElse(null);
 	}
 	
 
