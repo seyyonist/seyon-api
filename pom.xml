@@ -12,6 +12,7 @@
         <module>seyon-company</module>
         <module>seyon-user</module>
         <module>seyon-client</module>
+        <module>seyon-vendor</module>
 		<module>seyon-invoice</module>
 		<module>seyon-voucher</module>
 		<module>seyon</module>
