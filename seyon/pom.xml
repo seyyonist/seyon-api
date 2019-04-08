@@ -43,6 +43,11 @@
 		</dependency>
 		<dependency>
 			<groupId>io.seyon</groupId>
+			<artifactId>seyon-vendor</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.seyon</groupId>
 			<artifactId>seyon-invoice</artifactId>
 			<version>${project.version}</version>
 		</dependency>
