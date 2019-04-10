@@ -25,69 +25,45 @@ public class Voucher implements Serializable {
 	private String voucherId;
 	
 	@Column
-	private String vendorName;
+	private Long vendorId;
+	
 	
 	@Column
-	private String vendorAddressLine1;
-	
-	@Column
-	private String vendorAddressLine2;
-	
-	@Column
-	private String vendorAddressCity;
-	
-	@Column
-	private String vendorAddressState;
-	
-	@Column
-	private String vendorAddressPincode;
-
-	@Column
-	private String vendorGst;
-	
-	@Column
-	private String vendorPanNo;
-
-
-	@Column
-	private String vendorBankAcctNo;
-	
-	@Column
-	private String vendorBankName;
-	
-	@Column
-	private String vendorBankBranch;
-
-	@Column
-	private String vendorBankBranchIfscCode;
-	
-	@Column
-	private String headOfAccount;
+	private String headOfAccount;// head of account
 	
 	
 	@Column
 	private String particulars; // Field for description or Narration
 
 	@Column
-	private Double totalAmount; // Gross Amount
+	private Double cgstAmount; // cgst Amount
 	
 	@Column
-	private Double cgstPercent;
+	private Double sgstAmount;// sgst Amount
 	
 	@Column
-	private Double sgstPercent;
+	private Double igstAmount;// igst Amount
 	
 	@Column
-	private Double igstPercent;
-	
-	@Column
-	private Double netAmount; // Net Amount
+	private Double netAmount;// Net Amount
 	
 	@Column
 	private Double tdsPercent; // TDS Percent
 	
 	@Column
-	private Double netPayable; // Net payable
+	private Double tdsAmount; // TDS Amount
+	
+	@Column
+	private Double others; // Other Amount
+	
+	@Column
+	private Double totalNetAmount; // Total Net Amount
+	
+	@Column
+	private Double totalAmount; // Total Amount
+	
+	@Column
+	private String deductionRemark; //Deductions remarks
 	
 	@Column
 	private Date voucherDate;
@@ -122,61 +98,12 @@ public class Voucher implements Serializable {
 		this.voucherId = voucherId;
 	}
 
-	public String getVendorName() {
-		return vendorName;
+	public Long getVendorId() {
+		return vendorId;
 	}
 
-	public void setVendorName(String vendorName) {
-		this.vendorName = vendorName;
-	}
-
-	
-	public String getVendorGst() {
-		return vendorGst;
-	}
-
-	public void setVendorGst(String vendorGst) {
-		this.vendorGst = vendorGst;
-	}
-
-	public String getVendorPanNo() {
-		return vendorPanNo;
-	}
-
-	public void setVendorPanNo(String vendorPanNo) {
-		this.vendorPanNo = vendorPanNo;
-	}
-
-	public String getVendorBankAcctNo() {
-		return vendorBankAcctNo;
-	}
-
-	public void setVendorBankAcctNo(String vendorBankAcctNo) {
-		this.vendorBankAcctNo = vendorBankAcctNo;
-	}
-
-	public String getVendorBankName() {
-		return vendorBankName;
-	}
-
-	public void setVendorBankName(String vendorBankName) {
-		this.vendorBankName = vendorBankName;
-	}
-
-	public String getVendorBankBranch() {
-		return vendorBankBranch;
-	}
-
-	public void setVendorBankBranch(String vendorBankBranch) {
-		this.vendorBankBranch = vendorBankBranch;
-	}
-
-	public String getVendorBankBranchIfscCode() {
-		return vendorBankBranchIfscCode;
-	}
-
-	public void setVendorBankBranchIfscCode(String vendorBankBranchIfscCode) {
-		this.vendorBankBranchIfscCode = vendorBankBranchIfscCode;
+	public void setVendorId(Long vendorId) {
+		this.vendorId = vendorId;
 	}
 
 	public String getHeadOfAccount() {
@@ -195,36 +122,28 @@ public class Voucher implements Serializable {
 		this.particulars = particulars;
 	}
 
-	public Double getTotalAmount() {
-		return totalAmount;
+	public Double getCgstAmount() {
+		return cgstAmount;
 	}
 
-	public void setTotalAmount(Double totalAmount) {
-		this.totalAmount = totalAmount;
+	public void setCgstAmount(Double cgstAmount) {
+		this.cgstAmount = cgstAmount;
 	}
 
-	public Double getCgstPercent() {
-		return cgstPercent;
+	public Double getSgstAmount() {
+		return sgstAmount;
 	}
 
-	public void setCgstPercent(Double cgstPercent) {
-		this.cgstPercent = cgstPercent;
+	public void setSgstAmount(Double sgstAmount) {
+		this.sgstAmount = sgstAmount;
 	}
 
-	public Double getSgstPercent() {
-		return sgstPercent;
+	public Double getIgstAmount() {
+		return igstAmount;
 	}
 
-	public void setSgstPercent(Double sgstPercent) {
-		this.sgstPercent = sgstPercent;
-	}
-
-	public Double getIgstPercent() {
-		return igstPercent;
-	}
-
-	public void setIgstPercent(Double igstPercent) {
-		this.igstPercent = igstPercent;
+	public void setIgstAmount(Double igstAmount) {
+		this.igstAmount = igstAmount;
 	}
 
 	public Double getNetAmount() {
@@ -243,12 +162,44 @@ public class Voucher implements Serializable {
 		this.tdsPercent = tdsPercent;
 	}
 
-	public Double getNetPayable() {
-		return netPayable;
+	public Double getTdsAmount() {
+		return tdsAmount;
 	}
 
-	public void setNetPayable(Double netPayable) {
-		this.netPayable = netPayable;
+	public void setTdsAmount(Double tdsAmount) {
+		this.tdsAmount = tdsAmount;
+	}
+
+	public Double getOthers() {
+		return others;
+	}
+
+	public void setOthers(Double others) {
+		this.others = others;
+	}
+
+	public Double getTotalNetAmount() {
+		return totalNetAmount;
+	}
+
+	public void setTotalNetAmount(Double totalNetAmount) {
+		this.totalNetAmount = totalNetAmount;
+	}
+
+	public Double getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(Double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public String getDeductionRemark() {
+		return deductionRemark;
+	}
+
+	public void setDeductionRemark(String deductionRemark) {
+		this.deductionRemark = deductionRemark;
 	}
 
 	public Date getVoucherDate() {
@@ -275,64 +226,16 @@ public class Voucher implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	public String getVendorAddressLine1() {
-		return vendorAddressLine1;
-	}
-
-	public void setVendorAddressLine1(String vendorAddressLine1) {
-		this.vendorAddressLine1 = vendorAddressLine1;
-	}
-
-	public String getVendorAddressLine2() {
-		return vendorAddressLine2;
-	}
-
-	public void setVendorAddressLine2(String vendorAddressLine2) {
-		this.vendorAddressLine2 = vendorAddressLine2;
-	}
-
-	public String getVendorAddressCity() {
-		return vendorAddressCity;
-	}
-
-	public void setVendorAddressCity(String vendorAddressCity) {
-		this.vendorAddressCity = vendorAddressCity;
-	}
-
-	public String getVendorAddressState() {
-		return vendorAddressState;
-	}
-
-	public void setVendorAddressState(String vendorAddressState) {
-		this.vendorAddressState = vendorAddressState;
-	}
-
-	public String getVendorAddressPincode() {
-		return vendorAddressPincode;
-	}
-
-	public void setVendorAddressPincode(String vendorAddressPincode) {
-		this.vendorAddressPincode = vendorAddressPincode;
-	}
-
 	@Override
 	public String toString() {
-		return "Voucher [id=" + id + ", companyId=" + companyId + ", voucherId=" + voucherId + ", vendorName="
-				+ vendorName + ", vendorAddressLine1=" + vendorAddressLine1 + ", vendorAddressLine2="
-				+ vendorAddressLine2 + ", vendorAddressCity=" + vendorAddressCity + ", vendorAddressState="
-				+ vendorAddressState + ", vendorAddressPincode=" + vendorAddressPincode + ", vendorGst=" + vendorGst
-				+ ", vendorPanNo=" + vendorPanNo + ", vendorBankAcctNo=" + vendorBankAcctNo + ", vendorBankName="
-				+ vendorBankName + ", vendorBankBranch=" + vendorBankBranch + ", vendorBankBranchIfscCode="
-				+ vendorBankBranchIfscCode + ", headOfAccount=" + headOfAccount + ", particulars=" + particulars
-				+ ", totalAmount=" + totalAmount + ", cgstPercent=" + cgstPercent + ", sgstPercent=" + sgstPercent
-				+ ", igstPercent=" + igstPercent + ", netAmount=" + netAmount + ", tdsPercent=" + tdsPercent
-				+ ", netPayable=" + netPayable + ", voucherDate=" + voucherDate + ", createdBy=" + createdBy
-				+ ", createdDate=" + createdDate + "]";
+		return "Voucher [id=" + id + ", companyId=" + companyId + ", voucherId=" + voucherId + ", vendorId=" + vendorId
+				+ ", headOfAccount=" + headOfAccount + ", particulars=" + particulars + ", cgstAmount=" + cgstAmount
+				+ ", sgstAmount=" + sgstAmount + ", igstAmount=" + igstAmount + ", netAmount=" + netAmount
+				+ ", tdsPercent=" + tdsPercent + ", tdsAmount=" + tdsAmount + ", others=" + others + ", totalNetAmount="
+				+ totalNetAmount + ", totalAmount=" + totalAmount + ", deductionRemark=" + deductionRemark
+				+ ", voucherDate=" + voucherDate + ", createdBy=" + createdBy + ", createdDate=" + createdDate + "]";
 	}
 
-
-
-	
 	
 
 }
