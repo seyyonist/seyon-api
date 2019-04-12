@@ -57,6 +57,9 @@ public class Voucher implements Serializable {
 	private Double others; // Other Amount
 	
 	@Column
+	private Double reimbursement; // Reimbursement
+	
+	@Column
 	private Double totalNetAmount; // Total Net Amount
 	
 	@Column
@@ -67,6 +70,9 @@ public class Voucher implements Serializable {
 	
 	@Column
 	private Date voucherDate;
+	
+	@Column
+	private Date invoiceDate;
 
 	@Column
 	private String createdBy;
@@ -178,6 +184,14 @@ public class Voucher implements Serializable {
 		this.others = others;
 	}
 
+	public Double getReimbursement() {
+		return reimbursement;
+	}
+
+	public void setReimbursement(Double reimbursement) {
+		this.reimbursement = reimbursement;
+	}
+
 	public Double getTotalNetAmount() {
 		return totalNetAmount;
 	}
@@ -210,6 +224,14 @@ public class Voucher implements Serializable {
 		this.voucherDate = voucherDate;
 	}
 
+	public Date getInvoiceDate() {
+		return invoiceDate;
+	}
+
+	public void setInvoiceDate(Date invoiceDate) {
+		this.invoiceDate = invoiceDate;
+	}
+
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -231,9 +253,10 @@ public class Voucher implements Serializable {
 		return "Voucher [id=" + id + ", companyId=" + companyId + ", voucherId=" + voucherId + ", vendorId=" + vendorId
 				+ ", headOfAccount=" + headOfAccount + ", particulars=" + particulars + ", cgstAmount=" + cgstAmount
 				+ ", sgstAmount=" + sgstAmount + ", igstAmount=" + igstAmount + ", netAmount=" + netAmount
-				+ ", tdsPercent=" + tdsPercent + ", tdsAmount=" + tdsAmount + ", others=" + others + ", totalNetAmount="
-				+ totalNetAmount + ", totalAmount=" + totalAmount + ", deductionRemark=" + deductionRemark
-				+ ", voucherDate=" + voucherDate + ", createdBy=" + createdBy + ", createdDate=" + createdDate + "]";
+				+ ", tdsPercent=" + tdsPercent + ", tdsAmount=" + tdsAmount + ", others=" + others + ", reimbursement="
+				+ reimbursement + ", totalNetAmount=" + totalNetAmount + ", totalAmount=" + totalAmount
+				+ ", deductionRemark=" + deductionRemark + ", voucherDate=" + voucherDate + ", invoiceDate="
+				+ invoiceDate + ", createdBy=" + createdBy + ", createdDate=" + createdDate + "]";
 	}
 
 	

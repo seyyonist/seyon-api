@@ -38,14 +38,14 @@ public class VoucherService {
 
 
 	@Transactional
-	public Long saveVoucher(Voucher voucher) {
+	public Voucher saveVoucher(Voucher voucher) {
 		log.info("Saving the voucher");
 		if (null == voucher) {
 			return null;
 		}
 		voucher = voucherRepository.save(voucher);
-		Long id = voucher.getId();
-		return id;
+		//Long id = voucher.getId();
+		return voucher;
 	}
 	
 	

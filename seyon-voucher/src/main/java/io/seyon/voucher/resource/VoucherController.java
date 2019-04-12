@@ -30,16 +30,16 @@ public class VoucherController {
 
 
 	@PostMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE , path = "/saveVoucher")
-	public Long saveVoucher(@RequestBody Voucher voucher,
+	public Voucher saveVoucher(@RequestBody Voucher voucher,
 			@RequestHeader(name = "x-company-id", required = true) Long companyId,
 			@RequestHeader(name = "x-user-name", required = true) String userId) {
 		log.info("Voucher save request {}", voucher);
 		voucher.setCreatedBy(userId);
 		voucher.setCreatedDate(new Date());
 		voucher.setCompanyId(companyId);
-		Long id = voucherService.saveVoucher(voucher);
-		log.info("Voucher save response{}", id);
-		return id;
+		voucher = voucherService.saveVoucher(voucher);
+		//log.info("Voucher save response{}", id);
+		return voucher;
 	}
 	
 	@PostMapping(path = "/search", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
