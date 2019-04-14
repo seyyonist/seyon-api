@@ -97,6 +97,17 @@ public class Company {
 	
 	@Column
 	String title;
+	
+	@Column
+	String status;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String getCompanyName() {
 		return companyName;
@@ -316,9 +327,16 @@ public class Company {
 
 	@Override
 	public String toString() {
-		return "Company [companyId=" + companyId + ", companyName=" + companyName + ", addressLine1=" + addressLine1
-				+ ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", pinCode=" + pinCode
-				+ ", tanNo=" + tanNo + ", gstNo=" + gstNo + ", panNo=" + panNo + ", logo= **** ]";
+		return "Company [companyId=" + companyId + ", companyName=" + companyName + ", ownerName=" + ownerName
+				+ ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city + ", state="
+				+ state + ", pinCode=" + pinCode + ", phonePrimary=" + phonePrimary + ", phoneSecondary="
+				+ phoneSecondary + ", faxNo=" + faxNo + ", tanNo=" + tanNo + ", gstNo=" + gstNo + ", panNo=" + panNo
+				+ ", serviceTaxRegNo=" + serviceTaxRegNo + ", accountingType=" + accountingType + ", logoImg=" + logoImg
+				+ ", signatureImg=" + signatureImg + ", primaryEmail=" + primaryEmail + ", secondaryEmail="
+				+ secondaryEmail + ", bankName=" + bankName + ", branch=" + branch + ", branchIFSCCode="
+				+ branchIFSCCode + ", accountNo=" + accountNo + ", accountName=" + accountName + ", accountType="
+				+ accountType + ", swiftCode=" + swiftCode + ", termsConditions=" + termsConditions + ", title=" + title
+				+ ", status=" + status + "]";
 	}
 
 	public String getTermsConditions() {
@@ -336,7 +354,5 @@ public class Company {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-	// TODO: Need for header and footer
 
 }
