@@ -1,0 +1,1 @@
+insert into COMPANY (company_id,COMPANY_NAME,OWNER_NAME  ) values('1000','From AutoLoad','System');

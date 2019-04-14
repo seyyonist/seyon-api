@@ -33,9 +33,9 @@ public class ClientEntity implements Serializable {
 	String email;
 	
 
-	@Size(min = 3, message = "Please enter the Company Type")
-	@Column(nullable=true)
-	String companyType;
+	@Size(min = 3, message = "Please enter the COmpany Status")
+	@Column(nullable=true,name = "STATUS")
+	String status;
 	
 	@Size(min = 3, message = "Please enter the Address")
 	@Column(nullable=false)
@@ -239,12 +239,12 @@ public class ClientEntity implements Serializable {
 		this.contactPerson = contactPerson;
 	}
 
-	public String getCompanyType() {
-		return companyType;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setCompanyType(String companyType) {
-		this.companyType = companyType;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 
@@ -315,7 +315,7 @@ public class ClientEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "ClientEntity [id=" + id + ", name=" + name + ", contactPerson=" + contactPerson + ", email=" + email
-				+ ", companyType=" + companyType + ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2 + ", city="
+				+ ", companyType=" + status + ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2 + ", city="
 				+ city + ", state=" + state + ", pincode=" + pincode + ", phonePrimary=" + phonePrimary
 				+ ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin
 				+ ", ServiceTaxRegNo=" + ServiceTaxRegNo + ", companyId=" + companyId + ", active=" + active
