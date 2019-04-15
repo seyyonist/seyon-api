@@ -79,6 +79,13 @@ public class Voucher implements Serializable {
 
 	@Column
 	private Date createdDate;
+	
+	@Column
+	private String updatedBy;
+	
+
+	@Column
+	private Date updatedDate;
 
 	public Long getId() {
 		return id;
@@ -248,6 +255,22 @@ public class Voucher implements Serializable {
 		this.createdDate = createdDate;
 	}
 
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Voucher [id=" + id + ", companyId=" + companyId + ", voucherId=" + voucherId + ", vendorId=" + vendorId
@@ -256,8 +279,11 @@ public class Voucher implements Serializable {
 				+ ", tdsPercent=" + tdsPercent + ", tdsAmount=" + tdsAmount + ", others=" + others + ", reimbursement="
 				+ reimbursement + ", totalNetAmount=" + totalNetAmount + ", totalAmount=" + totalAmount
 				+ ", deductionRemark=" + deductionRemark + ", voucherDate=" + voucherDate + ", invoiceDate="
-				+ invoiceDate + ", createdBy=" + createdBy + ", createdDate=" + createdDate + "]";
+				+ invoiceDate + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", updatedBy=" + updatedBy
+				+ ", updatedDate=" + updatedDate + "]";
 	}
+
+	
 
 	
 

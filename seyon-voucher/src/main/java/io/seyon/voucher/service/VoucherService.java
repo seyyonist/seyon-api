@@ -1,6 +1,9 @@
 package io.seyon.voucher.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -38,11 +41,25 @@ public class VoucherService {
 
 
 	@Transactional
-	public Voucher saveVoucher(Voucher voucher) {
+	public Voucher saveVoucher(Voucher voucher,Long companyId, String userId) {
 		log.info("Saving the voucher");
 		if (null == voucher) {
 			return null;
 		}
+		
+		if(voucher.getId()!=null)//update
+		{
+			voucher.setUpdatedBy(userId);
+			voucher.setUpdatedDate(new Date());
+			
+		}
+		else{ //new one
+			voucher.setVoucherId(generateUniqueVoucherID());
+			voucher.setCreatedBy(userId);
+			voucher.setCreatedDate(new Date());
+			voucher.setCompanyId(companyId);
+		}
+		
 		voucher = voucherRepository.save(voucher);
 		//Long id = voucher.getId();
 		return voucher;
@@ -88,6 +105,16 @@ public class VoucherService {
 	public Voucher getVoucherist(Long id) {
 		Optional<Voucher> opVoucher=voucherRepository.findById(id);
 		return opVoucher.orElse(null);
+	}
+	
+	public String  generateUniqueVoucherID(){
+	    DateFormat dateFormat = new SimpleDateFormat("yyddmm");
+	    Date date = new Date();
+	    String dt=String.valueOf(dateFormat.format(date));
+	    SimpleDateFormat time = new SimpleDateFormat("HHmm");
+	    String tm= String.valueOf(time.format(new Date()));//time in 24 hour format
+	    String id= "V"+dt+tm;
+	    return id;   
 	}
 	
 
