@@ -55,6 +55,7 @@ public class VoucherService {
 		}
 		else{ //new one
 			voucher.setVoucherId(generateUniqueVoucherID());
+			voucher.setVoucherDate(new Date());
 			voucher.setCreatedBy(userId);
 			voucher.setCreatedDate(new Date());
 			voucher.setCompanyId(companyId);
