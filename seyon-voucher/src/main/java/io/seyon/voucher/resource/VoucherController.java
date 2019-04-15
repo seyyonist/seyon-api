@@ -1,7 +1,5 @@
 package io.seyon.voucher.resource;
 
-import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,20 +26,17 @@ public class VoucherController {
 
 	private static final Logger log = LoggerFactory.getLogger(VoucherController.class);
 
-
-	@PostMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE , path = "/saveVoucher")
-	public Long saveVoucher(@RequestBody Voucher voucher,
+	@PostMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE, path = "/saveVoucher")
+	public Voucher saveVoucher(@RequestBody Voucher voucher,
 			@RequestHeader(name = "x-company-id", required = true) Long companyId,
 			@RequestHeader(name = "x-user-name", required = true) String userId) {
 		log.info("Voucher save request {}", voucher);
-		voucher.setCreatedBy(userId);
-		voucher.setCreatedDate(new Date());
-		voucher.setCompanyId(companyId);
-		Long id = voucherService.saveVoucher(voucher);
-		log.info("Voucher save response{}", id);
-		return id;
+
+		voucher = voucherService.saveVoucher(voucher, companyId, userId);
+		// log.info("Voucher save response{}", id);
+		return voucher;
 	}
-	
+
 	@PostMapping(path = "/search", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
 	public Iterable<Voucher> searchInvoice(@RequestParam(required = false) Integer pageNumber,
 			@RequestHeader(name = "x-company-id", required = true) Long companyId,
@@ -60,24 +55,24 @@ public class VoucherController {
 			throw new IllegalArgumentException("End date is null");
 		if (null != voucherSearch.getEndDate() && null == voucherSearch.getStartDate())
 			throw new IllegalArgumentException("Start date is null");
-		
 
-		if(null!=voucherSearch.getEndDate() && null!=voucherSearch.getStartDate() && !voucherSearch.getStartDate().equals(voucherSearch.getEndDate()) 
+		if (null != voucherSearch.getEndDate() && null != voucherSearch.getStartDate()
+				&& !voucherSearch.getStartDate().equals(voucherSearch.getEndDate())
 				&& voucherSearch.getEndDate().before(voucherSearch.getStartDate())) {
 			throw new IllegalArgumentException("End date is greater than start date");
 		}
 
-		return voucherService.getVoucherist(pageNumber, companyId, voucherSearch.getVoucherId(),  voucherSearch.getVendorName(),
-				voucherSearch.getStartDate(), voucherSearch.getEndDate());
+		return voucherService.getVoucherist(pageNumber, companyId, voucherSearch.getVoucherId(),
+				voucherSearch.getVendorName(), voucherSearch.getStartDate(), voucherSearch.getEndDate());
 
 	}
-	
-	@DeleteMapping( produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+
+	@DeleteMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
 	public String deleteVoucher(@RequestParam Long id) {
 		voucherService.deleteVoucher(id);
 		return "Successfully Deleted";
 	}
-	
+
 	@GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
 	public Voucher getVoucher(@RequestParam Long id) {
 		return voucherService.getVoucherist(id);
