@@ -29,41 +29,63 @@ public class Voucher implements Serializable {
 	
 	
 	@Column
-	private String headOfAccount;
+	private String headOfAccount;// head of account
 	
 	
 	@Column
 	private String particulars; // Field for description or Narration
 
 	@Column
-	private Double totalAmount; // Gross Amount
+	private Double cgstAmount; // cgst Amount
 	
 	@Column
-	private Double cgstPercent;
+	private Double sgstAmount;// sgst Amount
 	
 	@Column
-	private Double sgstPercent;
+	private Double igstAmount;// igst Amount
 	
 	@Column
-	private Double igstPercent;
-	
-	@Column
-	private Double netAmount; // Net Amount
+	private Double netAmount;// Net Amount
 	
 	@Column
 	private Double tdsPercent; // TDS Percent
 	
 	@Column
-	private Double netPayable; // Net payable
+	private Double tdsAmount; // TDS Amount
+	
+	@Column
+	private Double others; // Other Amount
+	
+	@Column
+	private Double reimbursement; // Reimbursement
+	
+	@Column
+	private Double totalNetAmount; // Total Net Amount
+	
+	@Column
+	private Double totalAmount; // Total Amount
+	
+	@Column
+	private String deductionRemark; //Deductions remarks
 	
 	@Column
 	private Date voucherDate;
+	
+	@Column
+	private Date invoiceDate;
 
 	@Column
 	private String createdBy;
 
 	@Column
 	private Date createdDate;
+	
+	@Column
+	private String updatedBy;
+	
+
+	@Column
+	private Date updatedDate;
 
 	public Long getId() {
 		return id;
@@ -89,6 +111,13 @@ public class Voucher implements Serializable {
 		this.voucherId = voucherId;
 	}
 
+	public Long getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(Long vendorId) {
+		this.vendorId = vendorId;
+	}
 
 	public String getHeadOfAccount() {
 		return headOfAccount;
@@ -106,36 +135,28 @@ public class Voucher implements Serializable {
 		this.particulars = particulars;
 	}
 
-	public Double getTotalAmount() {
-		return totalAmount;
+	public Double getCgstAmount() {
+		return cgstAmount;
 	}
 
-	public void setTotalAmount(Double totalAmount) {
-		this.totalAmount = totalAmount;
+	public void setCgstAmount(Double cgstAmount) {
+		this.cgstAmount = cgstAmount;
 	}
 
-	public Double getCgstPercent() {
-		return cgstPercent;
+	public Double getSgstAmount() {
+		return sgstAmount;
 	}
 
-	public void setCgstPercent(Double cgstPercent) {
-		this.cgstPercent = cgstPercent;
+	public void setSgstAmount(Double sgstAmount) {
+		this.sgstAmount = sgstAmount;
 	}
 
-	public Double getSgstPercent() {
-		return sgstPercent;
+	public Double getIgstAmount() {
+		return igstAmount;
 	}
 
-	public void setSgstPercent(Double sgstPercent) {
-		this.sgstPercent = sgstPercent;
-	}
-
-	public Double getIgstPercent() {
-		return igstPercent;
-	}
-
-	public void setIgstPercent(Double igstPercent) {
-		this.igstPercent = igstPercent;
+	public void setIgstAmount(Double igstAmount) {
+		this.igstAmount = igstAmount;
 	}
 
 	public Double getNetAmount() {
@@ -154,12 +175,52 @@ public class Voucher implements Serializable {
 		this.tdsPercent = tdsPercent;
 	}
 
-	public Double getNetPayable() {
-		return netPayable;
+	public Double getTdsAmount() {
+		return tdsAmount;
 	}
 
-	public void setNetPayable(Double netPayable) {
-		this.netPayable = netPayable;
+	public void setTdsAmount(Double tdsAmount) {
+		this.tdsAmount = tdsAmount;
+	}
+
+	public Double getOthers() {
+		return others;
+	}
+
+	public void setOthers(Double others) {
+		this.others = others;
+	}
+
+	public Double getReimbursement() {
+		return reimbursement;
+	}
+
+	public void setReimbursement(Double reimbursement) {
+		this.reimbursement = reimbursement;
+	}
+
+	public Double getTotalNetAmount() {
+		return totalNetAmount;
+	}
+
+	public void setTotalNetAmount(Double totalNetAmount) {
+		this.totalNetAmount = totalNetAmount;
+	}
+
+	public Double getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(Double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public String getDeductionRemark() {
+		return deductionRemark;
+	}
+
+	public void setDeductionRemark(String deductionRemark) {
+		this.deductionRemark = deductionRemark;
 	}
 
 	public Date getVoucherDate() {
@@ -168,6 +229,14 @@ public class Voucher implements Serializable {
 
 	public void setVoucherDate(Date voucherDate) {
 		this.voucherDate = voucherDate;
+	}
+
+	public Date getInvoiceDate() {
+		return invoiceDate;
+	}
+
+	public void setInvoiceDate(Date invoiceDate) {
+		this.invoiceDate = invoiceDate;
 	}
 
 	public String getCreatedBy() {
@@ -186,27 +255,36 @@ public class Voucher implements Serializable {
 		this.createdDate = createdDate;
 	}
 
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
 
 	@Override
 	public String toString() {
 		return "Voucher [id=" + id + ", companyId=" + companyId + ", voucherId=" + voucherId + ", vendorId=" + vendorId
-				+ ", headOfAccount=" + headOfAccount + ", particulars=" + particulars + ", totalAmount=" + totalAmount
-				+ ", cgstPercent=" + cgstPercent + ", sgstPercent=" + sgstPercent + ", igstPercent=" + igstPercent
-				+ ", netAmount=" + netAmount + ", tdsPercent=" + tdsPercent + ", netPayable=" + netPayable
-				+ ", voucherDate=" + voucherDate + ", createdBy=" + createdBy + ", createdDate=" + createdDate + "]";
+				+ ", headOfAccount=" + headOfAccount + ", particulars=" + particulars + ", cgstAmount=" + cgstAmount
+				+ ", sgstAmount=" + sgstAmount + ", igstAmount=" + igstAmount + ", netAmount=" + netAmount
+				+ ", tdsPercent=" + tdsPercent + ", tdsAmount=" + tdsAmount + ", others=" + others + ", reimbursement="
+				+ reimbursement + ", totalNetAmount=" + totalNetAmount + ", totalAmount=" + totalAmount
+				+ ", deductionRemark=" + deductionRemark + ", voucherDate=" + voucherDate + ", invoiceDate="
+				+ invoiceDate + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", updatedBy=" + updatedBy
+				+ ", updatedDate=" + updatedDate + "]";
 	}
-
-	public Long getVendorId() {
-		return vendorId;
-	}
-
-	public void setVendorId(Long vendorId) {
-		this.vendorId = vendorId;
-	}
-
-
 
 	
+
 	
 
 }
