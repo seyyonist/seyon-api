@@ -49,7 +49,7 @@ public class VoucherController {
 		log.info(
 				"Invoice Search Data pageNumber {},companyId {},"
 						+ "voucherId {},vendorName {}, voucher Start Date {},voucher end date {}",
-				pageNumber, companyId, voucherSearch.getVoucherId(), voucherSearch.getVendorName(),
+				pageNumber, companyId, voucherSearch.getVoucherId(), voucherSearch.getVendorId(),
 				voucherSearch.getStartDate(), voucherSearch.getEndDate());
 
 		if (null == pageNumber)
@@ -67,7 +67,7 @@ public class VoucherController {
 			throw new IllegalArgumentException("End date is greater than start date");
 		}
 
-		return voucherService.getVoucherist(pageNumber, companyId, voucherSearch.getVoucherId(),  voucherSearch.getVendorName(),
+		return voucherService.getVoucherist(pageNumber, companyId, voucherSearch.getVoucherId(),  voucherSearch.getVendorId(),
 				voucherSearch.getStartDate(), voucherSearch.getEndDate());
 
 	}

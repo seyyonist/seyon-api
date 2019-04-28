@@ -25,41 +25,8 @@ public class Voucher implements Serializable {
 	private String voucherId;
 	
 	@Column
-	private String vendorName;
+	private Long vendorId;
 	
-	@Column
-	private String vendorAddressLine1;
-	
-	@Column
-	private String vendorAddressLine2;
-	
-	@Column
-	private String vendorAddressCity;
-	
-	@Column
-	private String vendorAddressState;
-	
-	@Column
-	private String vendorAddressPincode;
-
-	@Column
-	private String vendorGst;
-	
-	@Column
-	private String vendorPanNo;
-
-
-	@Column
-	private String vendorBankAcctNo;
-	
-	@Column
-	private String vendorBankName;
-	
-	@Column
-	private String vendorBankBranch;
-
-	@Column
-	private String vendorBankBranchIfscCode;
 	
 	@Column
 	private String headOfAccount;
@@ -122,62 +89,6 @@ public class Voucher implements Serializable {
 		this.voucherId = voucherId;
 	}
 
-	public String getVendorName() {
-		return vendorName;
-	}
-
-	public void setVendorName(String vendorName) {
-		this.vendorName = vendorName;
-	}
-
-	
-	public String getVendorGst() {
-		return vendorGst;
-	}
-
-	public void setVendorGst(String vendorGst) {
-		this.vendorGst = vendorGst;
-	}
-
-	public String getVendorPanNo() {
-		return vendorPanNo;
-	}
-
-	public void setVendorPanNo(String vendorPanNo) {
-		this.vendorPanNo = vendorPanNo;
-	}
-
-	public String getVendorBankAcctNo() {
-		return vendorBankAcctNo;
-	}
-
-	public void setVendorBankAcctNo(String vendorBankAcctNo) {
-		this.vendorBankAcctNo = vendorBankAcctNo;
-	}
-
-	public String getVendorBankName() {
-		return vendorBankName;
-	}
-
-	public void setVendorBankName(String vendorBankName) {
-		this.vendorBankName = vendorBankName;
-	}
-
-	public String getVendorBankBranch() {
-		return vendorBankBranch;
-	}
-
-	public void setVendorBankBranch(String vendorBankBranch) {
-		this.vendorBankBranch = vendorBankBranch;
-	}
-
-	public String getVendorBankBranchIfscCode() {
-		return vendorBankBranchIfscCode;
-	}
-
-	public void setVendorBankBranchIfscCode(String vendorBankBranchIfscCode) {
-		this.vendorBankBranchIfscCode = vendorBankBranchIfscCode;
-	}
 
 	public String getHeadOfAccount() {
 		return headOfAccount;
@@ -275,59 +186,22 @@ public class Voucher implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	public String getVendorAddressLine1() {
-		return vendorAddressLine1;
-	}
-
-	public void setVendorAddressLine1(String vendorAddressLine1) {
-		this.vendorAddressLine1 = vendorAddressLine1;
-	}
-
-	public String getVendorAddressLine2() {
-		return vendorAddressLine2;
-	}
-
-	public void setVendorAddressLine2(String vendorAddressLine2) {
-		this.vendorAddressLine2 = vendorAddressLine2;
-	}
-
-	public String getVendorAddressCity() {
-		return vendorAddressCity;
-	}
-
-	public void setVendorAddressCity(String vendorAddressCity) {
-		this.vendorAddressCity = vendorAddressCity;
-	}
-
-	public String getVendorAddressState() {
-		return vendorAddressState;
-	}
-
-	public void setVendorAddressState(String vendorAddressState) {
-		this.vendorAddressState = vendorAddressState;
-	}
-
-	public String getVendorAddressPincode() {
-		return vendorAddressPincode;
-	}
-
-	public void setVendorAddressPincode(String vendorAddressPincode) {
-		this.vendorAddressPincode = vendorAddressPincode;
-	}
 
 	@Override
 	public String toString() {
-		return "Voucher [id=" + id + ", companyId=" + companyId + ", voucherId=" + voucherId + ", vendorName="
-				+ vendorName + ", vendorAddressLine1=" + vendorAddressLine1 + ", vendorAddressLine2="
-				+ vendorAddressLine2 + ", vendorAddressCity=" + vendorAddressCity + ", vendorAddressState="
-				+ vendorAddressState + ", vendorAddressPincode=" + vendorAddressPincode + ", vendorGst=" + vendorGst
-				+ ", vendorPanNo=" + vendorPanNo + ", vendorBankAcctNo=" + vendorBankAcctNo + ", vendorBankName="
-				+ vendorBankName + ", vendorBankBranch=" + vendorBankBranch + ", vendorBankBranchIfscCode="
-				+ vendorBankBranchIfscCode + ", headOfAccount=" + headOfAccount + ", particulars=" + particulars
-				+ ", totalAmount=" + totalAmount + ", cgstPercent=" + cgstPercent + ", sgstPercent=" + sgstPercent
-				+ ", igstPercent=" + igstPercent + ", netAmount=" + netAmount + ", tdsPercent=" + tdsPercent
-				+ ", netPayable=" + netPayable + ", voucherDate=" + voucherDate + ", createdBy=" + createdBy
-				+ ", createdDate=" + createdDate + "]";
+		return "Voucher [id=" + id + ", companyId=" + companyId + ", voucherId=" + voucherId + ", vendorId=" + vendorId
+				+ ", headOfAccount=" + headOfAccount + ", particulars=" + particulars + ", totalAmount=" + totalAmount
+				+ ", cgstPercent=" + cgstPercent + ", sgstPercent=" + sgstPercent + ", igstPercent=" + igstPercent
+				+ ", netAmount=" + netAmount + ", tdsPercent=" + tdsPercent + ", netPayable=" + netPayable
+				+ ", voucherDate=" + voucherDate + ", createdBy=" + createdBy + ", createdDate=" + createdDate + "]";
+	}
+
+	public Long getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(Long vendorId) {
+		this.vendorId = vendorId;
 	}
 
 
