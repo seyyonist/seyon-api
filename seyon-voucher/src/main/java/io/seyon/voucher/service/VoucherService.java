@@ -73,7 +73,7 @@ public class VoucherService {
 		return;
 	}
 	
-	public Iterable<Voucher> getVoucherist(Integer pageNumber, Long companyId, String voucherId,  String vendorName,
+	public Iterable<Voucher> getVoucherist(Integer pageNumber, Long companyId, String voucherId,  Long vendorId,
 			Date voucherStDate, Date voucherEndDate) {
 
 		log.debug("Getting page {}", pageNumber);
@@ -88,8 +88,8 @@ public class VoucherService {
 			if (null != voucherId) {
 				predicates.add(cb.equal(root.get("voucherId"), voucherId));
 			}
-			if (null != vendorName) {
-				predicates.add(cb.equal(root.get("vendorName"), vendorName));
+			if (null != vendorId) {
+				predicates.add(cb.equal(root.get("vendorId"), vendorId));
 			}
 
 			

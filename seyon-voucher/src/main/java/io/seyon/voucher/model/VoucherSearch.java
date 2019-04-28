@@ -6,7 +6,7 @@ public class VoucherSearch {
 	
 	private String voucherId;
 	
-	private String vendorName;
+	private Long vendorId;
 
 	private Date startDate;
 
@@ -20,13 +20,7 @@ public class VoucherSearch {
 		this.voucherId = voucherId;
 	}
 
-	public String getVendorName() {
-		return vendorName;
-	}
-
-	public void setVendorName(String vendorName) {
-		this.vendorName = vendorName;
-	}
+	
 
 	public Date getStartDate() {
 		return startDate;
@@ -46,8 +40,16 @@ public class VoucherSearch {
 
 	@Override
 	public String toString() {
-		return "VoucherSearch [voucherId=" + voucherId + ", vendorName=" + vendorName + ", startDate=" + startDate
+		return "VoucherSearch [voucherId=" + voucherId + ", vendorId=" + vendorId + ", startDate=" + startDate
 				+ ", endDate=" + endDate + "]";
+	}
+
+	public Long getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(Long vendorId) {
+		this.vendorId = vendorId;
 	}
 	
 	
