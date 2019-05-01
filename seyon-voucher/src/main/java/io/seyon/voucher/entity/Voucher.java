@@ -25,6 +25,9 @@ public class Voucher implements Serializable {
 	private String voucherId;
 	
 	@Column
+	private String invoiceId;
+	
+	@Column
 	private Long vendorId;
 	
 	
@@ -271,19 +274,27 @@ public class Voucher implements Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Voucher [id=" + id + ", companyId=" + companyId + ", voucherId=" + voucherId + ", vendorId=" + vendorId
-				+ ", headOfAccount=" + headOfAccount + ", particulars=" + particulars + ", cgstAmount=" + cgstAmount
-				+ ", sgstAmount=" + sgstAmount + ", igstAmount=" + igstAmount + ", netAmount=" + netAmount
-				+ ", tdsPercent=" + tdsPercent + ", tdsAmount=" + tdsAmount + ", others=" + others + ", reimbursement="
-				+ reimbursement + ", totalNetAmount=" + totalNetAmount + ", totalAmount=" + totalAmount
-				+ ", deductionRemark=" + deductionRemark + ", voucherDate=" + voucherDate + ", invoiceDate="
-				+ invoiceDate + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", updatedBy=" + updatedBy
-				+ ", updatedDate=" + updatedDate + "]";
+	
+	public String getInvoiceId() {
+		return invoiceId;
 	}
 
-	
+	public void setInvoiceId(String invoiceId) {
+		this.invoiceId = invoiceId;
+	}
+
+	@Override
+	public String toString() {
+		return "Voucher [id=" + id + ", companyId=" + companyId + ", voucherId=" + voucherId + ", invoiceId="
+				+ invoiceId + ", vendorId=" + vendorId + ", headOfAccount=" + headOfAccount + ", particulars="
+				+ particulars + ", cgstAmount=" + cgstAmount + ", sgstAmount=" + sgstAmount + ", igstAmount="
+				+ igstAmount + ", netAmount=" + netAmount + ", tdsPercent=" + tdsPercent + ", tdsAmount=" + tdsAmount
+				+ ", others=" + others + ", reimbursement=" + reimbursement + ", totalNetAmount=" + totalNetAmount
+				+ ", totalAmount=" + totalAmount + ", deductionRemark=" + deductionRemark + ", voucherDate="
+				+ voucherDate + ", invoiceDate=" + invoiceDate + ", createdBy=" + createdBy + ", createdDate="
+				+ createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + "]";
+	}
+
 
 	
 
