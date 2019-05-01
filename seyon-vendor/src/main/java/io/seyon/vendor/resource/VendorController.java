@@ -46,4 +46,12 @@ public class VendorController {
 		log.info("Response {}",clis);
 		return clis;
 	}
+	
+	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE,path="/totalNumberOfVendors")
+	public Long getTotalNumberOfVendors(@RequestHeader(name="x-company-id",required=true) Long companyId) {
+		log.info("Incoming request {}",companyId);
+		Long count = vendorService.getCountOfVendors(companyId);
+		log.info("TotalNumberOfVendors  {}",count);
+		return count;
+	}
 }

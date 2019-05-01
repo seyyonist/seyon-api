@@ -1,5 +1,7 @@
 package io.seyon.voucher.resource;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +78,11 @@ public class VoucherController {
 	@GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
 	public Voucher getVoucher(@RequestParam Long id) {
 		return voucherService.getVoucherist(id);
+	}
+	
+	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE,path="/voucherCount")
+	public Map<String,Long> getVoucherCounts(@RequestHeader(name = "x-company-id", required = true) Long companyId){
+		return voucherService.getVoucherCounts(companyId);
 	}
 
 }

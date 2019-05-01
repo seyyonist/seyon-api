@@ -19,12 +19,18 @@ public class VendorService {
 	VendorRepository vendorRepository;
 	
 	public VendorEntity saveVendor(VendorEntity vendor) {
-		log.info("Saving the client {}",vendor);
+		log.info("Saving the Vendors {}",vendor);
 		return vendorRepository.save(vendor);
 	}
 	
 	public List<VendorEntity> getVendorsForCompany(Long companyId) {
-		log.info("Retrieving clients for the company {}",companyId);
+		log.info("Retrieving Vendors for the company {}",companyId);
 		return vendorRepository.findByCompanyId(companyId);
 	}
+
+	public Long getCountOfVendors(Long companyId) {
+		log.info("Retrieving total Vendors for the company {}",companyId);
+		return vendorRepository.countByCompanyId(companyId);
+	}
+	
 }
