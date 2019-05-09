@@ -188,4 +188,12 @@ public class InvoiceController {
 		
 	}
 	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/getInvoiceCount")
+	public String getInvoiceCount(@RequestHeader(name = "x-company-id", required = true) Long companyId) {
+		log.info("getInvoiceCount for companyid {}", companyId);
+		invoiceService.getInvoiceCount(companyId);
+		return "";
+		
+	}
+	
 }

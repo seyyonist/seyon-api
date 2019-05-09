@@ -3,7 +3,6 @@ package io.seyon.invoice.service;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +32,7 @@ import io.seyon.invoice.entity.Invoice;
 import io.seyon.invoice.entity.InvoiceStatus;
 import io.seyon.invoice.entity.Particulars;
 import io.seyon.invoice.model.InvoiceData;
+import io.seyon.invoice.repository.InvoiceMonthWiseResultMap;
 import io.seyon.invoice.repository.InvoiceRepository;
 import io.seyon.invoice.repository.ParticularsRepository;
 
@@ -362,6 +362,11 @@ public LocalDate getMinInvoiceDate(Long companyId){
 		log.debug("deleting particular {}", particularId);
 		particularsRepository.deleteById(particularId);
 		log.debug("deleted particular");
+	}
+	
+	public void getInvoiceCount(Long companyId) {
+		List<InvoiceMonthWiseResultMap> obj=invoiceRepository.getInvoiceCountMonthWise(companyId, 2019);
+		System.out.println(obj.toString());
 	}
 
 
