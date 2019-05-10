@@ -1,6 +1,7 @@
 package io.seyon.invoice.resource;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.seyon.invoice.entity.Invoice;
 import io.seyon.invoice.entity.SACCode;
+import io.seyon.invoice.model.InvoiceAndProfomaCountResult;
 import io.seyon.invoice.model.InvoiceData;
 import io.seyon.invoice.model.InvoiceSearch;
+import io.seyon.invoice.repository.MonthWiseCountResult;
 import io.seyon.invoice.repository.SACCodeRepository;
 import io.seyon.invoice.service.InvoiceService;
 
@@ -188,11 +191,16 @@ public class InvoiceController {
 		
 	}
 	
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/getInvoiceCount")
-	public String getInvoiceCount(@RequestHeader(name = "x-company-id", required = true) Long companyId) {
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/getInvoiceAndProfomaCountForCurrentYear")
+	public List<MonthWiseCountResult> getInvoiceAndProfomaCountForCurrentYear(@RequestHeader(name = "x-company-id", required = true) Long companyId) {
 		log.info("getInvoiceCount for companyid {}", companyId);
-		invoiceService.getInvoiceCount(companyId);
-		return "";
+		List<MonthWiseCountResult> monthWiseResults = new ArrayList<MonthWiseCountResult>();
+		MonthWiseCountResult invoiceMonthWiseCountResult=invoiceService.getInvoiceCount(companyId);
+		MonthWiseCountResult profomaMonthWiseCountResult=invoiceService.getProfomaCount(companyId);
+		monthWiseResults.add(invoiceMonthWiseCountResult);
+		monthWiseResults.add(profomaMonthWiseCountResult);
+		
+		return monthWiseResults;
 		
 	}
 	

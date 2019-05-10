@@ -1,10 +1,17 @@
 package io.seyon.invoice.repository;
 
-public class InvoiceMonthWiseResultMap {
+public class ProfomaMonthWiseResultMap {
 	
 	String monthName;
 	
-	Long count;
+	Integer count;
+	
+	
+
+	public ProfomaMonthWiseResultMap(String monthName, Integer count) {
+		this.monthName = monthName;
+		this.count = count;
+	}
 
 	public String getMonthName() {
 		return monthName;
@@ -14,11 +21,11 @@ public class InvoiceMonthWiseResultMap {
 		this.monthName = monthName;
 	}
 
-	public Long getCount() {
+	public Integer getCount() {
 		return count;
 	}
 
-	public void setCount(Long count) {
+	public void setCount(Integer count) {
 		this.count = count;
 	}
 	
