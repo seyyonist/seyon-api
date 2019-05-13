@@ -150,6 +150,7 @@ public class InvoiceService {
 				+ FinancialYear.getFinancialYearOf();
 		invoice.setPerformaId(performaId);
 		invoice.setType("PERFORMA");
+		invoice.setInvoiceDate(null);
 		invoice = invoiceRepository.save(invoice);
 		Long invoiceId = invoice.getId();
 
