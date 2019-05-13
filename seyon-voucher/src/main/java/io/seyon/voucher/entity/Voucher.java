@@ -30,7 +30,6 @@ public class Voucher implements Serializable {
 	@Column
 	private Long vendorId;
 	
-	
 	@Column
 	private String headOfAccount;// head of account
 	

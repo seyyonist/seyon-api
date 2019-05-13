@@ -27,4 +27,9 @@ public class ClientService {
 		log.info("Retrieving clients for the company {}",companyId);
 		return clientRepository.findByCompanyId(companyId);
 	}
+	
+	public Long getCountOfClients(Long companyId) {
+		log.info("Retrieving Total number of clients for the company {}",companyId);
+		return clientRepository.countByCompanyId(companyId);
+	}
 }

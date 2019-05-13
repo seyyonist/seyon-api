@@ -50,4 +50,12 @@ public class ClientController {
         
 		return clis;
 	}
+	
+	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE,path="/totalNumberOfClients")
+	public Long getTotalNumberOfClients(@RequestHeader(name="x-company-id",required=true) Long companyId) {
+		log.info("Incoming request {}",companyId);
+		Long count = clientService.getCountOfClients(companyId);
+		log.info("TotalNumberOfClients  {}",count);
+		return count;
+	}
 }
