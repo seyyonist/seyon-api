@@ -1,20 +1,21 @@
 package io.seyon.company.model;
 
 import io.seyon.company.entity.Company;
-import io.seyon.company.entity.User;
+
+import io.seyon.user.entity.UserInfo;
 
 public class CompanyModel {
 	
-	private User userInfo;
+	private UserInfo userInfo;
 	
 	private Company company;
 
 	
-	public User getUserInfo() {
+	public UserInfo getUserInfo() {
 		return userInfo;
 	}
 
-	public void setUserInfo(User userInfo) {
+	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}
 

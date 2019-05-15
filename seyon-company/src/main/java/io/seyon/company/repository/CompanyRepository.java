@@ -10,5 +10,6 @@ public interface CompanyRepository extends CrudRepository<Company, Long> {
 	
 	public Company findByCompanyName(String companyName);
 	public Integer countByCompanyNameAndPrimaryEmail(String companyName,String primaryEmail);
+	public List<Company> findByCompanyIdIn(List<Long> companyIds);
 	
 }

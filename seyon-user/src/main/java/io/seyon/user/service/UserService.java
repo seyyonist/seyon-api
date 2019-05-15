@@ -1,6 +1,8 @@
 package io.seyon.user.service;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -13,11 +15,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import io.seyon.user.entity.UserCompanyXref;
 import io.seyon.user.entity.UserInfo;
 import io.seyon.user.entity.UserInfoNoPwd;
 import io.seyon.user.entity.UserRole;
 import io.seyon.user.model.SeyonResponse;
 import io.seyon.user.model.UserDetails;
+import io.seyon.user.repository.UserCompanyXrefRepository;
 import io.seyon.user.repository.UserRepository;
 import io.seyon.user.repository.UserRepositoryNoPwd;
 import io.seyon.user.repository.UserRoleRepository;
@@ -39,11 +43,13 @@ public class UserService {
 	
 	@Autowired
 	private UserRoleRepository userRoleRepository;
+	
+	@Autowired
+	private UserCompanyXrefRepository userCompanyXrefRepo;
 
 	@Transactional
 	public SeyonResponse createUser(UserDetails userdetails) {
-		
-		
+				
 		UserInfo userInfo= userdetails.getUserInfo();
 		String password = userInfo.getPassword();
 		log.debug("Entry createUser");
@@ -61,16 +67,21 @@ public class UserService {
 				userInfoNoPwd.setEmail(userInfo.getEmail());
 				userInfoNoPwd.setName(userInfo.getName());
 				userInfoNoPwd.setActive(userInfo.getActive());
-				userInfoNoPwd.setCompanyId(userInfo.getCompanyId());
 				userRepositoryNoPwd.save(userInfoNoPwd);
-				
 			}
 			
 			UserRole userRole=userdetails.getUserRole();
 			if(null!=userRole) {
 				userRoleRepository.save(userRole);
 			}
+			
+			UserCompanyXref xref = userdetails.getUserCompanyXref();
+			if(null==xref) {
+				throw new Exception("Xref is null");
+			}
+			userCompanyXrefRepo.save(xref);		
 			seyonResponse = new SeyonResponse(0, "success");
+			
 		} catch (Exception e) {
 			log.error("Error in createUser", e);
 			seyonResponse = new SeyonResponse(-1, e.getMessage());
@@ -113,7 +124,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public SeyonResponse addUserRole(String email, String roleCode) {
+	public SeyonResponse addUserRole(String email, String roleCode,Long companyId) {
 
 		log.debug("Entry addUserRole");
 		SeyonResponse seyonResponse = null;
@@ -124,6 +135,7 @@ public class UserService {
 					UserRole userRole = new UserRole();
 					userRole.setEmail(email);
 					userRole.setRoleCode(roleCode);
+					userRole.setCompanyId(companyId);
 					userRoles.add(userRole);
 					userRoleRepository.saveAll(userRoles);
 					seyonResponse = new SeyonResponse(0, "success");
@@ -191,11 +203,15 @@ public class UserService {
 	}
 	
 	public List<UserInfo> getUsers(Long companyId){
-		return userRepository.findByCompanyId(companyId);
+		
+		List<UserCompanyXref> xref=userCompanyXrefRepo.findByCompanyId(companyId);
+		List<String> emails=xref.stream().map(x->x.getEmail()).collect(Collectors.toList());
+		log.debug("Get Company Id {}",emails);
+		return userRepository.findByEmailIn(emails);
 	}
 	
-	public List<UserRole> getUserRoles(String email){
-		return userRoleRepository.findByEmail(email);
+	public List<UserRole> getUserRoles(String email,Long companyId){
+		return userRoleRepository.findByEmailAndCompanyId(email,companyId);
 	}
 
 	public UserInfo getUser(String userId) {

@@ -9,5 +9,8 @@ import io.seyon.user.entity.UserRole;
 public interface UserRoleRepository extends CrudRepository<UserRole, Long>{
 
 	public List<UserRole> findByEmail(String email);
+
+	public List<UserRole> findByEmailAndCompanyId(String email, Long companyId);
+	
 	
 }

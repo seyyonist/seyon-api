@@ -1,68 +1,51 @@
 package io.seyon.user.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class UserRole {
-	
+@Table(name = "USER_COMPANY_XREF")
+public class UserCompanyXref implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2856878499678004433L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	Long Id;
 	
 	@Column
-	private String email;
+	String email;
 	
 	@Column
-	private String roleCode;
-
-	@Column
-	private Long companyId;
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	Long companyId;
 
 	public String getEmail() {
 		return email;
 	}
 
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
-	public String getRoleCode() {
-		return roleCode;
-	}
-
-
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
-	}
-
 
 	public Long getCompanyId() {
 		return companyId;
 	}
 
-
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
 
-
-	
-
-
+	@Override
+	public String toString() {
+		return "UserCompanyXref [email=" + email + ", companyId=" + companyId + "]";
+	}
 }

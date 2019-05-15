@@ -1,23 +1,27 @@
 package io.seyon.company.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.seyon.company.entity.Company;
-import io.seyon.company.entity.User;
 import io.seyon.company.model.CompanyModel;
+import io.seyon.company.model.CompanyRole;
 import io.seyon.company.model.SeyonResponse;
 import io.seyon.company.repository.CompanyRepository;
+import io.seyon.user.entity.UserCompanyXref;
 import io.seyon.user.entity.UserInfo;
 import io.seyon.user.entity.UserRole;
 import io.seyon.user.model.UserDetails;
+import io.seyon.user.repository.UserCompanyXrefRepository;
+import io.seyon.user.repository.UserRoleRepository;
 import io.seyon.user.service.UserService;
 
 @Service
@@ -30,7 +34,13 @@ public class CompanyService {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserCompanyXrefRepository userCompanyXrefRepo;
 
+	@Autowired
+	private UserRoleRepository userRoleRepository;
+	
 	@Transactional
 	public SeyonResponse createCompanyAndUser(CompanyModel companyModel) {
 		
@@ -47,17 +57,20 @@ public class CompanyService {
 			}
 				
 			Company company = companyRepository.save(newCompany);
-			User user = companyModel.getUserInfo();
-			user.setActive(true);
-			user.setName(company.getOwnerName());
-			user.setCompanyId(company.getCompanyId());
+			UserInfo userInfo = companyModel.getUserInfo();
+			UserCompanyXref xref= new UserCompanyXref();
 			UserRole userRole = new UserRole();
-			userRole.setEmail(user.getEmail());
+			userInfo.setActive(true);
+			userInfo.setName(company.getOwnerName());
+			
+			userRole.setEmail(userInfo.getEmail());
 			userRole.setRoleCode("ADMIN");
-			UserInfo userInfo = new UserInfo();
-			BeanUtils.copyProperties(user, userInfo);
+			userRole.setCompanyId(company.getCompanyId());
+			xref.setCompanyId(company.getCompanyId());
+			xref.setEmail(userInfo.getEmail());
 			userDetails.setUserInfo(userInfo);
 			userDetails.setUserRole(userRole);
+			userDetails.setUserCompanyXref(xref);
 			userService.createUser(userDetails);
 			seyonResponse = new SeyonResponse(0, company.getCompanyId().toString());
 		} catch (Exception e) {
@@ -97,6 +110,27 @@ public class CompanyService {
 		}
 
 		return company;
+	}
+	
+	
+	public List<CompanyRole> getCompanies(String email){
+		List<UserRole> userRole=userRoleRepository.findByEmail(email);
+		List<Long> companyIds=userRole.stream().map(x->x.getCompanyId()).collect(Collectors.toList());
+		Map<Long,List<UserRole>> companyRoleMap=userRole.stream().collect(Collectors.groupingBy(role->role.getCompanyId()));
+		List<Company> companies=companyRepository.findByCompanyIdIn(companyIds);
+		List<CompanyRole> companyRoles=companies.stream().map(comp->{
+			CompanyRole cr= new CompanyRole();
+			cr.setCompanyId(comp.getCompanyId());
+			cr.setCompanyName(comp.getCompanyName());
+			return cr;
+		}).collect(Collectors.toList());
+		
+		for(CompanyRole cr:companyRoles) {
+			List<UserRole> userRoleForCompany=companyRoleMap.get(cr.getCompanyId());
+			List<String> roleCodes=userRoleForCompany.stream().map(ur->ur.getRoleCode()).collect(Collectors.toList());
+			cr.setRoleCode(roleCodes);
+		}
+		return companyRoles;
 	}
 	
 	private Integer getCompany(String companyName,String email) {

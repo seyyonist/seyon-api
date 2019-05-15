@@ -20,11 +20,7 @@ public class UserInfo {
 	
 	@Column
 	Boolean active;
-	
-	@Column
-	Long companyId;
-	
-	
+		
 	public String getEmail() {
 		return email;
 	}
@@ -56,17 +52,6 @@ public class UserInfo {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-
-	public Long getCompanyId() {
-		return companyId;
-	}
-
-	public void setCompanyId(Long companyId) {
-		this.companyId = companyId;
-	}
-
-	
-	
 	
 
 }

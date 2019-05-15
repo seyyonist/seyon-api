@@ -33,8 +33,8 @@ public class UserRoleController {
 
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, path = "/adduserrole")
 	public SeyonResponse addUserRole(@RequestParam(required = true) String email,
-			@RequestParam(required = true) String roleCode) {
-		return userService.addUserRole(email, roleCode);
+			@RequestParam(required = true) String roleCode,@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
+		return userService.addUserRole(email, roleCode,companyId);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,21 +42,20 @@ public class UserRoleController {
 		return userService.deleteUserRole(roleId);
 	}
 
-	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UserRole> getUserRoles(@RequestParam(required = true) String email) {
-		return userService.getUserRoles(email);
+	public List<UserRole> getUserRoles(@RequestParam(required = true) String email,@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
+		return userService.getUserRoles(email,companyId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,path = "/getRolesOpen")
-	public List<UserRole> getUserRolesOpen(@RequestParam(required = true) String email) {
-		return userService.getUserRoles(email);
+	public List<UserRole> getUserRolesOpen(@RequestParam(required = true) String email,@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
+		return userService.getUserRoles(email,companyId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,path="/authenticated")
-	public List<String> getLoggedInUser(@RequestHeader(name = "x-user-email", required = true) String userId) {
+	public List<String> getLoggedInUser(@RequestHeader(name = "x-user-email", required = true) String userId,@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
 		log.info("user Id"+userId);
-		List<String> roleCodes=userService.getUserRoles(userId).stream()
+		List<String> roleCodes=userService.getUserRoles(userId,companyId).stream()
 				.map(role->role.getRoleCode()).collect(Collectors.toList());
 		return roleCodes;
 	}

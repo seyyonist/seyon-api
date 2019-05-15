@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.seyon.user.entity.UserCompanyXref;
 import io.seyon.user.entity.UserInfo;
 import io.seyon.user.model.SeyonResponse;
 import io.seyon.user.model.UserDetails;
@@ -34,10 +35,13 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public SeyonResponse createUser(@RequestBody UserInfo userInfo,
 			@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
-		if (companyId != null)
-			userInfo.setCompanyId(companyId);
+		
 		UserDetails userDetails = new UserDetails();
 		userDetails.setUserInfo(userInfo);
+		
+		UserCompanyXref xref = new UserCompanyXref();
+		xref.setCompanyId(companyId);
+		xref.setEmail(userInfo.getEmail());
 		return userService.createUser(userDetails);
 	}
 
