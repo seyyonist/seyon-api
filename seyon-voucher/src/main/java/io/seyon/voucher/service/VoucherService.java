@@ -3,9 +3,10 @@ package io.seyon.voucher.service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -118,5 +119,15 @@ public class VoucherService {
 	    return id;   
 	}
 	
+	
+	public Map<String,Long> getVoucherCounts(Long companyId){
+		Map<String, Long> result=new HashMap<>();
+		Long totalVoucher=voucherRepository.countByCompanyId(companyId);
+		Long countByMonth=voucherRepository.getAllOfCurrentMonth(companyId);
+		result.put("Total", totalVoucher);
+		result.put("Month", countByMonth);
+		log.info("returning voucher count {}",result);
+		return result;
+	}
 
 }
