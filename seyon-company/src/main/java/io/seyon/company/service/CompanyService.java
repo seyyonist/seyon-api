@@ -131,6 +131,7 @@ public class CompanyService {
 			cr.setRoleCode(roleCodes);
 		}
 		return companyRoles;
+		
 	}
 	
 	private Integer getCompany(String companyName,String email) {
