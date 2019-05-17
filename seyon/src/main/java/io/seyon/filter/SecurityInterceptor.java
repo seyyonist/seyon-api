@@ -34,13 +34,13 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter{
         }
 		log.info("Recieved GW app id {}",gatewayToken);
 		String digestToken = DigestUtils.sha256Hex(props.getAppId());
-		log.info("Hashed GW id {} and APP Id {}",gatewayToken,digestToken);
+		log.debug("Hashed GW id {} and APP Id {}",gatewayToken,digestToken);
 		
 		if(!gatewayToken.equals(digestToken)) {
 			log.error("Invalid application acccess , Gateway token missmatch");
             throw new AuthorizationServiceException("No Gateway token found in request headers");
 		}
-		log.info("Application Access Allowed");
+		log.debug("Application Access Allowed");
 		
 		return true;
 	}

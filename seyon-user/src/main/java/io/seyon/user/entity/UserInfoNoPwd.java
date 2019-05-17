@@ -22,6 +22,8 @@ public class UserInfoNoPwd {
 	@Column
 	Long companyId;
 	
+	@Column
+	Boolean superUser;
 	
 	public String getEmail() {
 		return email;
@@ -54,6 +56,20 @@ public class UserInfoNoPwd {
 
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
+	}
+
+	public Boolean getSuperUser() {
+		return superUser;
+	}
+
+	public void setSuperUser(Boolean superUser) {
+		this.superUser = superUser;
+	}
+
+	@Override
+	public String toString() {
+		return "UserInfoNoPwd [email=" + email + ", name=" + name + ", active=" + active + ", companyId=" + companyId
+				+ ", superUser=" + superUser + "]";
 	}
 
 	

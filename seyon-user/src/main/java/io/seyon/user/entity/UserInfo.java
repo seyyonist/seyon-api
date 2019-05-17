@@ -22,8 +22,7 @@ public class UserInfo {
 	Boolean active;
 	
 	@Column
-	Long companyId;
-	
+	Boolean superUser;
 	
 	public String getEmail() {
 		return email;
@@ -57,16 +56,13 @@ public class UserInfo {
 		this.active = active;
 	}
 
-	public Long getCompanyId() {
-		return companyId;
+	public Boolean getSuperUser() {
+		return superUser;
 	}
 
-	public void setCompanyId(Long companyId) {
-		this.companyId = companyId;
+	public void setSuperUser(Boolean superUser) {
+		this.superUser = superUser;
 	}
-
-	
-	
 	
 
 }

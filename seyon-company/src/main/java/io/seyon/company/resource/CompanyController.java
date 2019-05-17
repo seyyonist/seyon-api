@@ -1,5 +1,7 @@
 package io.seyon.company.resource;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.seyon.company.entity.Company;
 import io.seyon.company.model.CompanyModel;
+import io.seyon.company.model.CompanyRole;
 import io.seyon.company.model.SeyonResponse;
 import io.seyon.company.service.CompanyService;
 
@@ -46,4 +50,16 @@ public class CompanyController {
 		return companyService.getCompany(companyId);
 	}
 
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, path = "/getCompanyForUser")
+	public List<CompanyRole> getCompanies(@RequestParam(name = "email", required = true) String email) {
+		return companyService.getCompanies(email);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, path = "/getUserCompany")
+	public List<CompanyRole> getUserCompanies(@RequestHeader(name = "x-user-email", required = true) String email) {
+		return companyService.getCompanies(email);
+	}
+	
+	
+	
 }

@@ -7,9 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import io.seyon.user.entity.UserInfo;
 
 public interface UserRepository extends CrudRepository<UserInfo, String> {
-	
 	UserInfo findByEmail(String email);
 	
-	List<UserInfo> findByCompanyId(Long companyId);
-
+	List<UserInfo> findByEmailIn(List<String> email);
 }
