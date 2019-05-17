@@ -20,7 +20,10 @@ public class UserInfo {
 	
 	@Column
 	Boolean active;
-		
+	
+	@Column
+	Boolean superUser;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -51,6 +54,14 @@ public class UserInfo {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public Boolean getSuperUser() {
+		return superUser;
+	}
+
+	public void setSuperUser(Boolean superUser) {
+		this.superUser = superUser;
 	}
 	
 
