@@ -35,9 +35,7 @@ public class HeadOfAccountController {
     public HeadOfAccount saveHeadofAccount(@Valid @RequestBody HeadOfAccount headOfAccount,
     			@RequestHeader(name="x-company-id",required=true) Long companyId, @RequestHeader(name="x-user-name",required=true) String userId ) {
 		log.info("Incoming request {}",headOfAccount);
-		headOfAccount.setCompanyId(companyId);
-		headOfAccount.setCreatedBy(userId);
-		HeadOfAccount result = headOfAccountService.saveHeadOfAccount(headOfAccount);
+		HeadOfAccount result = headOfAccountService.saveHeadOfAccount(headOfAccount,companyId, userId);
 		log.info("Response {}",result);     
 		return result;
     }
