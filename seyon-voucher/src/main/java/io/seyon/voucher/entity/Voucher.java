@@ -31,7 +31,7 @@ public class Voucher implements Serializable {
 	private Long vendorId;
 	
 	@Column
-	private String headOfAccount;// head of account
+	private Long headOfAccountId;// head of account
 	
 	
 	@Column
@@ -121,12 +121,14 @@ public class Voucher implements Serializable {
 		this.vendorId = vendorId;
 	}
 
-	public String getHeadOfAccount() {
-		return headOfAccount;
+	
+
+	public Long getHeadOfAccountId() {
+		return headOfAccountId;
 	}
 
-	public void setHeadOfAccount(String headOfAccount) {
-		this.headOfAccount = headOfAccount;
+	public void setHeadOfAccountId(Long headOfAccountId) {
+		this.headOfAccountId = headOfAccountId;
 	}
 
 	public String getParticulars() {
@@ -285,7 +287,7 @@ public class Voucher implements Serializable {
 	@Override
 	public String toString() {
 		return "Voucher [id=" + id + ", companyId=" + companyId + ", voucherId=" + voucherId + ", invoiceId="
-				+ invoiceId + ", vendorId=" + vendorId + ", headOfAccount=" + headOfAccount + ", particulars="
+				+ invoiceId + ", vendorId=" + vendorId + ", headOfAccountId=" + headOfAccountId + ", particulars="
 				+ particulars + ", cgstAmount=" + cgstAmount + ", sgstAmount=" + sgstAmount + ", igstAmount="
 				+ igstAmount + ", netAmount=" + netAmount + ", tdsPercent=" + tdsPercent + ", tdsAmount=" + tdsAmount
 				+ ", others=" + others + ", reimbursement=" + reimbursement + ", totalNetAmount=" + totalNetAmount
