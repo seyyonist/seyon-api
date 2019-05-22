@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Voucher implements Serializable {
@@ -84,10 +85,12 @@ public class Voucher implements Serializable {
 	
 	@Column
 	private String updatedBy;
-	
 
 	@Column
 	private Date updatedDate;
+	
+	@Lob
+	String voucherImg;
 
 	public Long getId() {
 		return id;
@@ -282,6 +285,15 @@ public class Voucher implements Serializable {
 
 	public void setInvoiceId(String invoiceId) {
 		this.invoiceId = invoiceId;
+	}
+
+	
+	public String getVoucherImg() {
+		return voucherImg;
+	}
+
+	public void setVoucherImg(String voucherImg) {
+		this.voucherImg = voucherImg;
 	}
 
 	@Override
