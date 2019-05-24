@@ -62,6 +62,7 @@ public class VoucherService {
 			voucher.setCompanyId(companyId);
 		}
 		
+		voucher.setStatus("NEW");
 		voucher = voucherRepository.save(voucher);
 		//Long id = voucher.getId();
 		return voucher;
@@ -75,7 +76,7 @@ public class VoucherService {
 	}
 	
 	public Iterable<Voucher> getVoucherist(Integer pageNumber, Long companyId, String voucherId,  Long vendorId,
-			Date voucherStDate, Date voucherEndDate) {
+			Date voucherStDate, Date voucherEndDate,String status) {
 
 		log.debug("Getting page {}", pageNumber);
 
@@ -96,6 +97,9 @@ public class VoucherService {
 			
 			if (null != voucherStDate && null != voucherEndDate) {
 				predicates.add(cb.between(root.get("voucherDate"), voucherStDate, voucherEndDate));
+			}
+			if(null!=status) {
+				predicates.add(cb.equal(root.get("status"), status));
 			}
 			return cb.and(predicates.toArray(new Predicate[] {}));
 		};
@@ -128,6 +132,12 @@ public class VoucherService {
 		result.put("Month", countByMonth);
 		log.info("returning voucher count {}",result);
 		return result;
+	}
+	
+	public Voucher approve(Voucher v) {
+		v.setStatus("APPROVED");
+		Voucher uv=voucherRepository.save(v);
+		return uv;
 	}
 
 }

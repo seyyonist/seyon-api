@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.seyon.user.config.SeyonApiProperties;
 import io.seyon.user.entity.UserCompanyXref;
 import io.seyon.user.entity.UserInfo;
 import io.seyon.user.model.SeyonResponse;
@@ -30,6 +31,9 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	SeyonApiProperties seyonProps;
+	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -73,5 +77,10 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,path="/findUserByEmail")
 	public UserInfo getUserByEmail(@RequestParam String email) {
 		return userService.getUserByEmail(email);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,path="/roleCodes")
+	public List<String> getRoleCodes(){
+		return seyonProps.getRoleCodes();
 	}
 }

@@ -85,7 +85,9 @@ public class Voucher implements Serializable {
 	@Column
 	private String updatedBy;
 	
-
+	@Column
+	private String status="NEW";
+	
 	@Column
 	private Date updatedDate;
 
@@ -291,7 +293,16 @@ public class Voucher implements Serializable {
 				+ ", others=" + others + ", reimbursement=" + reimbursement + ", totalNetAmount=" + totalNetAmount
 				+ ", totalAmount=" + totalAmount + ", deductionRemark=" + deductionRemark + ", voucherDate="
 				+ voucherDate + ", invoiceDate=" + invoiceDate + ", createdBy=" + createdBy + ", createdDate="
-				+ createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + "]";
+				+ createdDate + ", updatedBy=" + updatedBy + ", status=" + status + ", updatedDate=" + updatedDate
+				+ "]";
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 

@@ -64,7 +64,7 @@ public class CompanyService {
 			userInfo.setName(company.getOwnerName());
 			
 			userRole.setEmail(userInfo.getEmail());
-			userRole.setRoleCode("ADMIN");
+			userRole.setRoleCode("COMPANY_ADMIN");
 			userRole.setCompanyId(company.getCompanyId());
 			xref.setCompanyId(company.getCompanyId());
 			xref.setEmail(userInfo.getEmail());

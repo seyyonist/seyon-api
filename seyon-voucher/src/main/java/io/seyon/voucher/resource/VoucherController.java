@@ -65,7 +65,7 @@ public class VoucherController {
 		}
 
 		return voucherService.getVoucherist(pageNumber, companyId, voucherSearch.getVoucherId(),
-				voucherSearch.getVendorId(), voucherSearch.getStartDate(), voucherSearch.getEndDate());
+				voucherSearch.getVendorId(), voucherSearch.getStartDate(), voucherSearch.getEndDate(),voucherSearch.getStatus());
 
 	}
 
@@ -85,4 +85,8 @@ public class VoucherController {
 		return voucherService.getVoucherCounts(companyId);
 	}
 
+	@PostMapping(path = "/approve", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+	public Voucher approve(@RequestBody Voucher v) {
+		return voucherService.approve(v);
+	}
 }
