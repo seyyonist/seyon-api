@@ -106,6 +106,7 @@ public class VoucherService {
 
 	public Voucher getVoucherist(Long id) {
 		Optional<Voucher> opVoucher=voucherRepository.findById(id);
+		log.info("Voucher {}",opVoucher.get());
 		return opVoucher.orElse(null);
 	}
 	

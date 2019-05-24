@@ -90,7 +90,14 @@ public class Voucher implements Serializable {
 	private Date updatedDate;
 	
 	@Lob
-	String voucherImg;
+	String voucherImg; // Voucher receipt image
+	
+	@Column
+	private Boolean availGstInputCredit; //Avail GST input credit 
+	
+	@Column
+	private Boolean deductTds; //Deduct TDS
+	
 
 	public Long getId() {
 		return id;
@@ -295,6 +302,26 @@ public class Voucher implements Serializable {
 	public void setVoucherImg(String voucherImg) {
 		this.voucherImg = voucherImg;
 	}
+	
+	
+
+	public Boolean getAvailGstInputCredit() {
+		return availGstInputCredit;
+	}
+
+	public void setAvailGstInputCredit(Boolean availGstInputCredit) {
+		this.availGstInputCredit = availGstInputCredit;
+	}
+	
+	
+
+	public Boolean getDeductTds() {
+		return deductTds;
+	}
+
+	public void setDeductTds(Boolean deductTds) {
+		this.deductTds = deductTds;
+	}
 
 	@Override
 	public String toString() {
@@ -305,7 +332,7 @@ public class Voucher implements Serializable {
 				+ ", others=" + others + ", reimbursement=" + reimbursement + ", totalNetAmount=" + totalNetAmount
 				+ ", totalAmount=" + totalAmount + ", deductionRemark=" + deductionRemark + ", voucherDate="
 				+ voucherDate + ", invoiceDate=" + invoiceDate + ", createdBy=" + createdBy + ", createdDate="
-				+ createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + "]";
+				+ createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + ", availGstInputCredit=" + availGstInputCredit + ", deductTds=" + deductTds+ "]";
 	}
 
 
