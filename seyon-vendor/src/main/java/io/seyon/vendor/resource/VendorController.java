@@ -29,22 +29,22 @@ public class VendorController {
 	VendorService vendorService;
 	
 	@PostMapping(produces=MediaType.APPLICATION_JSON_VALUE)
-    public VendorEntity saveClientInfo(@Valid @RequestBody VendorEntity client,
+    public VendorEntity saveVendorInfo(@Valid @RequestBody VendorEntity vendor,
     			@RequestHeader(name="x-company-id",required=true) Long companyId, @RequestHeader(name="x-user-name",required=true) String userId ) {
-		log.info("Incoming request {}",client);
-		client.setCompanyId(companyId);
-		client.setCreatedBy(userId);
-		VendorEntity cli = vendorService.saveVendor(client);
+		log.info("Incoming request {}",vendor);
+		vendor.setCompanyId(companyId);
+		vendor.setCreatedBy(userId);
+		VendorEntity cli = vendorService.saveVendor(vendor);
 		log.info("Response {}",cli);     
 		return cli;
     }
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<VendorEntity> getClientsForCompany(@RequestHeader(name="x-company-id",required=true) Long companyId) {
+	public List<VendorEntity> getVendorsForCompany(@RequestHeader(name="x-company-id",required=true) Long companyId) {
 		log.info("Incoming request {}",companyId);
-		List<VendorEntity> clis = vendorService.getVendorsForCompany(companyId);
-		log.info("Response {}",clis);
-		return clis;
+		List<VendorEntity> vendors = vendorService.getVendorsForCompany(companyId);
+		log.info("Response {}",vendors);
+		return vendors;
 	}
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE,path="/totalNumberOfVendors")

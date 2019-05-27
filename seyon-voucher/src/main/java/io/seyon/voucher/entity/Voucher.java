@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Voucher implements Serializable {
@@ -31,7 +32,7 @@ public class Voucher implements Serializable {
 	private Long vendorId;
 	
 	@Column
-	private String headOfAccount;// head of account
+	private Long headOfAccountId;// head of account
 	
 	
 	@Column
@@ -84,10 +85,19 @@ public class Voucher implements Serializable {
 	
 	@Column
 	private String updatedBy;
-	
 
 	@Column
 	private Date updatedDate;
+	
+	@Lob
+	String voucherImg; // Voucher receipt image
+	
+	@Column
+	private Boolean availGstInputCredit; //Avail GST input credit 
+	
+	@Column
+	private Boolean deductTds; //Deduct TDS
+	
 
 	public Long getId() {
 		return id;
@@ -121,12 +131,14 @@ public class Voucher implements Serializable {
 		this.vendorId = vendorId;
 	}
 
-	public String getHeadOfAccount() {
-		return headOfAccount;
+	
+
+	public Long getHeadOfAccountId() {
+		return headOfAccountId;
 	}
 
-	public void setHeadOfAccount(String headOfAccount) {
-		this.headOfAccount = headOfAccount;
+	public void setHeadOfAccountId(Long headOfAccountId) {
+		this.headOfAccountId = headOfAccountId;
 	}
 
 	public String getParticulars() {
@@ -282,16 +294,45 @@ public class Voucher implements Serializable {
 		this.invoiceId = invoiceId;
 	}
 
+	
+	public String getVoucherImg() {
+		return voucherImg;
+	}
+
+	public void setVoucherImg(String voucherImg) {
+		this.voucherImg = voucherImg;
+	}
+	
+	
+
+	public Boolean getAvailGstInputCredit() {
+		return availGstInputCredit;
+	}
+
+	public void setAvailGstInputCredit(Boolean availGstInputCredit) {
+		this.availGstInputCredit = availGstInputCredit;
+	}
+	
+	
+
+	public Boolean getDeductTds() {
+		return deductTds;
+	}
+
+	public void setDeductTds(Boolean deductTds) {
+		this.deductTds = deductTds;
+	}
+
 	@Override
 	public String toString() {
 		return "Voucher [id=" + id + ", companyId=" + companyId + ", voucherId=" + voucherId + ", invoiceId="
-				+ invoiceId + ", vendorId=" + vendorId + ", headOfAccount=" + headOfAccount + ", particulars="
+				+ invoiceId + ", vendorId=" + vendorId + ", headOfAccountId=" + headOfAccountId + ", particulars="
 				+ particulars + ", cgstAmount=" + cgstAmount + ", sgstAmount=" + sgstAmount + ", igstAmount="
 				+ igstAmount + ", netAmount=" + netAmount + ", tdsPercent=" + tdsPercent + ", tdsAmount=" + tdsAmount
 				+ ", others=" + others + ", reimbursement=" + reimbursement + ", totalNetAmount=" + totalNetAmount
 				+ ", totalAmount=" + totalAmount + ", deductionRemark=" + deductionRemark + ", voucherDate="
 				+ voucherDate + ", invoiceDate=" + invoiceDate + ", createdBy=" + createdBy + ", createdDate="
-				+ createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + "]";
+				+ createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + ", availGstInputCredit=" + availGstInputCredit + ", deductTds=" + deductTds+ "]";
 	}
 
 
