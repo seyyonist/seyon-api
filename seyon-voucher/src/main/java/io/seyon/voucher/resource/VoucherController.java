@@ -89,4 +89,10 @@ public class VoucherController {
 	public Voucher approve(@RequestBody Voucher v) {
 		return voucherService.approve(v);
 	}
+	
+	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE,path="/fya")
+	public Iterable<Voucher> getVoucherFYA(@RequestParam(required = false,defaultValue="0") Integer pageNumber,@RequestHeader(name = "x-company-id", required = true) Long companyId){
+		return voucherService.getVoucherist(pageNumber, companyId, null,null, null, null,"NEW");
+	}
+
 }
