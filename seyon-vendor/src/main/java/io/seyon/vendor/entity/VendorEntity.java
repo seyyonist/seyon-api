@@ -64,12 +64,12 @@ public class VendorEntity implements Serializable {
 	@Column(nullable=true)
 	String faxNo;
 
-	@Size(min = 10, message = "Please enter the PAN")
-	@Column(nullable=false)
+	
+	@Column(nullable=true)
 	String pan;
 	
-	@Size(min = 15,max=20, message = "Please enter the GSTIN")
-	@Column(nullable=false)
+	
+	@Column(nullable=true)
 	String gstin;
 	
 	@Column(nullable=true)
