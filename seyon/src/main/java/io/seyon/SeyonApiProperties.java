@@ -19,7 +19,7 @@ public class SeyonApiProperties {
 	private boolean continueOnError = false;
 	private String separator = ";";
 	private Charset sqlScriptEncoding;
-	
+		
 	public String getAppId() {
 		return appId;
 	}
@@ -27,8 +27,6 @@ public class SeyonApiProperties {
 	public void setAppId(String appId) {
 		this.appId = appId;
 	}
-
-	
 	
 	public List<String> getAuthExcludeUrl() {
 		return authExcludeUrl;
@@ -77,4 +75,5 @@ public class SeyonApiProperties {
 	public void setSqlScriptEncoding(Charset sqlScriptEncoding) {
 		this.sqlScriptEncoding = sqlScriptEncoding;
 	}
+
 }

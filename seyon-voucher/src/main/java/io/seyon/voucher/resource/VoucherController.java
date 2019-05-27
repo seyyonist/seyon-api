@@ -65,7 +65,7 @@ public class VoucherController {
 		}
 
 		return voucherService.getVoucherist(pageNumber, companyId, voucherSearch.getVoucherId(),
-				voucherSearch.getVendorId(), voucherSearch.getStartDate(), voucherSearch.getEndDate());
+				voucherSearch.getVendorId(), voucherSearch.getStartDate(), voucherSearch.getEndDate(),voucherSearch.getStatus());
 
 	}
 
@@ -83,6 +83,16 @@ public class VoucherController {
 	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE,path="/voucherCount")
 	public Map<String,Long> getVoucherCounts(@RequestHeader(name = "x-company-id", required = true) Long companyId){
 		return voucherService.getVoucherCounts(companyId);
+	}
+
+	@PostMapping(path = "/approve", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+	public Voucher approve(@RequestBody Voucher v) {
+		return voucherService.approve(v);
+	}
+	
+	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE,path="/fya")
+	public Iterable<Voucher> getVoucherFYA(@RequestParam(required = false,defaultValue="0") Integer pageNumber,@RequestHeader(name = "x-company-id", required = true) Long companyId){
+		return voucherService.getVoucherist(pageNumber, companyId, null,null, null, null,"NEW");
 	}
 
 }

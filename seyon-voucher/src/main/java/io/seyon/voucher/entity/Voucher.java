@@ -98,6 +98,8 @@ public class Voucher implements Serializable {
 	@Column
 	private Boolean deductTds; //Deduct TDS
 	
+	@Column
+	private String status="NEW";
 
 	public Long getId() {
 		return id;
@@ -332,7 +334,17 @@ public class Voucher implements Serializable {
 				+ ", others=" + others + ", reimbursement=" + reimbursement + ", totalNetAmount=" + totalNetAmount
 				+ ", totalAmount=" + totalAmount + ", deductionRemark=" + deductionRemark + ", voucherDate="
 				+ voucherDate + ", invoiceDate=" + invoiceDate + ", createdBy=" + createdBy + ", createdDate="
-				+ createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + ", availGstInputCredit=" + availGstInputCredit + ", deductTds=" + deductTds+ "]";
+				+ createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + ", voucherImg="
+				+ voucherImg + ", availGstInputCredit=" + availGstInputCredit + ", deductTds=" + deductTds + ", status="
+				+ status + "]";
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 
