@@ -99,6 +99,15 @@ public class VendorEntity implements Serializable {
 	@Column
 	private String vendorBankBranchIfscCode;
 	
+	@Column
+	private String companyStatus;
+	
+	@Column
+	private String vendorBankBranchSwiftCode;
+	
+	@Column
+	private String bankAcctType;
+	
 	public Long getId() {
 		return id;
 	}
@@ -257,18 +266,6 @@ public class VendorEntity implements Serializable {
 		this.email = email;
 	}
 
-	@Override
-	public String toString() {
-		return "VendorEntity [id=" + id + ", name=" + name + ", contactPerson=" + contactPerson + ", email=" + email
-				+ ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2 + ", city=" + city + ", state=" + state
-				+ ", pincode=" + pincode + ", phonePrimary=" + phonePrimary + ", phoneSecondary=" + phoneSecondary
-				+ ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin + ", ServiceTaxRegNo=" + ServiceTaxRegNo
-				+ ", companyId=" + companyId + ", active=" + active + ", createDate=" + createDate + ", createdBy="
-				+ createdBy + ", vendorBankAcctNo=" + vendorBankAcctNo + ", vendorBankName=" + vendorBankName
-				+ ", vendorBankBranch=" + vendorBankBranch + ", vendorBankBranchIfscCode=" + vendorBankBranchIfscCode
-				+ "]";
-	}
-
 	public String getVendorBankAcctNo() {
 		return vendorBankAcctNo;
 	}
@@ -299,6 +296,43 @@ public class VendorEntity implements Serializable {
 
 	public void setVendorBankBranchIfscCode(String vendorBankBranchIfscCode) {
 		this.vendorBankBranchIfscCode = vendorBankBranchIfscCode;
+	}
+
+	public String getCompanyStatus() {
+		return companyStatus;
+	}
+
+	public void setCompanyStatus(String companyStatus) {
+		this.companyStatus = companyStatus;
+	}
+
+	public String getVendorBankBranchSwiftCode() {
+		return vendorBankBranchSwiftCode;
+	}
+
+	public void setVendorBankBranchSwiftCode(String vendorBankBranchSwiftCode) {
+		this.vendorBankBranchSwiftCode = vendorBankBranchSwiftCode;
+	}
+
+	public String getBankAcctType() {
+		return bankAcctType;
+	}
+
+	public void setBankAcctType(String bankAcctType) {
+		this.bankAcctType = bankAcctType;
+	}
+
+	@Override
+	public String toString() {
+		return "VendorEntity [id=" + id + ", name=" + name + ", contactPerson=" + contactPerson + ", email=" + email
+				+ ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2 + ", city=" + city + ", state=" + state
+				+ ", pincode=" + pincode + ", phonePrimary=" + phonePrimary + ", phoneSecondary=" + phoneSecondary
+				+ ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin + ", ServiceTaxRegNo=" + ServiceTaxRegNo
+				+ ", companyId=" + companyId + ", active=" + active + ", createDate=" + createDate + ", createdBy="
+				+ createdBy + ", vendorBankAcctNo=" + vendorBankAcctNo + ", vendorBankName=" + vendorBankName
+				+ ", vendorBankBranch=" + vendorBankBranch + ", vendorBankBranchIfscCode=" + vendorBankBranchIfscCode
+				+ ", companyStatus=" + companyStatus + ", vendorBankBranchSwiftCode=" + vendorBankBranchSwiftCode
+				+ ", bankAcctType=" + bankAcctType + "]";
 	}
 
 
