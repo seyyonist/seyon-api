@@ -1,16 +1,27 @@
 package io.seyon.company.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import io.seyon.company.config.CompanyProperties;
 import io.seyon.company.entity.Company;
 import io.seyon.company.model.CompanyModel;
 import io.seyon.company.model.CompanyRole;
@@ -40,6 +51,9 @@ public class CompanyService {
 
 	@Autowired
 	private UserRoleRepository userRoleRepository;
+	
+	@Autowired
+	private CompanyProperties properties;
 	
 	@Transactional
 	public SeyonResponse createCompanyAndUser(CompanyModel companyModel) {
@@ -144,5 +158,45 @@ public class CompanyService {
 		}
 
 		return company;
+	}
+
+	public Iterable<Company> getCompanies(Company company,Integer pageNumber, Integer pageSize) {
+		
+		if(null==pageSize ||(null!=pageSize && pageSize<=5))	{
+			pageSize=properties.getPageSize();
+		}
+		if(null==pageNumber )	{
+			pageNumber=0;
+		}
+		Pageable page = PageRequest.of(pageNumber, pageSize,Sort.by(Direction.DESC, "createdDate"));
+		
+		Specification<Company> spec = (Root<Company> root, CriteriaQuery<?> cq, CriteriaBuilder cb) -> {
+			
+			List<Predicate> predicates = new ArrayList<>();
+			if (null != company.getCompanyName()) {
+				predicates.add(cb.like(root.get("companyName"), "%"+company.getCompanyName()+"%"));
+			}
+			
+			if (null != company.getOwnerName()) {
+				predicates.add(cb.like(root.get("ownerName"), "%"+company.getOwnerName()+"%"));
+			}
+			if (null != company.getCity()) {
+				predicates.add(cb.equal(root.get("city"), company.getCity()));
+			}
+			if (null != company.getStatus()) {
+				predicates.add(cb.equal(root.get("status"), company.getStatus()));
+			}
+			if (null != company.getState()) {
+				predicates.add(cb.equal(root.get("state"), company.getState()));
+			}
+						
+			if (null != company.getStartDate() && null != company.getEndDate()) {
+				predicates.add(cb.between(root.get("createdDate"), company.getStartDate(), company.getEndDate()));
+			}
+			
+			return cb.and(predicates.toArray(new Predicate[] {}));
+		};
+		
+		return companyRepository.findAll(spec, page);
 	}
 }
