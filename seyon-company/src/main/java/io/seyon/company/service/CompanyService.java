@@ -20,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import io.seyon.company.config.CompanyProperties;
 import io.seyon.company.entity.Company;
@@ -173,24 +174,24 @@ public class CompanyService {
 		Specification<Company> spec = (Root<Company> root, CriteriaQuery<?> cq, CriteriaBuilder cb) -> {
 			
 			List<Predicate> predicates = new ArrayList<>();
-			if (null != company.getCompanyName()) {
+			if (!StringUtils.isEmpty(company.getCompanyName())) {
 				predicates.add(cb.like(root.get("companyName"), "%"+company.getCompanyName()+"%"));
 			}
 			
-			if (null != company.getOwnerName()) {
+			if (!StringUtils.isEmpty(company.getOwnerName())) {
 				predicates.add(cb.like(root.get("ownerName"), "%"+company.getOwnerName()+"%"));
 			}
-			if (null != company.getCity()) {
+			if (!StringUtils.isEmpty(company.getCity())) {
 				predicates.add(cb.equal(root.get("city"), company.getCity()));
 			}
-			if (null != company.getStatus()) {
+			if (!StringUtils.isEmpty(company.getStatus())) {
 				predicates.add(cb.equal(root.get("status"), company.getStatus()));
 			}
-			if (null != company.getState()) {
+			if (!StringUtils.isEmpty(company.getState())) {
 				predicates.add(cb.equal(root.get("state"), company.getState()));
 			}
 						
-			if (null != company.getStartDate() && null != company.getEndDate()) {
+			if (!StringUtils.isEmpty(company.getStartDate()) && !StringUtils.isEmpty( company.getEndDate())) {
 				predicates.add(cb.between(root.get("createdDate"), company.getStartDate(), company.getEndDate()));
 			}
 			
