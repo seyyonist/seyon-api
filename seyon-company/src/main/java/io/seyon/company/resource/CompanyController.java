@@ -65,4 +65,9 @@ public class CompanyController {
 		return companyService.getCompanies(company,pageNumber,pageSize);
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, path = "/getCompanyById")
+	public Company getCompanyById(@RequestParam Long companyId) {
+		return companyService.getCompany(companyId);
+	}
+
 }
