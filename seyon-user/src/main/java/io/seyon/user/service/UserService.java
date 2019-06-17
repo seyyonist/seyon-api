@@ -49,25 +49,30 @@ public class UserService {
 
 	@Transactional
 	public SeyonResponse createUser(UserDetails userdetails) {
-				
+	
 		UserInfo userInfo= userdetails.getUserInfo();
 		String password = userInfo.getPassword();
 		log.debug("Entry createUser");
 		SeyonResponse seyonResponse = null;
+		
+		UserInfo userInfoAvailable=userRepository.findByEmail(userInfo.getEmail());
+		
+		
 		try {
-			
-			if (!StringUtils.isEmpty(password)) {
-				String encodedPassword = encoder.encode(password);
-				userInfo.setPassword(encodedPassword);
-				userRepository.save(userInfo);
-			}
-			else
-			{
-				UserInfoNoPwd userInfoNoPwd = new UserInfoNoPwd();
-				userInfoNoPwd.setEmail(userInfo.getEmail());
-				userInfoNoPwd.setName(userInfo.getName());
-				userInfoNoPwd.setActive(userInfo.getActive());
-				userRepositoryNoPwd.save(userInfoNoPwd);
+			if(null==userInfoAvailable) {
+				if (!StringUtils.isEmpty(password)) {
+					String encodedPassword = encoder.encode(password);
+					userInfo.setPassword(encodedPassword);
+					userRepository.save(userInfo);
+				}
+				else
+				{
+					UserInfoNoPwd userInfoNoPwd = new UserInfoNoPwd();
+					userInfoNoPwd.setEmail(userInfo.getEmail());
+					userInfoNoPwd.setName(userInfo.getName());
+					userInfoNoPwd.setActive(userInfo.getActive());
+					userRepositoryNoPwd.save(userInfoNoPwd);
+				}
 			}
 			
 			UserRole userRole=userdetails.getUserRole();
