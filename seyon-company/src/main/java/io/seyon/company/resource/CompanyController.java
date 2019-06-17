@@ -70,4 +70,8 @@ public class CompanyController {
 		return companyService.getCompany(companyId);
 	}
 
+	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, path = "/activate")
+	public Company activateCompany(@RequestHeader(name = "x-user-email", required = true) String email,@RequestParam Long companyId) {
+		return companyService.activeCompany(email,companyId);
+	}
 }

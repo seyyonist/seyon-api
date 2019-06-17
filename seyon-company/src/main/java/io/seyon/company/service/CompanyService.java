@@ -190,7 +190,11 @@ public class CompanyService {
 			if (!StringUtils.isEmpty(company.getState())) {
 				predicates.add(cb.equal(root.get("state"), company.getState()));
 			}
-						
+			if(company.getActive()) {
+				predicates.add(cb.equal(root.get("active"),company.getActive()));
+			}else {
+				predicates.add(cb.or(cb.equal(root.get("active"),company.getActive()),cb.isNull(root.get("active"))));
+			}
 			if (!StringUtils.isEmpty(company.getStartDate()) && !StringUtils.isEmpty( company.getEndDate())) {
 				predicates.add(cb.between(root.get("createdDate"), company.getStartDate(), company.getEndDate()));
 			}
@@ -199,5 +203,21 @@ public class CompanyService {
 		};
 		
 		return companyRepository.findAll(spec, page);
+	}
+
+	public Company activeCompany(String email,Long companyId) {
+		Company company = null;
+
+		try {
+			company = companyRepository.getOne(companyId);
+			company.setActive(true);
+			company.setActivatedBy(email);
+			company=companyRepository.save(company);
+		} catch (Exception e) {
+			log.error("Error while activating company", e);
+
+		}
+
+		return company;
 	}
 }
