@@ -60,23 +60,5 @@ public class CompanyController {
 		return companyService.getCompanies(email);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, path = "/su/filterCompany")
-	public Iterable<Company> getCompanies(@RequestBody Company company,@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
-		return companyService.getCompanies(company,pageNumber,pageSize);
-	}
 	
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, path = "/su/getCompanyById")
-	public Company getCompanyById(@RequestParam Long companyId) {
-		return companyService.getCompany(companyId);
-	}
-
-	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, path = "/su/activate")
-	public Company activateCompany(@RequestHeader(name = "x-user-email", required = true) String email,@RequestParam Long companyId) {
-		return companyService.activeCompany(email,companyId);
-	}
-	
-	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, path = "/su/deActivate")
-	public Company deActivateCompany(@RequestHeader(name = "x-user-email", required = true) String email,@RequestParam Long companyId) {
-		return companyService.deActiveCompany(email,companyId);
-	}
 }
