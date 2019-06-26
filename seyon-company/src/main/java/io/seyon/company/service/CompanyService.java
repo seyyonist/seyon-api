@@ -20,7 +20,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import io.seyon.company.config.CompanyAlreadyExistException;
 import io.seyon.company.config.CompanyProperties;
 import io.seyon.company.entity.Company;
 import io.seyon.company.model.CompanyModel;
@@ -67,7 +69,7 @@ public class CompanyService {
 			 */
 			Company newCompany=companyModel.getCompany();
 			if(getCompany(newCompany.getCompanyName(),newCompany.getPrimaryEmail())>0) {
-				throw new Exception("Company Already registered");
+				throw new CompanyAlreadyExistException("Company Already registered");
 			}
 				
 			Company company = companyRepository.save(newCompany);
@@ -76,7 +78,7 @@ public class CompanyService {
 			UserRole userRole = new UserRole();
 			userInfo.setActive(true);
 			userInfo.setName(company.getOwnerName());
-			
+
 			userRole.setEmail(userInfo.getEmail());
 			userRole.setRoleCode("COMPANY_ADMIN");
 			userRole.setCompanyId(company.getCompanyId());
@@ -87,6 +89,9 @@ public class CompanyService {
 			userDetails.setUserCompanyXref(xref);
 			userService.createUser(userDetails);
 			seyonResponse = new SeyonResponse(0, company.getCompanyId().toString());
+		} catch (CompanyAlreadyExistException e) {
+			log.error("Error in createCompanyAndUser", e);
+			seyonResponse = new SeyonResponse(-2, e.getMessage());
 		} catch (Exception e) {
 			log.error("Error in createCompanyAndUser", e);
 			seyonResponse = new SeyonResponse(-1, e.getMessage());
@@ -136,6 +141,7 @@ public class CompanyService {
 			CompanyRole cr= new CompanyRole();
 			cr.setCompanyId(comp.getCompanyId());
 			cr.setCompanyName(comp.getCompanyName());
+			cr.setActive(comp.getActive()!=null?comp.getActive():false);
 			return cr;
 		}).collect(Collectors.toList());
 		
@@ -173,24 +179,28 @@ public class CompanyService {
 		Specification<Company> spec = (Root<Company> root, CriteriaQuery<?> cq, CriteriaBuilder cb) -> {
 			
 			List<Predicate> predicates = new ArrayList<>();
-			if (null != company.getCompanyName()) {
+			if (!StringUtils.isEmpty(company.getCompanyName())) {
 				predicates.add(cb.like(root.get("companyName"), "%"+company.getCompanyName()+"%"));
 			}
 			
-			if (null != company.getOwnerName()) {
+			if (!StringUtils.isEmpty(company.getOwnerName())) {
 				predicates.add(cb.like(root.get("ownerName"), "%"+company.getOwnerName()+"%"));
 			}
-			if (null != company.getCity()) {
+			if (!StringUtils.isEmpty(company.getCity())) {
 				predicates.add(cb.equal(root.get("city"), company.getCity()));
 			}
-			if (null != company.getStatus()) {
+			if (!StringUtils.isEmpty(company.getStatus())) {
 				predicates.add(cb.equal(root.get("status"), company.getStatus()));
 			}
-			if (null != company.getState()) {
+			if (!StringUtils.isEmpty(company.getState())) {
 				predicates.add(cb.equal(root.get("state"), company.getState()));
 			}
-						
-			if (null != company.getStartDate() && null != company.getEndDate()) {
+			if(company.getActive()) {
+				predicates.add(cb.equal(root.get("active"),company.getActive()));
+			}else {
+				predicates.add(cb.or(cb.equal(root.get("active"),company.getActive()),cb.isNull(root.get("active"))));
+			}
+			if (!StringUtils.isEmpty(company.getStartDate()) && !StringUtils.isEmpty( company.getEndDate())) {
 				predicates.add(cb.between(root.get("createdDate"), company.getStartDate(), company.getEndDate()));
 			}
 			
@@ -198,5 +208,38 @@ public class CompanyService {
 		};
 		
 		return companyRepository.findAll(spec, page);
+	}
+
+	public Company activeCompany(String email,Long companyId) {
+		Company company = null;
+
+		try {
+			company = companyRepository.getOne(companyId);
+			company.setActive(true);
+			company.setActivatedBy(email);
+			company=companyRepository.save(company);
+		} catch (Exception e) {
+			log.error("Error while activating company", e);
+
+		}
+
+		return company;
+	}
+	
+	
+	public Company deActiveCompany(String email,Long companyId) {
+		Company company = null;
+
+		try {
+			company = companyRepository.getOne(companyId);
+			company.setActive(false);
+			company.setActivatedBy(email);
+			company=companyRepository.save(company);
+		} catch (Exception e) {
+			log.error("Error while activating company", e);
+
+		}
+
+		return company;
 	}
 }

@@ -60,9 +60,5 @@ public class CompanyController {
 		return companyService.getCompanies(email);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, path = "/filterCompany")
-	public Iterable<Company> getCompanies(@RequestBody Company company,@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
-		return companyService.getCompanies(company,pageNumber,pageSize);
-	}
 	
 }

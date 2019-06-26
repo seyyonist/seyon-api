@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.ColumnDefault;
+
 @Entity
 public class Company {
 
@@ -114,6 +116,13 @@ public class Company {
 	
 	@Transient
 	Date endDate;
+	
+	@Column
+	Boolean active=false;
+	
+	@Column(nullable=true)
+	String activatedBy;
+	
 	
 	public String getStatus() {
 		return status;
@@ -387,6 +396,22 @@ public class Company {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public String getActivatedBy() {
+		return activatedBy;
+	}
+
+	public void setActivatedBy(String activatedBy) {
+		this.activatedBy = activatedBy;
 	}
 
 }

@@ -10,6 +10,8 @@ public class CompanyRole {
 	
 	List<String> roleCode;
 	
+	Boolean active;
+	
 	public Long getCompanyId() {
 		return companyId;
 	}
@@ -34,4 +36,11 @@ public class CompanyRole {
 		this.roleCode = roleCode;
 	}
 	
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
 }
