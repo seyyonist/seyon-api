@@ -50,6 +50,9 @@ public class VendorEntity implements Serializable {
 	@Column(nullable=false)
 	String state;
 	
+	@Column
+	String stateCode;
+	
 	@Size(min = 6, max = 6, message = "Please enter the Pincode")
 	@Column(name="pin_code", nullable=false)
 	String pincode;
@@ -326,13 +329,21 @@ public class VendorEntity implements Serializable {
 	public String toString() {
 		return "VendorEntity [id=" + id + ", name=" + name + ", contactPerson=" + contactPerson + ", email=" + email
 				+ ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2 + ", city=" + city + ", state=" + state
-				+ ", pincode=" + pincode + ", phonePrimary=" + phonePrimary + ", phoneSecondary=" + phoneSecondary
-				+ ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin + ", ServiceTaxRegNo=" + ServiceTaxRegNo
-				+ ", companyId=" + companyId + ", active=" + active + ", createDate=" + createDate + ", createdBy="
-				+ createdBy + ", vendorBankAcctNo=" + vendorBankAcctNo + ", vendorBankName=" + vendorBankName
-				+ ", vendorBankBranch=" + vendorBankBranch + ", vendorBankBranchIfscCode=" + vendorBankBranchIfscCode
-				+ ", companyStatus=" + companyStatus + ", vendorBankBranchSwiftCode=" + vendorBankBranchSwiftCode
-				+ ", bankAcctType=" + bankAcctType + "]";
+				+ ", stateCode=" + stateCode + ", pincode=" + pincode + ", phonePrimary=" + phonePrimary
+				+ ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin
+				+ ", ServiceTaxRegNo=" + ServiceTaxRegNo + ", companyId=" + companyId + ", active=" + active
+				+ ", createDate=" + createDate + ", createdBy=" + createdBy + ", vendorBankAcctNo=" + vendorBankAcctNo
+				+ ", vendorBankName=" + vendorBankName + ", vendorBankBranch=" + vendorBankBranch
+				+ ", vendorBankBranchIfscCode=" + vendorBankBranchIfscCode + ", companyStatus=" + companyStatus
+				+ ", vendorBankBranchSwiftCode=" + vendorBankBranchSwiftCode + ", bankAcctType=" + bankAcctType + "]";
+	}
+
+	public String getStateCode() {
+		return stateCode;
+	}
+
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
 	}
 
 

@@ -52,6 +52,9 @@ public class ClientEntity implements Serializable {
 	@Column(nullable=false)
 	String state;
 	
+	@Column
+	String stateCode;
+	
 	@Size(min = 6, max = 6, message = "Please enter the Pincode")
 	@Column(name="pin_code", nullable=false)
 	String pincode;
@@ -315,11 +318,19 @@ public class ClientEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "ClientEntity [id=" + id + ", name=" + name + ", contactPerson=" + contactPerson + ", email=" + email
-				+ ", companyType=" + status + ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2 + ", city="
-				+ city + ", state=" + state + ", pincode=" + pincode + ", phonePrimary=" + phonePrimary
-				+ ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo + ", pan=" + pan + ", gstin=" + gstin
-				+ ", ServiceTaxRegNo=" + ServiceTaxRegNo + ", companyId=" + companyId + ", active=" + active
+				+ ", status=" + status + ", addrLine1=" + addrLine1 + ", addrLine2=" + addrLine2 + ", city=" + city
+				+ ", state=" + state + ", stateCode=" + stateCode + ", pincode=" + pincode + ", phonePrimary="
+				+ phonePrimary + ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo + ", pan=" + pan + ", gstin="
+				+ gstin + ", ServiceTaxRegNo=" + ServiceTaxRegNo + ", companyId=" + companyId + ", active=" + active
 				+ ", createDate=" + createDate + ", createdBy=" + createdBy + "]";
+	}
+
+	public String getStateCode() {
+		return stateCode;
+	}
+
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
 	}
 
 

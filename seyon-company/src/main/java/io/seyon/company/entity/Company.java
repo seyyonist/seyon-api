@@ -39,6 +39,9 @@ public class Company {
 	String state;
 
 	@Column
+	String stateCode;
+	
+	@Column
 	String pinCode;
 
 	@Column
@@ -352,14 +355,15 @@ public class Company {
 	public String toString() {
 		return "Company [companyId=" + companyId + ", companyName=" + companyName + ", ownerName=" + ownerName
 				+ ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city + ", state="
-				+ state + ", pinCode=" + pinCode + ", phonePrimary=" + phonePrimary + ", phoneSecondary="
-				+ phoneSecondary + ", faxNo=" + faxNo + ", tanNo=" + tanNo + ", gstNo=" + gstNo + ", panNo=" + panNo
-				+ ", serviceTaxRegNo=" + serviceTaxRegNo + ", accountingType=" + accountingType + ", logoImg=" + logoImg
-				+ ", signatureImg=" + signatureImg + ", primaryEmail=" + primaryEmail + ", secondaryEmail="
-				+ secondaryEmail + ", bankName=" + bankName + ", branch=" + branch + ", branchIFSCCode="
-				+ branchIFSCCode + ", accountNo=" + accountNo + ", accountName=" + accountName + ", accountType="
-				+ accountType + ", swiftCode=" + swiftCode + ", termsConditions=" + termsConditions + ", title=" + title
-				+ ", status=" + status + ", createdDate=" + createdDate + "]";
+				+ state + ", stateCode=" + stateCode + ", pinCode=" + pinCode + ", phonePrimary=" + phonePrimary
+				+ ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo + ", tanNo=" + tanNo + ", gstNo=" + gstNo
+				+ ", panNo=" + panNo + ", serviceTaxRegNo=" + serviceTaxRegNo + ", accountingType=" + accountingType
+				+ ", logoImg=" + logoImg + ", signatureImg=" + signatureImg + ", primaryEmail=" + primaryEmail
+				+ ", secondaryEmail=" + secondaryEmail + ", bankName=" + bankName + ", branch=" + branch
+				+ ", branchIFSCCode=" + branchIFSCCode + ", accountNo=" + accountNo + ", accountName=" + accountName
+				+ ", accountType=" + accountType + ", swiftCode=" + swiftCode + ", termsConditions=" + termsConditions
+				+ ", title=" + title + ", status=" + status + ", createdDate=" + createdDate + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", active=" + active + ", activatedBy=" + activatedBy + "]";
 	}
 
 	public String getTermsConditions() {
@@ -412,6 +416,14 @@ public class Company {
 
 	public void setActivatedBy(String activatedBy) {
 		this.activatedBy = activatedBy;
+	}
+
+	public String getStateCode() {
+		return stateCode;
+	}
+
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
 	}
 
 }
