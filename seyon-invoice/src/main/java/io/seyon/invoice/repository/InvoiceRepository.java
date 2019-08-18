@@ -17,19 +17,19 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long>, JpaSpec
 
 	Optional<Invoice> findByPerformaId(String performaId);
 
-	@Query("select max(inv.performadate) from invoice inv where inv.companyid=:companyid")
+	@Query("SELECT MAX(inv.performaDate) from Invoice inv where inv.companyId=:companyId")
 	Timestamp getLastProformaDate(@Param(value = "companyId") Long companyId);
 
-	@Query("select max(inv.invoicedate) from invoice inv where inv.companyid=:companyid")
+	@Query("SELECT MAX(inv.invoiceDate) from Invoice inv where inv.companyId=:companyId")
 	Timestamp getLastInvoiceDate(@Param(value = "companyId") Long companyId);
 
-	@Query(value = "select month(invoice_date) monthname, count(*) count from invoice where company_id=:companyid and year(invoice_date)=:year group by month(invoice_date)",
+	@Query(value = "select MONTH(INVOICE_DATE) monthName, COUNT(*) count FROM invoice where COMPANY_ID=:companyId and YEAR(INVOICE_DATE)=:year GROUP BY MONTH(INVOICE_DATE)",
 			nativeQuery = true)
 	List<Object[]> getInvoiceCountMonthWise(@Param(value = "companyId") Long companyId,
 			@Param(value = "year") Integer year);
 	
 	
-	@Query(value = "select month(performa_date) monthname, count(*) count from invoice where company_id=:companyid and year(performa_date)=:year group by month(performa_date)",
+	@Query(value = "select MONTH(PERFORMA_DATE) monthName, COUNT(*) count FROM invoice where COMPANY_ID=:companyId and YEAR(PERFORMA_DATE)=:year GROUP BY MONTH(PERFORMA_DATE)",
 			nativeQuery = true)
 	List<Object[]> getProfomaCountMonthWise(@Param(value = "companyId") Long companyId,
 			@Param(value = "year") Integer year);
