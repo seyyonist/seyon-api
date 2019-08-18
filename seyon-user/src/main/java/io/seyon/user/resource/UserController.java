@@ -46,6 +46,7 @@ public class UserController {
 		UserCompanyXref xref = new UserCompanyXref();
 		xref.setCompanyId(companyId);
 		xref.setEmail(userInfo.getEmail());
+		userDetails.setUserCompanyXref(xref);
 		return userService.createUser(userDetails);
 	}
 
