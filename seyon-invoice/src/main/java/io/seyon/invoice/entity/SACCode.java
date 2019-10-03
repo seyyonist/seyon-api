@@ -16,8 +16,11 @@ public class SACCode {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Column
+	
+	@Column(unique=false,nullable=false)
 	private String sacCode;
+	@Column
+	private String sacDesc;
 	@Column
 	private Double cgstPercent;
 	@Column
@@ -28,6 +31,15 @@ public class SACCode {
 	private LocalDate startDate;
 	@Column
 	private LocalDate endDate;
+	@Column
+	private boolean active ;
+	
+	public String getSacDesc() {
+		return sacDesc;
+	}
+	public void setSacDesc(String sacDesc) {
+		this.sacDesc = sacDesc;
+	}
 	
 	public String getSacCode() {
 		return sacCode;
@@ -50,8 +62,9 @@ public class SACCode {
 	}
 	@Override
 	public String toString() {
-		return "SACCode [sacCode=" + sacCode + ", cgstPercent=" + cgstPercent + ", sgstPercent=" + sgstPercent
-				+ ", igstPercent=" + igstPercent + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+		return "SACCode [id=" + id + ", sacCode=" + sacCode + ", sacDesc=" + sacDesc + ", cgstPercent=" + cgstPercent
+				+ ", sgstPercent=" + sgstPercent + ", igstPercent=" + igstPercent + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", active=" + active + "]";
 	}
 	public Long getId() {
 		return id;
@@ -76,6 +89,12 @@ public class SACCode {
 	}
 	public void setIgstPercent(Double igstPercent) {
 		this.igstPercent = igstPercent;
+	}
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 }
