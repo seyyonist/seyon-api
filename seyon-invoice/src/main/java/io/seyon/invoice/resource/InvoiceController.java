@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -149,11 +150,7 @@ public class InvoiceController {
 		return invoiceService.cancelInvoice(invoiceId);
 	}
 	
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/sac")
-	public Iterable<SACCode> getAllSac() {
-		log.info("SAC Details");
-		return sacRepo.findAll();
-	}
+	
 	
 	
 	
@@ -203,5 +200,26 @@ public class InvoiceController {
 		return monthWiseResults;
 		
 	}
+	
+	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/sac")
+	public Iterable<SACCode> getAllSac() {
+		log.info("SAC Details");
+		return sacRepo.findAll();
+	}
+	
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/sac")
+	public SACCode setSac(@RequestBody SACCode sacCode) {
+		log.info("Adding SAC code : {}",sacCode);
+		return sacRepo.save(sacCode);
+	}
+	
+	@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/sac")
+	public String deleteSac(@RequestParam Long id) {
+		log.info("Deleteing ID : {}",id);
+		sacRepo.deleteById(id);
+		return "SAC code Deleted Successfully";
+	}
+	
 	
 }
