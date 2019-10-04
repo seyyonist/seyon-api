@@ -74,7 +74,7 @@ public class ClientEntity implements Serializable {
 	String pan;
 	
 	@Size(min = 15,max=20, message = "Please enter the GSTIN")
-	@Column(nullable=false)
+	@Column(unique=true, nullable=true)
 	String gstin;
 	
 	@Column(nullable=true)
