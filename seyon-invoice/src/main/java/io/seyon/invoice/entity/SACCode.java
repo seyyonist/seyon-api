@@ -31,8 +31,7 @@ public class SACCode {
 	private LocalDate startDate;
 	@Column
 	private LocalDate endDate;
-	@Column
-	private boolean active ;
+
 	
 	public String getSacDesc() {
 		return sacDesc;
@@ -64,7 +63,7 @@ public class SACCode {
 	public String toString() {
 		return "SACCode [id=" + id + ", sacCode=" + sacCode + ", sacDesc=" + sacDesc + ", cgstPercent=" + cgstPercent
 				+ ", sgstPercent=" + sgstPercent + ", igstPercent=" + igstPercent + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", active=" + active + "]";
+				+ ", endDate=" + endDate + "]";
 	}
 	public Long getId() {
 		return id;
@@ -90,11 +89,6 @@ public class SACCode {
 	public void setIgstPercent(Double igstPercent) {
 		this.igstPercent = igstPercent;
 	}
-	public boolean isActive() {
-		return active;
-	}
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+
 	
 }
