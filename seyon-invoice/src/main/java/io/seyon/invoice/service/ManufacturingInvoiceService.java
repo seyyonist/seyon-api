@@ -25,6 +25,7 @@ import io.seyon.invoice.config.InvoiceProperties;
 import io.seyon.invoice.entity.InvoiceStatus;
 import io.seyon.invoice.entity.ManufacturingInvoice;
 import io.seyon.invoice.repository.ManufacturingInvoiceRepository;
+import io.seyon.invoice.resource.SequenceGeneratorService;
 
 @Service
 public class ManufacturingInvoiceService {
@@ -38,10 +39,14 @@ public class ManufacturingInvoiceService {
 	@Autowired
 	InvoiceProperties invoiceProperties;
 	
+	@Autowired
+	SequenceGeneratorService seqService;
+	
 	public List<ManufacturingInvoice> createProformaInvoice(List<ManufacturingInvoice> invoices,final Long companyId) {
 		int i=0;
 		for(ManufacturingInvoice invoice:invoices) {
-			String performaId = "PI-" + invoice.getClientId() +"-"+companyId+"-"+ Instant.now().getEpochSecond() + "/" + FinancialYear.getFinancialYearOf()+"-"+i++;
+			//String performaId = "PI-" + invoice.getClientId() +"-"+companyId+"-"+ Instant.now().getEpochSecond() + "/" + FinancialYear.getFinancialYearOf()+"-"+i++;
+			String performaId = "PI-" + seqService.nextManuInvId();
 			invoice.setProFormaId(performaId);
 			invoice.setType("PERFORMA");
 		}

@@ -39,6 +39,7 @@ import io.seyon.invoice.model.InvoiceData;
 import io.seyon.invoice.repository.InvoiceRepository;
 import io.seyon.invoice.repository.MonthWiseCountResult;
 import io.seyon.invoice.repository.ParticularsRepository;
+import io.seyon.invoice.resource.SequenceGeneratorService;
 
 @Service
 public class InvoiceService {
@@ -53,6 +54,9 @@ public class InvoiceService {
 
 	@Autowired
 	InvoiceProperties invoiceProperties;
+	
+	@Autowired
+	SequenceGeneratorService seqService;
 
 	public Iterable<Invoice> getInvoiceList(Integer pageNumber, Long companyId, Long id, Long clientId,
 			Date invoiceStDate, Date invoiceEdDate, InvoiceStatus status, String type, String invoiceId,
@@ -146,8 +150,8 @@ public class InvoiceService {
 			return null;
 		}
 
-		String performaId = "PI-" + invoice.getClientId() + "-" + companyId + "-" + Instant.now().getEpochSecond() + "/"
-				+ FinancialYear.getFinancialYearOf();
+		//String performaId = "PI-" + invoice.getClientId() + "-" + companyId + "-" + Instant.now().getEpochSecond() + "/"+ FinancialYear.getFinancialYearOf();
+		String performaId = "PI-" + seqService.nextManuInvId();
 		invoice.setPerformaId(performaId);
 		invoice.setType("PERFORMA");
 		invoice.setInvoiceDate(null);
