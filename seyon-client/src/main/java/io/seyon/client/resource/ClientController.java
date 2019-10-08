@@ -7,15 +7,16 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.seyon.client.config.GstnAlreadyExistException;
 import io.seyon.client.entity.ClientEntity;
 import io.seyon.client.service.ClientService;
 
@@ -30,12 +31,20 @@ public class ClientController {
 	
 	@PostMapping(produces=MediaType.APPLICATION_JSON_VALUE)
     public ClientEntity saveClientInfo(@Valid @RequestBody ClientEntity client,
-    			@RequestHeader(name="x-company-id",required=true) Long companyId, @RequestHeader(name="x-user-name",required=true) String userId ) {
+    			@RequestHeader(name="x-company-id",required=true) Long companyId, @RequestHeader(name="x-user-name",required=true) String userId ) throws Exception {
 		
 		log.info("Incoming request {}",client);
 		client.setCompanyId(companyId);
 		client.setCreatedBy(userId);
-		ClientEntity cli = clientService.saveClient(client);
+		
+		ClientEntity cli =null;
+		try {
+			cli = clientService.saveClient(client);
+		} catch (DataIntegrityViolationException e) {
+			if(e.getMessage().contains("GST")){
+				throw new GstnAlreadyExistException("GSTN Number already in use");
+			}
+		}
 		log.info("Response {}",cli);
         
 		return cli;
