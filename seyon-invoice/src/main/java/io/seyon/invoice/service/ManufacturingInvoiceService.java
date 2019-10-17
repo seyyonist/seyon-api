@@ -42,11 +42,14 @@ public class ManufacturingInvoiceService {
 	@Autowired
 	SequenceGeneratorService seqService;
 	
+	@Autowired
+	FinancialYear fy;
+	
 	public List<ManufacturingInvoice> createProformaInvoice(List<ManufacturingInvoice> invoices,final Long companyId) {
 		int i=0;
 		for(ManufacturingInvoice invoice:invoices) {
 			//String performaId = "PI-" + invoice.getClientId() +"-"+companyId+"-"+ Instant.now().getEpochSecond() + "/" + FinancialYear.getFinancialYearOf()+"-"+i++;
-			String performaId = "PI-" + seqService.nextManuInvId();
+			String performaId = "PI-" + fy.getTodayInYearMonthDay() +"-"+ seqService.nextManuInvId();
 			invoice.setProFormaId(performaId);
 			invoice.setType("PERFORMA");
 		}

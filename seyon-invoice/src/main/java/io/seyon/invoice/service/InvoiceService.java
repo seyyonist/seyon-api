@@ -57,6 +57,9 @@ public class InvoiceService {
 	
 	@Autowired
 	SequenceGeneratorService seqService;
+	
+	@Autowired
+	FinancialYear fy;
 
 	public Iterable<Invoice> getInvoiceList(Integer pageNumber, Long companyId, Long id, Long clientId,
 			Date invoiceStDate, Date invoiceEdDate, InvoiceStatus status, String type, String invoiceId,
@@ -151,7 +154,7 @@ public class InvoiceService {
 		}
 
 		//String performaId = "PI-" + invoice.getClientId() + "-" + companyId + "-" + Instant.now().getEpochSecond() + "/"+ FinancialYear.getFinancialYearOf();
-		String performaId = "PI-" + seqService.nextManuInvId();
+		String performaId = "PI-" +fy.getTodayInYearMonthDay() +"-"+ seqService.nextManuInvId();
 		invoice.setPerformaId(performaId);
 		invoice.setType("PERFORMA");
 		invoice.setInvoiceDate(null);
