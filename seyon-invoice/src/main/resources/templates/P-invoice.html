@@ -4,272 +4,283 @@
 <title th:text="${invoice.invoiceId}"></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <style>
-@page {
-	size: 21cm 29.7cm;
-	margin: 15mm 10mm 15mm 10mm;
-	/* change the margins as you want them to be. */
-}
-
 table {
+	border-collapse: collapse;
+}
+
+.bd td {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.invoice-box {
+	max-width: 800px;
+	margin: auto;
+	padding: 30px;
+	font-size: 12px;
+	line-height: 24px;
+	font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+}
+
+.invoice-box table.parent {
 	width: 100%;
-	border: solid 1px #424242;
-	border-collapse: collapse
+	line-height: inherit;
+	text-align: left;
 }
 
-table td,th {
-	width: 8.3%;
-	padding:5px;
+.invoice-box table.parent td {
+	padding: 5px;
+	vertical-align: top;
 }
 
-h1, h2, h3, h4, h5, h6, p {
-	margin: 1px;
+.invoice-box table.parent caption {
+	font-size: 16px;
 }
 
-.border {
-	border: solid 1px #424242;
+.invoice-box table.parent tr td:nth-child(2) {
+	/*text-align: right;*/
+	
+}
+
+.invoice-box table.parent tr.top table td {
+	padding-bottom: 20px;
+}
+
+.invoice-box table.parent tr.top table td.title {
+	font-size: 45px;
+	line-height: 45px;
+	color: #333;
+}
+
+.invoice-box table.parent tr.information table td {
+	padding-bottom: 40px;
+}
+
+.invoice-box table.parent tr.heading td {
+	background: #d7f0f5;
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+}
+
+.invoice-box table.parent tr.legend td {
+	background: #f4f5dc;
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+}
+
+.invoice-box table.parent tr.details td {
+	padding-bottom: 20px;
+}
+
+.invoice-box table.parent tr.item td {
+	border-bottom: 1px solid #eee;
+}
+
+.invoice-box table.parent tr.item.last td {
+	border-bottom: none;
+}
+
+.invoice-box table.parent tr.total td:nth-child(2) {
+	border-top: 2px solid #eee;
+	font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+	.invoice-box table.parent tr.top table td {
+		width: 100%;
+		display: block;
+		text-align: center;
+	}
+	.invoice-box table.parent tr.information table td {
+		width: 100%;
+		display: block;
+		text-align: center;
+	}
+}
+/** RTL **/
+.rtl {
+	direction: rtl;
+	font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial,
+		sans-serif;
+}
+
+.rtl table {
+	text-align: right;
+}
+
+.rtl table tr td:nth-child(2) {
+	text-align: left;
 }
 </style>
 
 </head>
 <body>
-	<table>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td colspan="3"><!--  <img th:src=${company.logoImg}/> -->
-			<img height="100" id="img-logo" th:src=${company.logoImg} />
-			</td>
-			<td colspan="6" align="center">
-				<h2 th:text="${company.companyName}" >Kameshwaran & Kausik</h2>
-				<h3 th:text="${company.title}">Chartered Accountants</h3>
-				<p th:text="${company.addressLine1}+','+${company.addressLine2}">No.1916,"SRI" Nivas,3rd Cross</p>
-				<p th:text="${company.city}+','+${company.state}+'-'+${company.pinCode}">1st Main Road, Prashanthnagar, Bangalore - 560079</p>
-			</td>
-			<td colspan="3"> </td>
-		</tr>
-		<tr>
-			<td colspan="12" align="center" class="border">
-				<h3>Professional Proforma Invoice</h3>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="12" align="center" height="20px" class="border">
-			</td>
-		</tr>
-		<tr>
-			<th align="right" class="border" colspan="3">
-			  Invoice Number :
-			</th>
-			<td align="center" class="border" colspan="3" th:text="${invoice.invoiceId}">
-			  GST-KNK-002
-			</td>
-			<th align="right" class="border" colspan="3">
-			   Invoice Date :
-			</th>
-			<td align="center" class="border" colspan="3" th:text="${invoice.invoiceDate}">
-				3-May-2018
-			</td>
-		</tr>
-		<tr>
-			<th align="right" class="border" colspan="3">
-			  State :
-			</th>
-			<td align="center" class="border" colspan="3" th:text="${company.state}">
-			  KARNATAKA
-			</td>
-			<th align="right" class="border" colspan="3">
-			   State Code : 
-			</th>
-			<td align="center" class="border" colspan="3">
-			 29
-			</td>
-		</tr>
-		<tr>
-			<th align="right" class="border" colspan="3">
-			  Client Name
-			</th>
-			<td align="center" class="border" colspan="9" th:text="${client.name}">
-			  Toyota tshusho Insurance Broker India Pvt Ltd
-			</td>
-		</tr>
-		<tr>
-			<th align="right" class="border" colspan="3" >
-			  Client Address :
-			</th>
-			<td align="center" class="border" colspan="9" th:text="${client.addrLine1+', '+client.addrLine2+', '+client.city+', '+client.state+'-'+client.pincode}">
-			  Unit No 4 B, Frontline Grandeur, 14, Walton Road, Bangalore - 560001.
-			</td>
-		</tr>
-		<tr>
-			<th align="right" class="border" colspan="3">
-			  Gstin :
-			</th>
-			<td align="center" class="border" colspan="9" th:text="${company.gstNo}">
-			  29AACCT8705E1Z9
-			</td>
-		</tr>
-		<tr>
-			<th align="right" class="border" colspan="3">
-			  State :
-			</th>
-			<td align="center" class="border" colspan="3" th:text="${client.state}">
-			  KARNATAKA
-			</td>
-			<th align="right" class="border" colspan="3">
-			   State Code : 
-			</th>
-			<td align="center" class="border" colspan="3">
-			 29
-			</td>
-		</tr>
-		<tr>
-			<th align="center" class="border" colspan="1">
-			 Sl No :
-			</th>
-			<th align="center" class="border" colspan="7">
-			  Particulars of Service
-			</th>
-			<th align="center" class="border" colspan="2">
-			  SAC Code
-			</th>
-			<!-- <th align="center" class="border" colspan="1">
-			  QTY
-			</th> -->
-			<!-- <th align="center" class="border" colspan="2">
-			  Rate 
-			</th> -->
-			<th align="center" class="border" colspan="2">
-			  Amount
-			</th>
-		</tr>
-		
-		<tr th:each="particular,iter  : ${particulars}">
-			<td align="center" class="border" colspan="1" th:text="${iter.index+1}">
-			 1
-			</td>
-			<td align="center" class="border" colspan="7" th:text="${particular.itemDescription}">
-			  Particulars of Service
-			</td>
-			<td align="center" class="border" colspan="2" th:text="${invoice.sacCode}">
-			  SAC Code
-			</td>
-			<!-- <td align="center" class="border" colspan="1" th:text="${particular.quantity}">
-			  QTY
-			</td> -->
-			<!-- <td align="center" class="border" colspan="2" th:text="${particular.performaRate}">
-			  Rate 
-			</td> -->
-			<td align="center" class="border" colspan="2" th:text="${particular.calculatedPerformaAmount}">
-			  Amount
-			</td>
-		</tr>
-		<tr>
-			<td align="center" class="border" colspan="8" th:text="${totalAmtInWords}">
-			</td>
-			<td align="center" class="border" colspan="2">
-			  Gross amount (A)
-			</td>
-			<td align="center" class="border" colspan="2" th:text="${invoice.totalPerfomaBeforeTax}">
-			  45000
-			</td>
-		</tr>
-		<tr th:if="${invoice.reimbPerfomaAmount != null and invoice.reimbPerfomaAmount gt 0}">
-			
-			<td align="center" class="border" colspan="10">
-			  Reimbursement
-			</td>
-			
-			<td align="center" class="border" colspan="2" th:text="${invoice.reimbPerfomaAmount}">
-			  45000
-			</td>
-			
-		</tr>
+	<div class="invoice-box">
+		<table cellpadding="0" cellspacing="0" class="parent">
+			<caption>
+				<b>Proforma Invoice</b>
+			</caption>
+			<tr>
+				<td colspan="2"><img style="width: 100px; height: 100px;"
+					id="img-logo" th:src=${company.logoImg} /></td>
+				<td></td>
+				<td colspan="2"><b>To</b><br> <b><span
+						th:text="${client.name}"></span></b> <br> <span
+					th:text="${client.addrLine1}+','"></span><br> <span
+					th:text="${client.addrLine2}+','"></span><br> <span
+					th:text="${client.city}+','+${client.state}+'-'+${client.pincode}"></span></td>
 
-		<tr>
-			<td align="left" valign="top" class="border" colspan="6" rowspan="6">
-			  <p>Bank Branch: <i th:text="${company.bankName+','+company.branch}">Bank</i></p>
-			  <p>Account Number:<i th:text="${company.accountNo}">NO</i></p>
-			  <p>IFSC Code:<i th:text="${company.branchIFSCCode}"></i></p>
-			  <p><u>Payment Terms</u></p>
-			  <p><small>Immediate</small></p>
-			</td>
+			</tr>
+
+			<tr>
+				<td><span th:text="${company.companyName}"></span><br> <span
+					th:text="${company.title}"></span></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+
+
+			<tr>
+				<td><span th:text="${company.addressLine1}+','"></span><br>
+					<span th:text="${company.addressLine2}+','"></span><br> <span
+					th:text="${company.city}+','+${company.state}+'-'+${company.pinCode}"></span>
+				</td>
+				<td colspan="1" th:if="${company.gstNo != null}">SAC Code:<span th:text="${invoice.sacCode}"></span></td>
+				<td colspan="2">Invoice #: <span th:text="${invoice.invoiceId}"></span><br>
+					Created: <span th:text="${invoice.invoiceDate}"></span></td>
+				<td></td>
+			</tr>
+
+
+			<tr class="heading">
+				<td colspan="4">Description</td>
+				<td>Amount</td>
+			</tr>
+			<tr class="legend">
+				<td colspan="4">Professional Charges in connection with the
+					following services rendered:-</td>
+
+				<td><span style='font-size: 14px;'>&#8377;</span></td>
+			</tr>
+			<!--
 			
-			<td th:if="${invoice.cgstPerfoma != null and invoice.cgstPerfoma gt 0}" align="center" class="border" colspan="2">
-			  Add: CGST 
-			</td>
-			<td th:if="${invoice.cgstPerfoma != null and invoice.cgstPerfoma gt 0}" align="center" class="border" colspan="2" th:text="${invoice.cgstPerfomaPercent}">
-			  45000 
-			</td>
-			<td th:if="${invoice.cgstPerfoma != null and invoice.cgstPerfoma gt 0}" align="center" class="border" colspan="2" th:text="${invoice.cgstPerfoma}">
-			  45000
-			</td>
-			
-		</tr>
-		<tr>
-			
-			<td th:if="${invoice.sgstPerfoma != null and invoice.sgstPerfoma gt 0}" align="center" class="border" colspan="2">
-			   Add: SGST 
-			</td>
-			<td th:if="${invoice.sgstPerfoma != null and invoice.sgstPerfoma gt 0}" align="center" class="border" colspan="2" th:text="${invoice.sgstPerfomaPercent}">
-			  45000
-			</td>
-			<td th:if="${invoice.sgstPerfoma != null and invoice.sgstPerfoma gt 0}" align="center" class="border" colspan="2" th:text="${invoice.sgstPerfoma}">
-			  45000
-			</td>
-		</tr>
-		<tr>
-			
-			<td th:if="${invoice.igstPerfoma != null and invoice.igstPerfoma gt 0}" align="center" class="border" colspan="2">
-			   Add: IGST 
-			</td>
-			<td th:if="${invoice.igstPerfoma != null and invoice.igstPerfoma gt 0}" align="center" class="border" colspan="2" th:text="${invoice.igstPerfomaPercent}">
-			  45000
-			</td>
-			<td th:if="${invoice.igstPerfoma != null and invoice.igstPerfoma gt 0}" align="center" class="border" colspan="2" th:text="${invoice.igstPerfoma}">
-			  45000
-			</td>
-		</tr>
-		
-		<tr>
-			
-			<td align="center" class="border" colspan="2">
-			  Total Amount
-			</td>
-			<td align="center" class="border" colspan="2">
-			  A + B + Reimbursement
-			</td>
-			<td align="center" class="border" colspan="2" th:text="${invoice.totalPerfomaAmount}">
-			  45000
-			</td>
-		</tr>
-		<tr>
-			<td align="center" class="border" colspan="6">
-			  For <b th:text="${company.ownerName}">Kameshwaram & Kaushik</b>
-			  <p th:text="${company.title}" > Chartered Accountant</p>
-			  <p>&nbsp;</p>
-			  <p>&nbsp;</p>
-			  <p>&nbsp;</p>
-			  <p><i>Authorised Signatory</i></p>
-			</td>
-			
-		</tr>
-		
-	</table>
-	<p><u>Terms & Conditions</u></p>
-	<p th:text="${company.termsConditions}">
-	  
-	</p>
+            	 
+             -->
+			<tr th:each="particular,iter  : ${particulars}" class="item">
+				<td align="center" colspan="4" th:text="${particular.itemDescription}"></td>
+				<td colspan="1" th:text="${particular.invoiceRate}"></td>
+			</tr>
+			<tr
+				th:if="${invoice.reimbPerfomaAmount != null and invoice.reimbPerfomaAmount gt 0}"
+				class="item">
+				<td align="right" colspan="4">Reimbursement</td>
+				<td colspan="1" th:text="${invoice.reimbPerfomaAmount}"></td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><b>Gross Total</b>:</td>
+				<td th:text="${invoice.totalPerfomaBeforeTax}"></td>
+
+			</tr>
+
+			<tr>
+				<td colspan="3" align="right">
+					<table valign="top" border="1">
+						<tr>
+							<td
+								th:if="${invoice.cgstPerfoma != null and invoice.cgstPerfoma gt 0}">CGST@<span
+								th:text="${invoice.cgstPerfomaPercent}"></span>%:
+							</td>
+							<td
+								th:if="${invoice.cgstPerfoma != null and invoice.cgstPerfoma gt 0}"
+								th:text="${invoice.cgstPerfoma}">
+							</td>
+							<td
+								th:if="${invoice.sgstPerfoma != null and invoice.sgstPerfoma gt 0}">CGST@<span
+								th:text="${invoice.sgstPerfomaPercent}"></span>%:
+							</td>
+							<td
+								th:if="${invoice.sgstPerfoma != null and invoice.sgstPerfoma gt 0}"
+								th:text="${invoice.sgstPerfoma}">
+							</td>
+							<td
+								th:if="${invoice.igstPerfoma != null and invoice.igstPerfoma gt 0}">CGST@<span
+								th:text="${invoice.igstPerfomaPercent}"></span>%:
+							</td>
+							<td
+								th:if="${invoice.igstPerfoma != null and invoice.igstPerfoma gt 0}"
+								th:text="${invoice.igstPerfoma}">
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td><b>Net Total</b>:</td>
+				<td th:text="${invoice.totalPerfomaAmount}"></td>
+
+
+			</tr>
+			<tr>
+				<td colspan="5" align="right">Amount in Words :<b><span
+						th:text="${totalAmtInWords}"></span></b></td>
+
+			</tr>
+			<tr>
+				<td><b>Bank Details</b></td>
+				<td>PAN</td>
+				<td th:text="${company.panNo}"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr class="bd">
+				<td>Beneficiary Name</td>
+				<td th:text="${company.ownerName}"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr class="bd">
+				<td>Bank Name</td>
+				<td th:text="${company.bankName}"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr class="bd">
+				<td>Branch</td>
+				<td th:text="${company.branch}"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr class="bd">
+				<td>Account No.</td>
+				<td th:text="${company.accountNo}"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr class="bd">
+				<td>Nature of Account</td>
+				<td th:text="${company.accountType}"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr class="bd">
+				<td>IFSC Code</td>
+				<td th:text="${company.branchIFSCCode}"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+
+	</div>
+	<!-- ########################################### -->
+
 </body>
 </html>

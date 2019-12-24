@@ -154,7 +154,8 @@ public class InvoiceService {
 		}
 
 		//String performaId = "PI-" + invoice.getClientId() + "-" + companyId + "-" + Instant.now().getEpochSecond() + "/"+ FinancialYear.getFinancialYearOf();
-		String performaId = "PI-" +fy.getTodayInYearMonthDay() +"-"+ seqService.nextManuInvId();
+		//String performaId = "PI-" +fy.getTodayInYearMonthDay() +"-"+ seqService.nextManuInvId();
+		String performaId="PI-"+seqService.nextServiceInvId()+"/"+FinancialYear.getFinancialYearOf(); 
 		invoice.setPerformaId(performaId);
 		invoice.setType("PERFORMA");
 		invoice.setInvoiceDate(null);
