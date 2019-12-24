@@ -49,7 +49,8 @@ public class ManufacturingInvoiceService {
 		int i=0;
 		for(ManufacturingInvoice invoice:invoices) {
 			//String performaId = "PI-" + invoice.getClientId() +"-"+companyId+"-"+ Instant.now().getEpochSecond() + "/" + FinancialYear.getFinancialYearOf()+"-"+i++;
-			String performaId = "PI-" + fy.getTodayInYearMonthDay() +"-"+ seqService.nextManuInvId();
+			//String performaId = "PI-" + fy.getTodayInYearMonthDay() +"-"+ seqService.nextManuInvId();
+			String performaId="PI-"+seqService.nextManuInvId()+"/"+FinancialYear.getFinancialYearOf(); 
 			invoice.setProFormaId(performaId);
 			invoice.setType("PERFORMA");
 		}
