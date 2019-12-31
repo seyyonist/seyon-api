@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title th:text="${invoice.invoiceId}"></title>
+<!-- <title th:text="${invoice.invoiceId}"></title>-->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <style>
 table {
@@ -14,7 +14,7 @@ table {
 }
 
 .invoice-box {
-	max-width: 800px;
+	max-width: 850px;
 	margin: auto;
 	padding: 30px;
 	font-size: 12px;
@@ -59,13 +59,17 @@ table {
 .invoice-box table.parent tr.heading td {
 	background: #d7f0f5;
 	border-bottom: 1px solid #ddd;
+	border-top: 1px solid #000;
 	font-weight: bold;
 }
 
 .invoice-box table.parent tr.legend td {
 	background: #fdffe3;
 	border-bottom: 1px solid #ddd;
-	
+}
+
+.invoice-box table.parent tr.tablefooter td {
+	border-bottom: 1px solid #000;
 }
 
 .invoice-box table.parent tr.details td {
@@ -121,9 +125,15 @@ table {
 				<b>Invoice</b>
 			</caption>
 			<tr>
-				<td th:if="${company.logoImg != null}" colspan="2"><img style="width: 100px; height: 100px;"
-					id="img-logo" th:src=${company.logoImg} /></td>
-				<td></td>
+				<td th:if="${company.logoImg != null}" colspan="1"><img
+					style="width: 100px; height: 100px;" id="img-logo"
+					th:src=${company.logoImg} /></td>
+				<td colspan="2"><b><span th:text="${company.companyName}"></span></b><br>
+					<!-- <span th:text="${company.title}"></span><br>--> 
+					<span th:text="${company.addressLine1}+','"></span><br> 
+					<span th:text="${company.addressLine2}+','"></span><br> 
+					<span th:text="${company.city}+','+${company.state}+'-'+${company.pinCode}"></span>
+				</td>
 				<td colspan="2"><b>To</b><br> <b><span
 						th:text="${client.name}"></span></b> <br> <span
 					th:text="${client.addrLine1}+','"></span><br> <span
@@ -132,55 +142,54 @@ table {
 
 			</tr>
 
-			<tr>
-				<td><span th:text="${company.companyName}"></span><br> <span
-					th:text="${company.title}"></span></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-		
-
 
 			<tr>
-				<td><span th:text="${company.addressLine1}+','"></span><br>
-					<span th:text="${company.addressLine2}+','"></span><br> <span
-					th:text="${company.city}+','+${company.state}+'-'+${company.pinCode}"></span>
-				</td>
-				<!--  <td colspan="1" th:if="${company.gstNo != null}">SAC Code:<span th:text="${invoice.sacCode}"></span></td>-->
+				<td colspan="2">Invoice No: <span th:text="${invoice.invoiceId}"></span><br>
+					Invoice Date: <span th:text="${#dates.format(invoice.invoiceDate, 'dd-MMM-yyyy')}"></span></td>
 				<td></td>
-				<td colspan="2">Invoice #: <span th:text="${invoice.invoiceId}"></span><br>
-					Created: <span th:text="${#dates.format(invoice.invoiceDate, 'dd-MMM-yyyy')}"></span></td>
+				<td></td>
+				<!--  <td colspan="1" th:if="${invoice.sacCode != null and invoice.sacCode!=''}">SAC Code:<span th:text="${invoice.sacCode}"></span></td>-->
 				<td></td>
 			</tr>
 
 
 			<tr class="heading">
-				<td colspan="4">Description (Professional Charges in connection with the
-					following services rendered) </td>
-				<td>Amount (<span style='font-size: 14px;'>&#8377;</span>)</td>
+				<td colspan="4">Description</td>
+				<td>Amount</td>
 			</tr>
-			<tr th:each="particular,iter  : ${particulars}" class="legend">
+			<tr class="legend">
+				<td colspan="4">Professional Charges in connection with the
+					following services rendered:-</td>
+				<td><span style='font-size: 14px;'>&#8377;</span></td>
+			</tr>
+			<tr class="item" th:each="particular,iter  : ${particulars}">
 				<td colspan="4" th:text="${particular.itemDescription}"></td>
-				<td th:text="${particular.invoiceRate}"></td>
+				<td
+					th:text="${#numbers.formatDecimal(particular.invoiceRate, 0, 'COMMA', 2, 'POINT')}"></td>
 			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><b>Sub Total</b>:</td>
+				<td
+					th:text="${#numbers.formatDecimal(invoice.totalInvoiceBeforeTax, 0, 'COMMA', 2, 'POINT')}"></td>
+
+			</tr>
+
 			<tr
 				th:if="${invoice.reimbInvoiceAmount != null and invoice.reimbInvoiceAmount gt 0}"
 				class="item">
-				<td align="right" colspan="4">Reimbursement</td>
-				<td colspan="1" th:text="${invoice.reimbInvoiceAmount}"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>Reimbursement</td>
+				<td th:text="${#numbers.formatDecimal(invoice.reimbInvoiceAmount, 0, 'COMMA', 2, 'POINT')}"></td>
 			</tr>
 
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><b>Gross Total</b>:</td>
-				<td th:text="${invoice.totalInvoiceBeforeTax}"></td>
 
-			</tr>
 
-			<tr>
+			<tr class="tablefooter">
 				<td colspan="3" align="right">
 					<table valign="top" border="1">
 						<tr>
@@ -208,64 +217,59 @@ table {
 						</tr>
 					</table>
 				</td>
-				<td><b>Net Total</b>:</td>
-				<td th:text="${invoice.totalInvoiceAmount}"></td>
+				<td><b>Grand Total</b>:</td>
+				<td
+					th:text="${#numbers.formatDecimal(invoice.totalInvoiceAmount, 0, 'COMMA', 2, 'POINT')}"></td>
 
 
 			</tr>
 			<tr>
-				<td colspan="5" align="right">Amount in Words :<b><span
+				<td colspan="5" align="left">Amount in Words :<b><span
 						th:text="${totalAmtInWords}"></span></b></td>
 
 			</tr>
 			<tr>
-				<td><b>Bank Details</b></td>
 				<td>PAN</td>
 				<td th:text="${company.panNo}"></td>
 				<td></td>
 				<td></td>
 			</tr>
+			<tr>
+				<td colspan="5"><b>Bank Details</b></td>
+			</tr>
 			<tr class="bd">
 				<td>Beneficiary Name</td>
-				<td th:text="${company.ownerName}"></td>
-				<td></td>
+				<td colspan="2" th:text="${company.ownerName}"></td>
 				<td></td>
 				<td></td>
 			</tr>
 			<tr class="bd">
 				<td>Bank Name</td>
-				<td th:text="${company.bankName}"></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td colspan="2" th:text="${company.bankName}"></td>
+				<td colspan="2">For <b th:text="${company.companyName}"></b></td>
 			</tr>
 			<tr class="bd">
 				<td>Branch</td>
-				<td th:text="${company.branch}"></td>
-				<td></td>
+				<td colspan="2" th:text="${company.branch}"></td>
 				<td></td>
 				<td></td>
 			</tr>
 			<tr class="bd">
 				<td>Account No.</td>
-				<td th:text="${company.accountNo}"></td>
-				<td></td>
+				<td colspan="2" th:text="${company.accountNo}"></td>
 				<td></td>
 				<td></td>
 			</tr>
 			<tr class="bd">
 				<td>Nature of Account</td>
-				<td th:text="${company.accountType}"></td>
-				<td></td>
+				<td colspan="2" th:text="${company.accountType}"></td>
 				<td></td>
 				<td></td>
 			</tr>
 			<tr class="bd">
 				<td>IFSC Code</td>
-				<td th:text="${company.branchIFSCCode}"></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td colspan="2" th:text="${company.branchIFSCCode}"></td>
+				<td colspan="2"><i>Authorized Signatory</i></td>
 			</tr>
 		</table>
 
