@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.ApplicationPidFileWriter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,7 +25,11 @@ public class SeyonApiApplication {
 	SeyonApiProperties seyonProperties;
 	
 	public static void main(String[] args) {
-		SpringApplication.run(SeyonApiApplication.class, args);
+		//SpringApplication.run(SeyonApiApplication.class, args);
+		SpringApplicationBuilder app=new SpringApplicationBuilder(SeyonApiApplication.class);
+		app.build().addListeners(new ApplicationPidFileWriter("api.pid"));
+		app.run(args);
+				
 	}
 
 	
