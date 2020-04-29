@@ -1,7 +1,6 @@
 package io.seyon.company.model;
 
 import io.seyon.company.entity.Company;
-
 import io.seyon.user.entity.UserInfo;
 
 public class CompanyModel {

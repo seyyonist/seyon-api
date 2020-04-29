@@ -12,22 +12,19 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.seyon.invoice.entity.Invoice;
 import io.seyon.invoice.entity.ManufacturingInvoice;
 import io.seyon.invoice.entity.SACCode;
-import io.seyon.invoice.model.InvoiceData;
 import io.seyon.invoice.model.InvoiceSearch;
 import io.seyon.invoice.repository.SACCodeRepository;
 import io.seyon.invoice.service.GenerateManuInvoiceService;
-import io.seyon.invoice.service.InvoiceService;
 import io.seyon.invoice.service.ManufacturingInvoiceService;
 
 @RestController
@@ -48,8 +45,8 @@ public class ManufacturingInvoiceController {
 
 	@PostMapping(path="/performa",produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ManufacturingInvoice> savePerformaInvoice(@RequestBody List<ManufacturingInvoice> invoiceData,
-			@RequestHeader(name = "x-company-id", required = true) Long companyId,
-			@RequestHeader(name = "x-user-name", required = true) String userId) {
+			@RequestAttribute(name = "x-company-id", required = true) Long companyId,
+			@RequestAttribute(name = "x-user-name", required = true) String userId) {
 		log.info("Invoice details request {}", invoiceData);
 		invoiceData.forEach(p -> {
 			p.setCompanyId(companyId);
@@ -62,8 +59,8 @@ public class ManufacturingInvoiceController {
 	
 	@PostMapping(path="/invoice", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ManufacturingInvoice saveInvoice(@RequestBody ManufacturingInvoice invoiceData,
-			@RequestHeader(name = "x-company-id", required = true) Long companyId,
-			@RequestHeader(name = "x-user-name", required = true) String userId) {
+			@RequestAttribute(name = "x-company-id", required = true) Long companyId,
+			@RequestAttribute(name = "x-user-name", required = true) String userId) {
 		log.info("Invoice details request {}", invoiceData);
 		ManufacturingInvoice invoice = invoiceService.createInvoice(invoiceData);
 		return invoice;
@@ -71,7 +68,7 @@ public class ManufacturingInvoiceController {
 
 	@PostMapping(path = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<ManufacturingInvoice> searchInvoice(@RequestParam(required = false) Integer pageNumber,
-			@RequestHeader(name = "x-company-id", required = true) Long companyId,
+			@RequestAttribute(name = "x-company-id", required = true) Long companyId,
 			@RequestBody InvoiceSearch invoiceSearch) {
 		log.info(
 				"Invoice Search Data pageNumber {},companyId {},"
@@ -101,7 +98,7 @@ public class ManufacturingInvoiceController {
 	
 	@PostMapping(path = "/getInvoiceReport", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<ManufacturingInvoice> searchInvoice(
-			@RequestHeader(name = "x-company-id", required = true) Long companyId,
+			@RequestAttribute(name = "x-company-id", required = true) Long companyId,
 			@RequestBody InvoiceSearch invoiceSearch) {
 		log.info(
 				"Invoice Search Data pageNumber {},companyId {},"

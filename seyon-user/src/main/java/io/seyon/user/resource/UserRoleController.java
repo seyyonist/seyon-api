@@ -8,13 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.seyon.user.entity.UserInfo;
 import io.seyon.user.entity.UserRole;
 import io.seyon.user.model.SeyonResponse;
 import io.seyon.user.service.UserService;
@@ -33,7 +31,7 @@ public class UserRoleController {
 
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, path = "/adduserrole")
 	public SeyonResponse addUserRole(@RequestParam(required = true) String email,
-			@RequestParam(required = true) String roleCode,@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
+			@RequestParam(required = true) String roleCode,@RequestAttribute(name = COMPANY_ID, required = true) Long companyId) {
 		return userService.addUserRole(email, roleCode,companyId);
 	}
 
@@ -43,17 +41,17 @@ public class UserRoleController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UserRole> getUserRoles(@RequestParam(required = true) String email,@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
+	public List<UserRole> getUserRoles(@RequestParam(required = true) String email,@RequestAttribute(name = COMPANY_ID, required = true) Long companyId) {
 		return userService.getUserRoles(email,companyId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,path = "/getRolesOpen")
-	public List<UserRole> getUserRolesOpen(@RequestParam(required = true) String email,@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
+	public List<UserRole> getUserRolesOpen(@RequestParam(required = true) String email,@RequestAttribute(name = COMPANY_ID, required = true) Long companyId) {
 		return userService.getUserRoles(email,companyId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,path="/authenticated")
-	public List<String> getLoggedInUser(@RequestHeader(name = "x-user-email", required = true) String userId,@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
+	public List<String> getLoggedInUser(@RequestAttribute(name = "x-user-email", required = true) String userId,@RequestAttribute(name = COMPANY_ID, required = true) Long companyId) {
 		log.info("user Id"+userId);
 		List<String> roleCodes=userService.getUserRoles(userId,companyId).stream()
 				.map(role->role.getRoleCode()).collect(Collectors.toList());

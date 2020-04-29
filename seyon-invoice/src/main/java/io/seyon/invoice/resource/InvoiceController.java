@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.seyon.invoice.entity.Invoice;
 import io.seyon.invoice.entity.SACCode;
-import io.seyon.invoice.model.InvoiceAndProfomaCountResult;
 import io.seyon.invoice.model.InvoiceData;
 import io.seyon.invoice.model.InvoiceSearch;
 import io.seyon.invoice.repository.MonthWiseCountResult;
@@ -42,8 +41,8 @@ public class InvoiceController {
 
 	@PostMapping(path="/performa",produces = MediaType.APPLICATION_JSON_VALUE)
 	public InvoiceData savePerformaInvoice(@RequestBody InvoiceData invoiceData,
-			@RequestHeader(name = "x-company-id", required = true) Long companyId,
-			@RequestHeader(name = "x-user-name", required = true) String userId) {
+			@RequestAttribute(name = "x-company-id", required = true) Long companyId,
+			@RequestAttribute(name = "x-user-name", required = true) String userId) {
 		log.info("Invoice details request {}", invoiceData);
 
 		invoiceData.getInvoice().setCompanyId(companyId);
@@ -63,8 +62,8 @@ public class InvoiceController {
 	
 	@PostMapping(path="/invoice", produces = MediaType.APPLICATION_JSON_VALUE)
 	public InvoiceData saveInvoice(@RequestBody InvoiceData invoiceData,
-			@RequestHeader(name = "x-company-id", required = true) Long companyId,
-			@RequestHeader(name = "x-user-name", required = true) String userId) {
+			@RequestAttribute(name = "x-company-id", required = true) Long companyId,
+			@RequestAttribute(name = "x-user-name", required = true) String userId) {
 		log.info("Invoice details request {}", invoiceData);
 
 		invoiceData.getInvoice().setCompanyId(companyId);
@@ -81,7 +80,7 @@ public class InvoiceController {
 
 	@PostMapping(path = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Invoice> searchInvoice(@RequestParam(required = false) Integer pageNumber,
-			@RequestHeader(name = "x-company-id", required = true) Long companyId,
+			@RequestAttribute(name = "x-company-id", required = true) Long companyId,
 			@RequestBody InvoiceSearch invoiceSearch) {
 		log.info(
 				"Invoice Search Data pageNumber {},companyId {},"
@@ -111,7 +110,7 @@ public class InvoiceController {
 
 	
 	@PostMapping(path = "/getInvoiceReport", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Iterable<Invoice> searchInvoiceReport(@RequestHeader(name = "x-company-id", required = true) Long companyId,
+	public Iterable<Invoice> searchInvoiceReport(@RequestAttribute(name = "x-company-id", required = true) Long companyId,
 			@RequestBody InvoiceSearch invoiceSearch) {
 		log.info(
 				"Invoice Search Data ,companyId {},"
@@ -173,7 +172,7 @@ public class InvoiceController {
 	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/minProformaDate")
-	public String getMinProfomaDate(@RequestHeader(name = "x-company-id", required = true) Long companyId) {
+	public String getMinProfomaDate(@RequestAttribute(name = "x-company-id", required = true) Long companyId) {
 		log.info("getMinProfomaDate for companyid {}", companyId);
 		LocalDate minProformaDate = invoiceService.getMinProfomaDate(companyId);
 		return minProformaDate.toString();
@@ -181,7 +180,7 @@ public class InvoiceController {
 	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/minInvoiceDate")
-	public String getMinInvoiceDate(@RequestHeader(name = "x-company-id", required = true) Long companyId) {
+	public String getMinInvoiceDate(@RequestAttribute(name = "x-company-id", required = true) Long companyId) {
 		log.info("getMinInvoiceDate for companyid {}", companyId);
 		LocalDate minProformaDate = invoiceService.getMinInvoiceDate(companyId);
 		return minProformaDate.toString();
@@ -189,7 +188,7 @@ public class InvoiceController {
 	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,path="/getInvoiceAndProfomaCountForCurrentYear")
-	public List<MonthWiseCountResult> getInvoiceAndProfomaCountForCurrentYear(@RequestHeader(name = "x-company-id", required = true) Long companyId) {
+	public List<MonthWiseCountResult> getInvoiceAndProfomaCountForCurrentYear(@RequestAttribute(name = "x-company-id", required = true) Long companyId) {
 		log.info("getInvoiceCount for companyid {}", companyId);
 		List<MonthWiseCountResult> monthWiseResults = new ArrayList<MonthWiseCountResult>();
 		MonthWiseCountResult invoiceMonthWiseCountResult=invoiceService.getInvoiceCount(companyId);

@@ -9,8 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,8 +30,8 @@ public class VoucherController {
 
 	@PostMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE, path = "/saveVoucher")
 	public Voucher saveVoucher(@RequestBody Voucher voucher,
-			@RequestHeader(name = "x-company-id", required = true) Long companyId,
-			@RequestHeader(name = "x-user-name", required = true) String userId) {
+			@RequestAttribute(name = "x-company-id", required = true) Long companyId,
+			@RequestAttribute(name = "x-user-name", required = true) String userId) {
 		log.info("Voucher save request {}", voucher);
 
 		voucher = voucherService.saveVoucher(voucher, companyId, userId);
@@ -41,7 +41,7 @@ public class VoucherController {
 
 	@PostMapping(path = "/search", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
 	public Iterable<Voucher> searchInvoice(@RequestParam(required = false) Integer pageNumber,
-			@RequestHeader(name = "x-company-id", required = true) Long companyId,
+			@RequestAttribute(name = "x-company-id", required = true) Long companyId,
 			@RequestBody VoucherSearch voucherSearch) {
 		log.info(
 				"Invoice Search Data pageNumber {},companyId {},"
@@ -81,7 +81,7 @@ public class VoucherController {
 	}
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE,path="/voucherCount")
-	public Map<String,Long> getVoucherCounts(@RequestHeader(name = "x-company-id", required = true) Long companyId){
+	public Map<String,Long> getVoucherCounts(@RequestAttribute(name = "x-company-id", required = true) Long companyId){
 		return voucherService.getVoucherCounts(companyId);
 	}
 
@@ -91,7 +91,7 @@ public class VoucherController {
 	}
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE,path="/fya")
-	public Iterable<Voucher> getVoucherFYA(@RequestParam(required = false,defaultValue="0") Integer pageNumber,@RequestHeader(name = "x-company-id", required = true) Long companyId){
+	public Iterable<Voucher> getVoucherFYA(@RequestParam(required = false,defaultValue="0") Integer pageNumber,@RequestAttribute(name = "x-company-id", required = true) Long companyId){
 		return voucherService.getVoucherist(pageNumber, companyId, null,null, null, null,"NEW");
 	}
 

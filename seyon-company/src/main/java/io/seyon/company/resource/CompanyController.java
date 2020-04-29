@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,7 +45,7 @@ public class CompanyController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, path = "/getCompany")
-	public Company getCompany(@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
+	public Company getCompany(@RequestAttribute(name = COMPANY_ID, required = true) Long companyId) {
 		return companyService.getCompany(companyId);
 	}
 
@@ -56,7 +55,7 @@ public class CompanyController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, path = "/getUserCompany")
-	public List<CompanyRole> getUserCompanies(@RequestHeader(name = "x-user-email", required = true) String email) {
+	public List<CompanyRole> getUserCompanies(@RequestAttribute(name = "x-user-email", required = true) String email) {
 		return companyService.getCompanies(email);
 	}
 	

@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,12 +36,12 @@ public class CompanySuController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, path = "/activate")
-	public Company activateCompany(@RequestHeader(name = "x-user-email", required = true) String email,@RequestParam Long companyId) {
+	public Company activateCompany(@RequestAttribute(name = "x-user-email", required = true) String email,@RequestParam Long companyId) {
 		return companyService.activeCompany(email,companyId);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, path = "/deActivate")
-	public Company deActivateCompany(@RequestHeader(name = "x-user-email", required = true) String email,@RequestParam Long companyId) {
+	public Company deActivateCompany(@RequestAttribute(name = "x-user-email", required = true) String email,@RequestParam Long companyId) {
 		return companyService.deActiveCompany(email,companyId);
 	}
 }

@@ -1,19 +1,17 @@
 package io.seyon;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.apache.catalina.filters.RemoteAddrFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.ApplicationPidFileWriter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -37,13 +35,29 @@ public class SeyonApiApplication {
 	public WebMvcConfigurer interceptorConfigurer() {
 		return new WebMvcConfigurer() {
 			@Autowired
-			HandlerInterceptor securityInterceptor;
+			@Qualifier("jwtHandlerInterceptor")
+			HandlerInterceptor jwtHandlerInterceptor;
 
 			@Override
 			public void addInterceptors(InterceptorRegistry registry) {
 				log.info("Adding interceptors");
-				registry.addInterceptor(securityInterceptor).excludePathPatterns(seyonProperties.getAuthExcludeUrl());
+				registry.addInterceptor(jwtHandlerInterceptor).excludePathPatterns(seyonProperties.getAuthExcludeUrl());
 				WebMvcConfigurer.super.addInterceptors(registry);
+			}
+			
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/jwt/**")
+					.allowCredentials(true)
+					.allowedMethods("GET","POST","DELETE","PATCH","PUT")
+					.allowedOrigins("http://localhost:4200")
+					.maxAge(3600);
+				registry.addMapping("/api/**")
+				.allowCredentials(true)
+				.allowedMethods("GET","POST","DELETE","PATCH","PUT")
+				.allowedOrigins("http://localhost:4200")
+				.maxAge(3600);
+				WebMvcConfigurer.super.addCorsMappings(registry);
 			}
 		};
 	}

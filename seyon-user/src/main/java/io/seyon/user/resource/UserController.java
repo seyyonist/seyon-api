@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +37,7 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public SeyonResponse createUser(@RequestBody UserInfo userInfo,
-			@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
+			@RequestAttribute(name = COMPANY_ID, required = true) Long companyId) {
 		
 		UserDetails userDetails = new UserDetails();
 		userDetails.setUserInfo(userInfo);
@@ -64,12 +63,12 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UserInfo> getUsers(@RequestHeader(name = COMPANY_ID, required = true) Long companyId) {
+	public List<UserInfo> getUsers(@RequestAttribute(name = COMPANY_ID, required = true) Long companyId) {
 		return userService.getUsers(companyId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,path="/authenticated")
-	public UserInfo getLoggedInUser(@RequestHeader(name = "x-user-email", required = true) String userId) {
+	public UserInfo getLoggedInUser(@RequestAttribute(name = "x-user-email", required = true) String userId) {
 		log.info("user Id"+userId);
 		return userService.getUser(userId);
 	}
