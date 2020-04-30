@@ -16,6 +16,12 @@ public class SeyonApiProperties {
 	String appId;
 	List<String> sqlFiles;
 	
+	String clientId;
+	String clientSecret;
+	String tokenUrl;
+	String userProfileUrl;
+	
+	
 	private boolean continueOnError = false;
 	private String separator = ";";
 	private Charset sqlScriptEncoding;
@@ -74,6 +80,38 @@ public class SeyonApiProperties {
 
 	public void setSqlScriptEncoding(Charset sqlScriptEncoding) {
 		this.sqlScriptEncoding = sqlScriptEncoding;
+	}
+
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
+	public String getClientSecret() {
+		return clientSecret;
+	}
+
+	public void setClientSecret(String clientSecret) {
+		this.clientSecret = clientSecret;
+	}
+
+	public String getTokenUrl() {
+		return tokenUrl;
+	}
+
+	public void setTokenUrl(String tokenUrl) {
+		this.tokenUrl = tokenUrl;
+	}
+
+	public String getUserProfileUrl() {
+		return userProfileUrl;
+	}
+
+	public void setUserProfileUrl(String userProfileUrl) {
+		this.userProfileUrl = userProfileUrl;
 	}
 
 }
