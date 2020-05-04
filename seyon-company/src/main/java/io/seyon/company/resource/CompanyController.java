@@ -50,7 +50,7 @@ public class CompanyController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, path = "/getCompanyForUser")
-	public List<CompanyRole> getCompanies(@RequestParam(name = "email", required = true) String email) {
+	public List<CompanyRole> getCompanies(@RequestAttribute(name = "x-user-email", required = true) String email) {
 		return companyService.getCompanies(email);
 	}
 	

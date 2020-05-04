@@ -21,10 +21,16 @@ public class SeyonApiProperties {
 	String tokenUrl;
 	String userProfileUrl;
 	
+	String proxyHost;
+	String proxyPort;
+	String proxyUser;
+	String proxyPass;
 	
 	private boolean continueOnError = false;
 	private String separator = ";";
 	private Charset sqlScriptEncoding;
+	
+	
 		
 	public String getAppId() {
 		return appId;
@@ -112,6 +118,38 @@ public class SeyonApiProperties {
 
 	public void setUserProfileUrl(String userProfileUrl) {
 		this.userProfileUrl = userProfileUrl;
+	}
+
+	public String getProxyHost() {
+		return proxyHost;
+	}
+
+	public void setProxyHost(String proxyHost) {
+		this.proxyHost = proxyHost;
+	}
+
+	public String getProxyPort() {
+		return proxyPort;
+	}
+
+	public void setProxyPort(String proxyPort) {
+		this.proxyPort = proxyPort;
+	}
+
+	public String getProxyUser() {
+		return proxyUser;
+	}
+
+	public void setProxyUser(String proxyUser) {
+		this.proxyUser = proxyUser;
+	}
+
+	public String getProxyPass() {
+		return proxyPass;
+	}
+
+	public void setProxyPass(String proxyPass) {
+		this.proxyPass = proxyPass;
 	}
 
 }
