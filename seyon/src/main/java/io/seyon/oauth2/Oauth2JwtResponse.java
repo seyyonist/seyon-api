@@ -6,6 +6,7 @@ public class Oauth2JwtResponse {
 	String picture;
 	String name;
 	String email;
+	boolean admin=false;
 	
 	public String getPicture() {
 		return picture;
@@ -34,6 +35,12 @@ public class Oauth2JwtResponse {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public boolean isAdmin() {
+		return admin;
+	}
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 }

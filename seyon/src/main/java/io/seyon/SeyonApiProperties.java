@@ -30,6 +30,7 @@ public class SeyonApiProperties {
 	private String separator = ";";
 	private Charset sqlScriptEncoding;
 	
+	String allowOriginDomain; 
 	
 		
 	public String getAppId() {
@@ -150,6 +151,14 @@ public class SeyonApiProperties {
 
 	public void setProxyPass(String proxyPass) {
 		this.proxyPass = proxyPass;
+	}
+
+	public String getAllowOriginDomain() {
+		return allowOriginDomain;
+	}
+
+	public void setAllowOriginDomain(String allowOriginDomain) {
+		this.allowOriginDomain = allowOriginDomain;
 	}
 
 }

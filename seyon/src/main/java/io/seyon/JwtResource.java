@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import io.seyon.oauth2.SeyyonJwtHandler;
+import io.seyon.user.entity.UserInfo;
+import io.seyon.user.service.UserService;
 import io.seyon.oauth2.OAuthDomain;
 import io.seyon.oauth2.Oauth2JwtResponse;
 import io.seyon.oauth2.OauthTokenResponse;
@@ -39,6 +41,9 @@ public class JwtResource {
 	SeyyonJwtHandler jwtHandler;
 	
 	@Autowired
+	UserService userService;//.getUserByEmail(email);
+	
+	@Autowired
 	@Qualifier("oauthRestTemplate")
 	RestTemplate restTemplate;
 	
@@ -54,6 +59,12 @@ public class JwtResource {
 	    resp.setName(userInfo.getName());
 	    resp.setPicture(userInfo.getPicture());
 	    resp.setEmail(userInfo.getEmail());
+	    //get current user info
+	    UserInfo user=userService.getUserByEmail(userInfo.getEmail());
+	    if(null!=user) {
+	    	if(null!=user.getSuperUser())
+	    		resp.setAdmin(user.getSuperUser());
+	    }
 	    return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 	

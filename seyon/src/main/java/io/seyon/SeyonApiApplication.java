@@ -70,10 +70,10 @@ public class SeyonApiApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/jwt/**").allowCredentials(true)
-						.allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT").allowedOrigins("http://localhost:4200")
+						.allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT").allowedOrigins(seyonProperties.getAllowOriginDomain())
 						.maxAge(3600);
 				registry.addMapping("/api/**").allowCredentials(true)
-						.allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT").allowedOrigins("http://localhost:4200")
+						.allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT").allowedOrigins(seyonProperties.getAllowOriginDomain())
 						.maxAge(3600);
 				WebMvcConfigurer.super.addCorsMappings(registry);
 			}
