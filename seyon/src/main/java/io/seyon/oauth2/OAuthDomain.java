@@ -6,7 +6,7 @@ public class OAuthDomain {
 	String client_id;
 	String client_secret;
 	String grant_type="authorization_code";
-	String redirect_uri="http://localhost:4200/processLogin";
+	String redirect_uri;
 	
 	public String getCode() {
 		return code;

@@ -73,7 +73,7 @@ public class JwtResource {
 	    oauthDetails.setClient_id(properties.getClientId());
 	    oauthDetails.setClient_secret(properties.getClientSecret());
 	    oauthDetails.setCode(code);
-	    
+	    oauthDetails.setRedirect_uri(properties.getRedirecturi());
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setAccept(Arrays.asList(MediaType.APPLICATION_FORM_URLENCODED));
 	    HttpEntity<OAuthDomain> entity = new HttpEntity<OAuthDomain>(oauthDetails, headers);

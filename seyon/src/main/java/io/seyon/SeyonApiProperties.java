@@ -20,7 +20,7 @@ public class SeyonApiProperties {
 	String clientSecret;
 	String tokenUrl;
 	String userProfileUrl;
-	
+	String redirecturi;
 	String proxyHost;
 	String proxyPort;
 	String proxyUser;
@@ -159,6 +159,14 @@ public class SeyonApiProperties {
 
 	public void setAllowOriginDomain(String allowOriginDomain) {
 		this.allowOriginDomain = allowOriginDomain;
+	}
+
+	public String getRedirecturi() {
+		return redirecturi;
+	}
+
+	public void setRedirecturi(String redirecturi) {
+		this.redirecturi = redirecturi;
 	}
 
 }

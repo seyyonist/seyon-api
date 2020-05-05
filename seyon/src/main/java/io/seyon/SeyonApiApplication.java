@@ -53,32 +53,6 @@ public class SeyonApiApplication {
 		return new RestTemplate();
 	}
 
-	@Bean
-	public WebMvcConfigurer interceptorConfigurer() {
-		return new WebMvcConfigurer() {
-			@Autowired
-			@Qualifier("jwtHandlerInterceptor")
-			HandlerInterceptor jwtHandlerInterceptor;
-
-			@Override
-			public void addInterceptors(InterceptorRegistry registry) {
-				log.info("Adding interceptors");
-				registry.addInterceptor(jwtHandlerInterceptor).excludePathPatterns(seyonProperties.getAuthExcludeUrl());
-				WebMvcConfigurer.super.addInterceptors(registry);
-			}
-
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/jwt/**").allowCredentials(true)
-						.allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT").allowedOrigins(seyonProperties.getAllowOriginDomain())
-						.maxAge(3600);
-				registry.addMapping("/api/**").allowCredentials(true)
-						.allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT").allowedOrigins(seyonProperties.getAllowOriginDomain())
-						.maxAge(3600);
-				WebMvcConfigurer.super.addCorsMappings(registry);
-			}
-		};
-	}
 
 	// @Bean // deactivating the ip based restriction
 	public FilterRegistrationBean<RemoteAddrFilter> remoteAddressFilter() {
