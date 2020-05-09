@@ -24,6 +24,7 @@ import io.seyon.oauth2.SeyyonJwtHandler;
 import io.seyon.user.entity.UserInfo;
 import io.seyon.user.service.UserService;
 import io.seyon.oauth2.OAuthDomain;
+import io.seyon.oauth2.Oauth2JwtRequest;
 import io.seyon.oauth2.Oauth2JwtResponse;
 import io.seyon.oauth2.OauthTokenResponse;
 import io.seyon.oauth2.OauthUserInfo;
@@ -48,9 +49,9 @@ public class JwtResource {
 	RestTemplate restTemplate;
 	
 	@PostMapping
-	public ResponseEntity<Oauth2JwtResponse> generateJwt(@RequestBody String code,HttpServletResponse response) {
+	public ResponseEntity<Oauth2JwtResponse> generateJwt(@RequestBody Oauth2JwtRequest req,HttpServletResponse response) {
 		log.info("Generating JWT");
-	    OauthTokenResponse accessTokenResponse=getAccessToken(code);
+	    OauthTokenResponse accessTokenResponse=getAccessToken(req.getCode(),req.getRedirectUrl());
 	    log.debug(accessTokenResponse.getAccess_token());
 	    OauthUserInfo userInfo=getUserFromOauth(accessTokenResponse.getAccess_token());
 	    //generate JWT using that user info
@@ -68,12 +69,12 @@ public class JwtResource {
 	    return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 	
-	private OauthTokenResponse getAccessToken(String code) {
+	private OauthTokenResponse getAccessToken(String code,String reUrl) {
 		OAuthDomain oauthDetails= new OAuthDomain();
 	    oauthDetails.setClient_id(properties.getClientId());
 	    oauthDetails.setClient_secret(properties.getClientSecret());
 	    oauthDetails.setCode(code);
-	    oauthDetails.setRedirect_uri(properties.getRedirecturi());
+	    oauthDetails.setRedirect_uri(reUrl);
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setAccept(Arrays.asList(MediaType.APPLICATION_FORM_URLENCODED));
 	    HttpEntity<OAuthDomain> entity = new HttpEntity<OAuthDomain>(oauthDetails, headers);

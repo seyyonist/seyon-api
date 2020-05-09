@@ -30,7 +30,7 @@ public class SeyonApiProperties {
 	private String separator = ";";
 	private Charset sqlScriptEncoding;
 	
-	String allowOriginDomain; 
+	List<String> allowOriginDomain; 
 	
 		
 	public String getAppId() {
@@ -153,20 +153,21 @@ public class SeyonApiProperties {
 		this.proxyPass = proxyPass;
 	}
 
-	public String getAllowOriginDomain() {
-		return allowOriginDomain;
-	}
-
-	public void setAllowOriginDomain(String allowOriginDomain) {
-		this.allowOriginDomain = allowOriginDomain;
-	}
-
+	
 	public String getRedirecturi() {
 		return redirecturi;
 	}
 
 	public void setRedirecturi(String redirecturi) {
 		this.redirecturi = redirecturi;
+	}
+
+	public List<String> getAllowOriginDomain() {
+		return allowOriginDomain;
+	}
+
+	public void setAllowOriginDomain(List<String> allowOriginDomain) {
+		this.allowOriginDomain = allowOriginDomain;
 	}
 
 }

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -31,13 +32,20 @@ public class SeyyonMvcConfiguration implements WebMvcConfigurer {
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		if (null != seyonProperties.getAllowOriginDomain()) {
+		if (!CollectionUtils.isEmpty(seyonProperties.getAllowOriginDomain())) {
+			
+			String[] origins = new String[seyonProperties.getAllowOriginDomain().size()];
+			
+			log.info("Enabling CORS {}",seyonProperties.getAllowOriginDomain());
 			registry.addMapping("/jwt/**").allowCredentials(true)
 					.allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT")
-					.allowedOrigins(seyonProperties.getAllowOriginDomain()).maxAge(3600);
+					.allowedOrigins(seyonProperties.getAllowOriginDomain().toArray(origins)).maxAge(3600);
 			registry.addMapping("/api/**").allowCredentials(true)
 					.allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT")
-					.allowedOrigins(seyonProperties.getAllowOriginDomain()).maxAge(3600);
+					.allowedOrigins(seyonProperties.getAllowOriginDomain().toArray(origins)).maxAge(3600);
+			registry.addMapping("/su/**").allowCredentials(true)
+			.allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT")
+			.allowedOrigins(seyonProperties.getAllowOriginDomain().toArray(origins)).maxAge(3600);
 		}
 		WebMvcConfigurer.super.addCorsMappings(registry);
 

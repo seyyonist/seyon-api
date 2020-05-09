@@ -35,12 +35,12 @@ public class CompanySuController {
 		return companyService.getCompany(companyId);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, path = "/activate")
+	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, path = "/activate")
 	public Company activateCompany(@RequestAttribute(name = "x-user-email", required = true) String email,@RequestParam Long companyId) {
 		return companyService.activeCompany(email,companyId);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, path = "/deActivate")
+	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, path = "/deActivate")
 	public Company deActivateCompany(@RequestAttribute(name = "x-user-email", required = true) String email,@RequestParam Long companyId) {
 		return companyService.deActiveCompany(email,companyId);
 	}

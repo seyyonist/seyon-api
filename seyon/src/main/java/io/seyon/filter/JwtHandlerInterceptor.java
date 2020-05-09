@@ -48,7 +48,7 @@ public class JwtHandlerInterceptor extends HandlerInterceptorAdapter {
 
 		if (StringUtils.isEmpty(header_authorization) && token == null) {
 			log.info("Token Not found in header.");
-			return false;
+			throw new Exception("Invalid token");
 		} else {
 			OauthUserInfo userinfo = jwtHandler.parseToken(token);
 			request.setAttribute("x-user-email", userinfo.getEmail());
@@ -60,7 +60,7 @@ public class JwtHandlerInterceptor extends HandlerInterceptorAdapter {
 		
 		if (skipCompCheck.equalsIgnoreCase("N") && null == selectedCompany) {
 			log.info("Company Not selected.");
-			return false;
+			throw new Exception("Invalid Company");
 		} else {
 			request.setAttribute("x-company-id", selectedCompany);
 		}
