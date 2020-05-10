@@ -1,6 +1,5 @@
 package io.seyon.company.entity;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 public class Company {

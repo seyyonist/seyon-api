@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +33,7 @@ public class HeadOfAccountController {
 	
 	@PostMapping(produces=MediaType.APPLICATION_JSON_VALUE)
     public HeadOfAccount saveHeadofAccount(@Valid @RequestBody HeadOfAccount headOfAccount,
-    			@RequestHeader(name="x-company-id",required=true) Long companyId, @RequestHeader(name="x-user-name",required=true) String userId ) {
+    			@RequestAttribute(name="x-company-id",required=true) Long companyId, @RequestAttribute(name="x-user-name",required=true) String userId ) {
 		log.info("Incoming request {}",headOfAccount);
 		HeadOfAccount result = headOfAccountService.saveHeadOfAccount(headOfAccount,companyId, userId);
 		log.info("Response {}",result);     
@@ -41,7 +41,7 @@ public class HeadOfAccountController {
     }
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<HeadOfAccount> getHeadofAccountForCompany(@RequestHeader(name="x-company-id",required=true) Long companyId) {
+	public List<HeadOfAccount> getHeadofAccountForCompany(@RequestAttribute(name="x-company-id",required=true) Long companyId) {
 		log.info("Incoming request {}",companyId);
 		List<HeadOfAccount> headOfAccounts = headOfAccountService.getHeadOfAccountsForCompany(companyId);
 		log.info("Response {}",headOfAccounts);

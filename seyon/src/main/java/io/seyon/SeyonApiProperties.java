@@ -16,9 +16,22 @@ public class SeyonApiProperties {
 	String appId;
 	List<String> sqlFiles;
 	
+	String clientId;
+	String clientSecret;
+	String tokenUrl;
+	String userProfileUrl;
+	String redirecturi;
+	String proxyHost;
+	String proxyPort;
+	String proxyUser;
+	String proxyPass;
+	
 	private boolean continueOnError = false;
 	private String separator = ";";
 	private Charset sqlScriptEncoding;
+	
+	List<String> allowOriginDomain; 
+	
 		
 	public String getAppId() {
 		return appId;
@@ -74,6 +87,87 @@ public class SeyonApiProperties {
 
 	public void setSqlScriptEncoding(Charset sqlScriptEncoding) {
 		this.sqlScriptEncoding = sqlScriptEncoding;
+	}
+
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
+	public String getClientSecret() {
+		return clientSecret;
+	}
+
+	public void setClientSecret(String clientSecret) {
+		this.clientSecret = clientSecret;
+	}
+
+	public String getTokenUrl() {
+		return tokenUrl;
+	}
+
+	public void setTokenUrl(String tokenUrl) {
+		this.tokenUrl = tokenUrl;
+	}
+
+	public String getUserProfileUrl() {
+		return userProfileUrl;
+	}
+
+	public void setUserProfileUrl(String userProfileUrl) {
+		this.userProfileUrl = userProfileUrl;
+	}
+
+	public String getProxyHost() {
+		return proxyHost;
+	}
+
+	public void setProxyHost(String proxyHost) {
+		this.proxyHost = proxyHost;
+	}
+
+	public String getProxyPort() {
+		return proxyPort;
+	}
+
+	public void setProxyPort(String proxyPort) {
+		this.proxyPort = proxyPort;
+	}
+
+	public String getProxyUser() {
+		return proxyUser;
+	}
+
+	public void setProxyUser(String proxyUser) {
+		this.proxyUser = proxyUser;
+	}
+
+	public String getProxyPass() {
+		return proxyPass;
+	}
+
+	public void setProxyPass(String proxyPass) {
+		this.proxyPass = proxyPass;
+	}
+
+	
+	public String getRedirecturi() {
+		return redirecturi;
+	}
+
+	public void setRedirecturi(String redirecturi) {
+		this.redirecturi = redirecturi;
+	}
+
+	public List<String> getAllowOriginDomain() {
+		return allowOriginDomain;
+	}
+
+	public void setAllowOriginDomain(List<String> allowOriginDomain) {
+		this.allowOriginDomain = allowOriginDomain;
 	}
 
 }

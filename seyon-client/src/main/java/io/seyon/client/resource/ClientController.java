@@ -11,8 +11,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +31,7 @@ public class ClientController {
 	
 	@PostMapping(produces=MediaType.APPLICATION_JSON_VALUE)
     public ClientEntity saveClientInfo(@Valid @RequestBody ClientEntity client,
-    			@RequestHeader(name="x-company-id",required=true) Long companyId, @RequestHeader(name="x-user-name",required=true) String userId ) throws Exception {
+    			@RequestAttribute(name="x-company-id",required=true) Long companyId, @RequestAttribute(name="x-user-name",required=true) String userId ) throws Exception {
 		
 		log.info("Incoming request {}",client);
 		client.setCompanyId(companyId);
@@ -51,7 +51,7 @@ public class ClientController {
     }
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<ClientEntity> getClientsForCompany(@RequestHeader(name="x-company-id",required=true) Long companyId) {
+	public List<ClientEntity> getClientsForCompany(@RequestAttribute(name="x-company-id",required=true) Long companyId) {
 
 		log.info("Incoming request {}",companyId);
 		List<ClientEntity> clis = clientService.getClientsForCompany(companyId);
@@ -61,7 +61,7 @@ public class ClientController {
 	}
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE,path="/totalNumberOfClients")
-	public Long getTotalNumberOfClients(@RequestHeader(name="x-company-id",required=true) Long companyId) {
+	public Long getTotalNumberOfClients(@RequestAttribute(name="x-company-id",required=true) Long companyId) {
 		log.info("Incoming request {}",companyId);
 		Long count = clientService.getCountOfClients(companyId);
 		log.info("TotalNumberOfClients  {}",count);
